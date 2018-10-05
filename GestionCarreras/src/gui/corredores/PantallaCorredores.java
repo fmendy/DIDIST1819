@@ -241,8 +241,12 @@ public class PantallaCorredores extends javax.swing.JDialog {
         int fila=jTableCorredores.getSelectedRow();
         int col=jTableCorredores.getSelectedColumn();
         if(fila>=0&&col>=0){
-            
-            //Corredor c=new Corredor(jTableCorredores.getValueAt(fila, 1), jTableCorredores.getValueAt(fila, 2), direccion, ERROR)
+            String nombre=(String)jTableCorredores.getValueAt(fila, 0);
+            String dni=(String)jTableCorredores.getValueAt(fila, 1);
+            String fecha=(String)jTableCorredores.getValueAt(fila, 2);
+            String direccion=(String)jTableCorredores.getValueAt(fila, 3);
+            int tlf=(int)jTableCorredores.getValueAt(fila, 4);
+            Corredor c=new Corredor(nombre, dni, fecha, direccion, tlf);
         }
         else{
             JOptionPane.showMessageDialog(this, "No ha seleccionado ningun Corredor","Borrado",JOptionPane.INFORMATION_MESSAGE);
