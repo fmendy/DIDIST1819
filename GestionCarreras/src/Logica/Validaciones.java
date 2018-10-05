@@ -67,11 +67,17 @@ public class Validaciones {
                     int nif=Integer.parseInt(dni);
                     nif=nif%23;
                     //Comprobamos letra y resto
-                    
+                    String[] letras=new String[]{"T","R","W","A","G","M","Y","F","P","D","X","B","N","J","Z","S","Q","V","H","L","C","K","E"};
+                    if(letra.equals(letras[nif])){
+                        return true;
+                    }
+                    else{
+                        return false;
+                    }
                 }
                 catch(NumberFormatException e){
                     return false;
-                };
+                }
             }
             else{
                 return false;

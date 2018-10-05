@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -97,6 +98,10 @@ public class Corredor implements Serializable, Comparable<Corredor>{
     public void setTelefono(int telefono) {
         this.telefono = telefono;
     }
+    
+    public static String[] campos(){
+        return new String[]{"Nombre","DNI","Fecha Nacimiento","Direccion","Telefono"};
+    }
 
     //Permite ordenar los corredores por fecha
     @Override
@@ -104,11 +109,37 @@ public class Corredor implements Serializable, Comparable<Corredor>{
         if(this.getFecha().getTime()>o.getFecha().getTime()){
             return 1;
         }
-        if(this.getFecha().getTime()>o.getFecha().getTime()){
+        if(this.getFecha().getTime()<o.getFecha().getTime()){
             return -1;
         }
         return 0;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 37 * hash + Objects.hashCode(this.dni);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Corredor other = (Corredor) obj;
+        if (!Objects.equals(this.dni, other.dni)) {
+            return false;
+        }
+        return true;
+    }
+    
     
     
 }
