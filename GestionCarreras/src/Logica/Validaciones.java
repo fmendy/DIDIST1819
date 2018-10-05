@@ -23,6 +23,62 @@ public class Validaciones {
         }
     }
     
+    //Comprobacion de si un jTextField tiene un numero
+    public static boolean jTextFieldEsNumero(JTextField j){
+        try{
+            Integer.parseInt(j.getText());
+        }
+        catch(NumberFormatException e){
+            return false;
+        }
+        return true;
+    }
+   
+    //Comprobacion de un numero de telefono
+    public static boolean jTextFieldTelefono(JTextField j){
+        if(jTextFieldEsNumero(j)){
+            if(j.getText().length()==9){
+                if(j.getText().startsWith("6")||j.getText().startsWith("9")){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+            else{
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
+    }
     
-    
+    //Comprobar DNI
+    public static boolean jTextFieldDNI(JTextField j){
+        if(jTextFieldContieneAlgo(j)){
+            String dni=j.getText();
+            String letra;
+            if(dni.length()>=2&&dni.length()<=9){
+                letra=dni.substring(dni.length()-1);
+                letra=letra.toUpperCase();
+                dni=dni.substring(0, dni.length()-1);
+                try{
+                    int nif=Integer.parseInt(dni);
+                    nif=nif%23;
+                    //Comprobamos letra y resto
+                    
+                }
+                catch(NumberFormatException e){
+                    return false;
+                };
+            }
+            else{
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
+    }
 }
