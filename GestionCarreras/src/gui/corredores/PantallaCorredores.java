@@ -240,13 +240,28 @@ public class PantallaCorredores extends javax.swing.JDialog {
     private void jButtonBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBajaActionPerformed
         int fila=jTableCorredores.getSelectedRow();
         int col=jTableCorredores.getSelectedColumn();
+        //Se comprueba que haya algo seleccionado
         if(fila>=0&&col>=0){
+            //Se crea el corredor
             String nombre=(String)jTableCorredores.getValueAt(fila, 0);
             String dni=(String)jTableCorredores.getValueAt(fila, 1);
             String fecha=(String)jTableCorredores.getValueAt(fila, 2);
             String direccion=(String)jTableCorredores.getValueAt(fila, 3);
             int tlf=(int)jTableCorredores.getValueAt(fila, 4);
             Corredor c=new Corredor(nombre, dni, fecha, direccion, tlf);
+            //confirmamos borrado
+            int opcion=JOptionPane.showConfirmDialog(this, "¿Esta seguro de eliminar a "+nombre+" ?", "Confirmacion", JOptionPane.YES_NO_OPTION);
+            if(opcion==JOptionPane.YES_OPTION){
+                //realizamos borrado
+                if(LogicaCorredores.eliminarCorredor(c)){
+                    JOptionPane.showMessageDialog(this, "Eliminado correctamente","Confirmado",JOptionPane.INFORMATION_MESSAGE);
+                    //Actulizamos la tabla
+                    jTableCorredores.setModel(new CorredoresTableModels(LogicaCorredores.getListaCorredores()));
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Error al eliminar", "Eliminar", JOptionPane.ERROR);
+                }
+           }               
         }
         else{
             JOptionPane.showMessageDialog(this, "No ha seleccionado ningun Corredor","Borrado",JOptionPane.INFORMATION_MESSAGE);
