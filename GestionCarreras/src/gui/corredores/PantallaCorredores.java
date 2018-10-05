@@ -56,6 +56,7 @@ public class PantallaCorredores extends javax.swing.JDialog {
         jButtonImportarCSV = new javax.swing.JButton();
         jButtonAlta = new javax.swing.JButton();
         jButtonBaja = new javax.swing.JButton();
+        jButtonModificar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -114,6 +115,13 @@ public class PantallaCorredores extends javax.swing.JDialog {
             }
         });
 
+        jButtonModificar.setText("Modificar");
+        jButtonModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonModificarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -128,7 +136,8 @@ public class PantallaCorredores extends javax.swing.JDialog {
                     .addComponent(jButtonExportarCSV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonImportarCSV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonAlta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonBaja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButtonBaja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -146,6 +155,8 @@ public class PantallaCorredores extends javax.swing.JDialog {
                         .addComponent(jButtonAlta)
                         .addGap(18, 18, 18)
                         .addComponent(jButtonBaja)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonModificar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonSalir))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -269,6 +280,29 @@ public class PantallaCorredores extends javax.swing.JDialog {
         
     }//GEN-LAST:event_jButtonBajaActionPerformed
 
+    private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
+        // TODO add your handling code here:
+        int fila=jTableCorredores.getSelectedRow();
+        int col=jTableCorredores.getSelectedColumn();
+        //Se comprueba que haya algo seleccionado
+        if(fila>=0&&col>=0){
+            //Se crea el corredor
+            String nombre=(String)jTableCorredores.getValueAt(fila, 0);
+            String dni=(String)jTableCorredores.getValueAt(fila, 1);
+            String fecha=(String)jTableCorredores.getValueAt(fila, 2);
+            String direccion=(String)jTableCorredores.getValueAt(fila, 3);
+            int tlf=(int)jTableCorredores.getValueAt(fila, 4);
+            Corredor c=new Corredor(nombre, dni, fecha, direccion, tlf);
+            
+            //Abrmos la pantalla nueva
+            PantallaCorredoresModificar pantallaCorredoresModificar=new PantallaCorredoresModificar(pantallaPrincipal, true, c);
+            pantallaCorredoresModificar.setVisible(true);
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "No ha seleccionado ningun Corredor","Borrado",JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_jButtonModificarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -280,6 +314,7 @@ public class PantallaCorredores extends javax.swing.JDialog {
     private javax.swing.JButton jButtonBaja;
     private javax.swing.JButton jButtonExportarCSV;
     private javax.swing.JButton jButtonImportarCSV;
+    private javax.swing.JButton jButtonModificar;
     private javax.swing.JButton jButtonOrdenar;
     private javax.swing.JButton jButtonSalir;
     private javax.swing.JScrollPane jScrollPane1;

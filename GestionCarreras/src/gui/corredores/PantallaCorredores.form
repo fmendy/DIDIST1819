@@ -34,6 +34,7 @@
                   <Component id="jButtonImportarCSV" max="32767" attributes="0"/>
                   <Component id="jButtonAlta" alignment="0" max="32767" attributes="0"/>
                   <Component id="jButtonBaja" max="32767" attributes="0"/>
+                  <Component id="jButtonModificar" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -54,6 +55,8 @@
                       <Component id="jButtonAlta" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jButtonBaja" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jButtonModificar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jButtonSalir" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -132,6 +135,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonBajaActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonModificar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Modificar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonModificarActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
