@@ -15,6 +15,8 @@ import javax.swing.table.DefaultTableModel;
 import Logica.*;
 import gui.PantallaPrincipal;
 import java.awt.HeadlessException;
+import java.util.AbstractList;
+import java.util.List;
 import logica.LeerEscribirCSV;
 
 /**
@@ -53,6 +55,7 @@ public class PantallaCorredores extends javax.swing.JDialog {
         jButtonExportarCSV = new javax.swing.JButton();
         jButtonImportarCSV = new javax.swing.JButton();
         jButtonAlta = new javax.swing.JButton();
+        jButtonBaja = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -104,6 +107,13 @@ public class PantallaCorredores extends javax.swing.JDialog {
             }
         });
 
+        jButtonBaja.setText("Baja");
+        jButtonBaja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBajaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -117,27 +127,28 @@ public class PantallaCorredores extends javax.swing.JDialog {
                     .addComponent(jButtonSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonExportarCSV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonImportarCSV, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonAlta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButtonAlta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonBaja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
                         .addComponent(jButtonExportarCSV)
                         .addGap(18, 18, 18)
                         .addComponent(jButtonImportarCSV)
-                        .addGap(37, 37, 37)
+                        .addGap(18, 18, 18)
                         .addComponent(jButtonOrdenar)
                         .addGap(18, 18, 18)
                         .addComponent(jButtonAlta)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonBaja)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonSalir)))
+                        .addComponent(jButtonSalir))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(38, Short.MAX_VALUE))
         );
 
@@ -150,21 +161,19 @@ public class PantallaCorredores extends javax.swing.JDialog {
 
     private void jButtonOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrdenarActionPerformed
         try{
-            //Creo un array para almacenar los corredores
-            Corredor[] corredorFechas=new Corredor[Logica.LogicaCorredores.getListaCorredores().size()];
-            //Paso la lista de corredores al array
-            corredorFechas=Logica.LogicaCorredores.getListaCorredores().toArray(corredorFechas);
-            //Ordeno el array
-            Arrays.sort(corredorFechas);
-            //Paso el array a un arrayList
-            ArrayList<Corredor> listCorredoresOrdenados=new ArrayList<>();
-            for(Corredor c: corredorFechas){
-                listCorredoresOrdenados.add(c);
+            //Creo un array list vacio
+            List<Corredor> listaCorredorOrdenada=new ArrayList<>();
+            //Paso los valores de la list ordenada a un array nuevo
+            //Si no se hiciera daria problemas a posteriori, porque la lista que genera es de tamaño fijo
+            for(Corredor c: LogicaCorredores.ordenarCorredores()){
+                listaCorredorOrdenada.add(c);
             }
-            //llamo a table models con el nuevo arrayList
-            //La paso a Corredores el nuevo orden para que lo ponga
-            LogicaCorredores.setListaCorredores(listCorredoresOrdenados);
-            jTableCorredores.setModel(new CorredoresTableModels(listCorredoresOrdenados));
+            //Paso la lista a la logica
+            LogicaCorredores.setListaCorredores(listaCorredorOrdenada);
+            //Le mando que actualice la tabla.
+            jTableCorredores.setModel(new CorredoresTableModels(listaCorredorOrdenada));
+            //jTableCorredores.setModel(new CorredoresTableModels(LogicaCorredores.getListaCorredores()));
+            
             JOptionPane.showMessageDialog(this,"Datos ordenados","ordenar",JOptionPane.INFORMATION_MESSAGE);
         }
         catch(HeadlessException e){
@@ -173,11 +182,17 @@ public class PantallaCorredores extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonOrdenarActionPerformed
 
     private void jButtonExportarCSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExportarCSVActionPerformed
-        le.abrirEscritura("corredores.csv");
-        for(Corredor c:Logica.LogicaCorredores.getListaCorredores()){
-            le.escribirCSVCorredor(c);
+        if(LogicaCorredores.getListaCorredores().size()>0){
+            le.abrirEscritura("corredores.csv");
+            for(Corredor c:Logica.LogicaCorredores.getListaCorredores()){
+                le.escribirCSVCorredor(c);
+            }
+            le.cerrarEscritura();
+            JOptionPane.showMessageDialog(this, "Exportado correctamente","EXPORTAR",JOptionPane.INFORMATION_MESSAGE);
         }
-        le.cerrarEscritura();
+        else{
+            JOptionPane.showMessageDialog(this, "No hay nada para exportar","exportar",JOptionPane.CANCEL_OPTION);
+        }
     }//GEN-LAST:event_jButtonExportarCSVActionPerformed
 
     private void jButtonImportarCSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImportarCSVActionPerformed
@@ -188,23 +203,27 @@ public class PantallaCorredores extends javax.swing.JDialog {
         LogicaCorredores.setListaCorredores(new ArrayList<>());
         try{
             //Abro lectura
-            le.abrirLectura("corredores.csv");
-            //leo una linea
-            String linea;
-            linea=le.leerCSV();
-            while(linea!=null){
-                tokenizar=new Tokenizar(linea);
-                //Creo corredor
-                c=tokenizar.tokenizarCorredor();
-                //Lo añado
-                LogicaCorredores.aniadirCorredor(c);
+            if(le.abrirLectura("corredores.csv")){
+                //leo una linea
+                String linea;
                 linea=le.leerCSV();
+                while(linea!=null){
+                    tokenizar=new Tokenizar(linea);
+                    //Creo corredor
+                    c=tokenizar.tokenizarCorredor();
+                    //Lo añado
+                    LogicaCorredores.aniadirCorredor(c);
+                    linea=le.leerCSV();
+                }
+                //Terminamos la lectura y cerramos
+                le.cerrarLectura();
+                //Actualizamos la tabla
+                jTableCorredores.setModel(new CorredoresTableModels(LogicaCorredores.getListaCorredores()));
+                JOptionPane.showMessageDialog(this, "Datos Importados correstamente", "Importacion", JOptionPane.INFORMATION_MESSAGE);
             }
-            //Terminamos la lectura y cerramos
-            le.cerrarLectura();
-            //Actualizamos la tabla
-            jTableCorredores.setModel(new CorredoresTableModels(LogicaCorredores.getListaCorredores()));
-            JOptionPane.showMessageDialog(this, "Datos Importados correstamente", "Importacion", JOptionPane.INFORMATION_MESSAGE);
+            else{
+                JOptionPane.showMessageDialog(this, "No existe el archivo a importar","IMPORTAR",JOptionPane.CANCEL_OPTION);
+            }
         }
         catch(HeadlessException e){
             JOptionPane.showMessageDialog(this, "Error al importar","IMPORTAR",JOptionPane.ERROR_MESSAGE);
@@ -218,6 +237,19 @@ public class PantallaCorredores extends javax.swing.JDialog {
         jTableCorredores.setModel(new CorredoresTableModels(LogicaCorredores.getListaCorredores()));
     }//GEN-LAST:event_jButtonAltaActionPerformed
 
+    private void jButtonBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBajaActionPerformed
+        int fila=jTableCorredores.getSelectedRow();
+        int col=jTableCorredores.getSelectedColumn();
+        if(fila>=0&&col>=0){
+            
+            //Corredor c=new Corredor(jTableCorredores.getValueAt(fila, 1), jTableCorredores.getValueAt(fila, 2), direccion, ERROR)
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "No ha seleccionado ningun Corredor","Borrado",JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_jButtonBajaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -226,6 +258,7 @@ public class PantallaCorredores extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAlta;
+    private javax.swing.JButton jButtonBaja;
     private javax.swing.JButton jButtonExportarCSV;
     private javax.swing.JButton jButtonImportarCSV;
     private javax.swing.JButton jButtonOrdenar;
