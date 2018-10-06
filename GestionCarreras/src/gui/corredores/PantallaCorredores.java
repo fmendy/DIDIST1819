@@ -297,6 +297,7 @@ public class PantallaCorredores extends javax.swing.JDialog {
             //Abrmos la pantalla nueva
             PantallaCorredoresModificar pantallaCorredoresModificar=new PantallaCorredoresModificar(pantallaPrincipal, true, c);
             pantallaCorredoresModificar.setVisible(true);
+            jTableCorredores.setModel(new CorredoresTableModels(LogicaCorredores.getListaCorredores()));
         }
         else{
             JOptionPane.showMessageDialog(this, "No ha seleccionado ningun Corredor","Borrado",JOptionPane.INFORMATION_MESSAGE);
