@@ -7,6 +7,7 @@ package gui;
 
 import gui.carreras.PantallaCarreras;
 import gui.corredores.PantallaCorredores;
+import gui.opciones.PantallaOpciones;
 
 /**
  *
@@ -32,6 +33,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         jButtonCorredores = new javax.swing.JButton();
         jButtonCarreras = new javax.swing.JButton();
+        jButtonOpciones = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,6 +51,13 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jButtonOpciones.setText("Opciones");
+        jButtonOpciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonOpcionesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -57,14 +66,19 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addGap(70, 70, 70)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonCarreras)
-                    .addComponent(jButtonCorredores))
-                .addContainerGap(243, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButtonCorredores)
+                        .addGap(42, 42, 42)
+                        .addComponent(jButtonOpciones)))
+                .addContainerGap(124, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(97, 97, 97)
-                .addComponent(jButtonCorredores)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonCorredores)
+                    .addComponent(jButtonOpciones))
                 .addGap(31, 31, 31)
                 .addComponent(jButtonCarreras)
                 .addContainerGap(126, Short.MAX_VALUE))
@@ -84,6 +98,12 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         PantallaCarreras pc=new PantallaCarreras(this, true);
         pc.setVisible(true);
     }//GEN-LAST:event_jButtonCarrerasActionPerformed
+
+    private void jButtonOpcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOpcionesActionPerformed
+        // TODO add your handling code here:
+        PantallaOpciones po=new PantallaOpciones(this, true);
+        po.setVisible(true);
+    }//GEN-LAST:event_jButtonOpcionesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -123,5 +143,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCarreras;
     private javax.swing.JButton jButtonCorredores;
+    private javax.swing.JButton jButtonOpciones;
     // End of variables declaration//GEN-END:variables
 }
