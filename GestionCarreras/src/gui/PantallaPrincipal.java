@@ -6,6 +6,7 @@
 package gui;
 
 import Logica.LeerEscribirObjetos;
+import Logica.LookAndFeel;
 import gui.carreras.PantallaCarreras;
 import gui.corredores.PantallaCorredores;
 import gui.opciones.PantallaOpciones;
@@ -120,6 +121,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         PantallaOpciones po=new PantallaOpciones(this, true);
         po.setVisible(true);
+        LookAndFeel.actulizarLookAndFeel(this);
     }//GEN-LAST:event_jButtonOpcionesActionPerformed
 
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed

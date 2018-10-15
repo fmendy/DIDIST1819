@@ -6,9 +6,17 @@
 package gui.opciones;
 
 import Logica.LeerEscribirObjetos;
+import gui.PantallaPrincipal;
+import java.awt.Frame;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.LookAndFeel;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
+import javax.swing.UnsupportedLookAndFeelException;
 
 
 /**
@@ -25,6 +33,12 @@ public class PantallaOpciones extends javax.swing.JDialog {
     public PantallaOpciones(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        //iniciamos el looka and fell
+        DefaultComboBoxModel dcb=new DefaultComboBoxModel();
+        for(UIManager.LookAndFeelInfo l:UIManager.getInstalledLookAndFeels()){
+            dcb.addElement(l.getName());
+        }
+        jComboBoxLookAndFeel.setModel(dcb);
     }
 
     /**
@@ -37,13 +51,22 @@ public class PantallaOpciones extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jComboBoxLookAndFeel = new javax.swing.JComboBox<>();
         jButtonCargar = new javax.swing.JButton();
         jButtonGuardar = new javax.swing.JButton();
         jButtonSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setLayout(new java.awt.GridLayout(3, 1, 25, 25));
+        jPanel1.setLayout(new java.awt.GridLayout(4, 1, 10, 10));
+
+        jComboBoxLookAndFeel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxLookAndFeel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxLookAndFeelActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jComboBoxLookAndFeel);
 
         jButtonCargar.setText("Cargar");
         jButtonCargar.addActionListener(new java.awt.event.ActionListener() {
@@ -74,16 +97,16 @@ public class PantallaOpciones extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(106, 106, 106)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addGap(83, 83, 83)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(82, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(68, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55))
+                .addContainerGap(55, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44))
         );
 
         pack();
@@ -113,6 +136,16 @@ public class PantallaOpciones extends javax.swing.JDialog {
         this.setVisible(false);
     }//GEN-LAST:event_jButtonSalirActionPerformed
 
+    private void jComboBoxLookAndFeelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxLookAndFeelActionPerformed
+        // TODO add your handling code here:
+        //recogo la posicion sleccionada
+        int seleccionado=jComboBoxLookAndFeel.getSelectedIndex();
+        //Cargo el lookAndFell
+        LookAndFeelInfo lafi=UIManager.getInstalledLookAndFeels()[seleccionado];
+        Logica.LookAndFeel.cambiarLookAndFeel(lafi.getClassName());
+        Logica.LookAndFeel.actulizarLookAndFeel(this);
+    }//GEN-LAST:event_jComboBoxLookAndFeelActionPerformed
+
 
     
 
@@ -120,6 +153,7 @@ public class PantallaOpciones extends javax.swing.JDialog {
     private javax.swing.JButton jButtonCargar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonSalir;
+    private javax.swing.JComboBox<String> jComboBoxLookAndFeel;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
