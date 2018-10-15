@@ -90,8 +90,8 @@ public class PantallaCarreras extends javax.swing.JDialog {
         // TODO add your handling code here:
         PantallaCarrerasAlta pca=new PantallaCarrerasAlta(pp, true);
         pca.setVisible(true);
-        
-        
+        jTableCarreraNOFinalizada.setModel(new CarrerasTableModels(Logica.LogicaCarrera.getListaCarreras()));
+    
     }//GEN-LAST:event_jButtonAltaActionPerformed
 
     /**

@@ -5,6 +5,7 @@
  */
 package gui;
 
+import gui.carreras.PantallaCarreras;
 import gui.corredores.PantallaCorredores;
 
 /**
@@ -30,6 +31,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jButtonCorredores = new javax.swing.JButton();
+        jButtonCarreras = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -40,13 +42,22 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jButtonCarreras.setText("Carreras");
+        jButtonCarreras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCarrerasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(70, 70, 70)
-                .addComponent(jButtonCorredores)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonCarreras)
+                    .addComponent(jButtonCorredores))
                 .addContainerGap(243, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -54,7 +65,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(97, 97, 97)
                 .addComponent(jButtonCorredores)
-                .addContainerGap(180, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
+                .addComponent(jButtonCarreras)
+                .addContainerGap(126, Short.MAX_VALUE))
         );
 
         pack();
@@ -62,9 +75,15 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
     private void jButtonCorredoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCorredoresActionPerformed
         // TODO add your handling code here:
-        PantallaCorredores pantallaCorredores=new PantallaCorredores(this, true);
-        pantallaCorredores.setVisible(true);
+        PantallaCorredores pantallaVerCorredores=new PantallaCorredores(this, true);
+        pantallaVerCorredores.setVisible(true);
     }//GEN-LAST:event_jButtonCorredoresActionPerformed
+
+    private void jButtonCarrerasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCarrerasActionPerformed
+        // TODO add your handling code here:
+        PantallaCarreras pc=new PantallaCarreras(this, true);
+        pc.setVisible(true);
+    }//GEN-LAST:event_jButtonCarrerasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -102,6 +121,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonCarreras;
     private javax.swing.JButton jButtonCorredores;
     // End of variables declaration//GEN-END:variables
 }

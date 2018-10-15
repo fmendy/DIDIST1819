@@ -28,6 +28,7 @@ public class Carrera implements Serializable{
         this.lugar = lugar;
         this.participantesMaximos = participantesMaximos;
         this.finalizada=false;
+        corredoresInscritos=new HashMap<>();
     }
 
     public String getNombre() {

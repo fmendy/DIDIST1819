@@ -56,4 +56,39 @@ public class LeerEscribirCSV {
             catch(IOException e){};
         }
     }
+    
+    public boolean abrirLectura(String archivo){
+        try{
+            fr=new FileReader(archivo);
+            br=new BufferedReader(fr);
+            return true;
+        }
+        catch(FileNotFoundException e){
+            return false;
+        }
+    }
+    //Lee linea por linea
+    public String leerCSV(){
+        try{
+            return br.readLine();
+        }
+        catch(IOException e){
+            return null;
+        }
+    }
+    
+    public void cerrarLectura(){
+        if(br!=null){
+            try{
+                br.close();
+            }
+            catch(IOException e){};
+        }
+        if(fr!=null){
+            try{
+                fr.close();
+            }
+            catch(IOException e){};
+        }
+    }
 }
