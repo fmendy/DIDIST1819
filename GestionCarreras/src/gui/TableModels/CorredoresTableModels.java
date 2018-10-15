@@ -23,7 +23,7 @@ public class CorredoresTableModels extends AbstractTableModel{
     
     @Override
     public int getRowCount() {
-       return Logica.LogicaCorredores.getListaCorredores().size();
+       return listaCorredor.size();
     }
 
     @Override
@@ -35,15 +35,20 @@ public class CorredoresTableModels extends AbstractTableModel{
     public Object getValueAt(int rowIndex, int columnIndex) {
         switch(columnIndex){
             case 0:
-                return Logica.LogicaCorredores.getListaCorredores().get(rowIndex).getNombre();
+                //return Logica.LogicaCorredores.getListaCorredores().get(rowIndex).getNombre();
+                return listaCorredor.get(rowIndex).getNombre();
             case 1:
-                return Logica.LogicaCorredores.getListaCorredores().get(rowIndex).getDni();
+                return listaCorredor.get(rowIndex).getDni();
+                //return Logica.LogicaCorredores.getListaCorredores().get(rowIndex).getDni();
             case 2:
-                return Logica.LogicaCorredores.getListaCorredores().get(rowIndex).dateToString();
+                //return Logica.LogicaCorredores.getListaCorredores().get(rowIndex).dateToString();
+                return Logica.Fechas.dateToString(listaCorredor.get(rowIndex).getFecha());
             case 3:
-                return Logica.LogicaCorredores.getListaCorredores().get(rowIndex).getDireccion();
+                //return Logica.LogicaCorredores.getListaCorredores().get(rowIndex).getDireccion();
+                return listaCorredor.get(rowIndex).getDireccion();
             case 4:
-                return Logica.LogicaCorredores.getListaCorredores().get(rowIndex).getTelefono();          
+               // return Logica.LogicaCorredores.getListaCorredores().get(rowIndex).getTelefono(); 
+                return listaCorredor.get(rowIndex).getTelefono();
         }
         return null;
     }
