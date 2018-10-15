@@ -39,21 +39,22 @@ public class PantallaCarrerasInscribirCorredores extends javax.swing.JDialog {
     
     
     public void cargarCorredoresInscritosYNo(){
-        //Cargo en No con todos los corredores
-        System.out.println("ggggg"+LogicaCorredores.getListaCorredores().size());
-        corredoresNoInscritos=LogicaCorredores.getListaCorredores();
-        System.out.println("bbbbb"+LogicaCorredores.getListaCorredores().size());
-        //Cargo el Si con los inscritos, iterando
-        Iterator ite=carrera.getCorredoresInscritos().keySet().iterator();
+        //Inicializo los 2 arrays
         corredoresInscritos=new ArrayList<>();
+        corredoresNoInscritos=new ArrayList<>();
+        //Recorro la carrera para optener los inscritos
+        Iterator ite=carrera.getCorredoresInscritos().keySet().iterator();
         while(ite.hasNext()){
             corredoresInscritos.add(carrera.getCorredoresInscritos().get(ite.next()));
         }
-        //borro los inscritos del los no
-        System.out.println("aaaaaa"+LogicaCorredores.getListaCorredores().size());
-        corredoresNoInscritos.removeAll(corredoresInscritos);
-        System.out.println("lllll"+LogicaCorredores.getListaCorredores().size());
-        //meto los datos en la tabla
+        //Recorro todos los corredores
+        for(Corredor c:LogicaCorredores.getListaCorredores()){
+            //Los que no estan inscrtos, los meto a no Inscritos
+            if(!corredoresInscritos.contains(c)){
+                corredoresNoInscritos.add(c);
+            }
+        }
+        //Doy modelo a las tablas
         jTableCorredoresInscritos.setModel(new CorredoresTableModels(corredoresInscritos));
         jTableCorredoresNoInscritos.setModel(new CorredoresTableModels(corredoresNoInscritos));
     }
@@ -75,6 +76,7 @@ public class PantallaCarrerasInscribirCorredores extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jButtonAniadirCorredor = new javax.swing.JButton();
         jButtonRetirarCorredor = new javax.swing.JButton();
+        jButtonSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -122,6 +124,13 @@ public class PantallaCarrerasInscribirCorredores extends javax.swing.JDialog {
             }
         });
 
+        jButtonSalir.setText("Salir");
+        jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -129,11 +138,16 @@ public class PantallaCarrerasInscribirCorredores extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonAniadirCorredor)
-                    .addComponent(jButtonRetirarCorredor))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButtonAniadirCorredor)
+                            .addComponent(jButtonRetirarCorredor)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(98, 98, 98))
             .addGroup(layout.createSequentialGroup()
@@ -162,7 +176,9 @@ public class PantallaCarrerasInscribirCorredores extends javax.swing.JDialog {
                         .addGap(121, 121, 121)
                         .addComponent(jButtonAniadirCorredor)
                         .addGap(18, 18, 18)
-                        .addComponent(jButtonRetirarCorredor)))
+                        .addComponent(jButtonRetirarCorredor)
+                        .addGap(57, 57, 57)
+                        .addComponent(jButtonSalir)))
                 .addGap(45, 45, 45))
         );
 
@@ -187,6 +203,7 @@ public class PantallaCarrerasInscribirCorredores extends javax.swing.JDialog {
                //lo meto en inscritos
                 LogicaCarrera.inscribirCorredor(carrera, c1);
                 //recargo las tablas
+                JOptionPane.showMessageDialog(this, "Corredor inscrito","inscrito",JOptionPane.INFORMATION_MESSAGE);
                cargarCorredoresInscritosYNo();
             }
             else{
@@ -215,8 +232,8 @@ public class PantallaCarrerasInscribirCorredores extends javax.swing.JDialog {
 
            //lo elimino de corredores  inscritos
             System.out.println(LogicaCarrera.saberDorsal(carrera, c1));
-            LogicaCarrera.desinscribirCorredor(carrera, LogicaCarrera.saberDorsal(carrera, c1),c1);
-            
+            LogicaCarrera.desinscribirCorredor(carrera, LogicaCarrera.saberDorsal(carrera, c1));
+            JOptionPane.showMessageDialog(this, "Corredor retirado","retirar",JOptionPane.INFORMATION_MESSAGE);
            //lo meto en NOinscritos
            // LogicaCarrera.inscribirCorredor(carrera, c1);
             //recargo las tablas
@@ -228,10 +245,16 @@ public class PantallaCarrerasInscribirCorredores extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jButtonRetirarCorredorActionPerformed
 
+    private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+    }//GEN-LAST:event_jButtonSalirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAniadirCorredor;
     private javax.swing.JButton jButtonRetirarCorredor;
+    private javax.swing.JButton jButtonSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
