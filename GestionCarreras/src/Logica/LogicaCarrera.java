@@ -22,21 +22,22 @@ public class LogicaCarrera {
     public static List<Carrera> getListaCarreras() {
         return listaCarreras;
     }
+    
+    public static List<Carrera> listaCarrerasNoFinalizadas(){
+        List<Carrera> lcnf=new ArrayList<>();
+        for(Carrera c:listaCarreras){
+            if(!c.isFinalizada()){
+                lcnf.add(c);
+            }
+        }    
+        return lcnf;
+    }
 
     public static void aniadirCarrera(Carrera c){
         listaCarreras.add(c);  
     }
     
     public static void inscribirCorredor(Carrera carrera,Corredor corredor){
-        //Sacamos el dorsal del ultimo
-//        int dorsal=0;
-//        Iterator ite=carrera.getCorredoresInscritos().keySet().iterator();
-//        while(ite.hasNext()){
-//            dorsal=(int)ite.next();
-//        }
-//        dorsal++;
-//        //lo añadimos
-//        carrera.getCorredoresInscritos().put(dorsal, corredor);
         boolean inscrito=false;
         //dorsal empieza en 1
         int dorsal=1;
@@ -51,7 +52,6 @@ public class LogicaCarrera {
         }
         //inscribimos el corredor
         carrera.getCorredoresInscritos().put(dorsal, corredor);
-
     }
     public static void desinscribirCorredor(Carrera carrera,  int dorsal ){
         carrera.getCorredoresInscritos().remove(dorsal);
@@ -69,5 +69,9 @@ public class LogicaCarrera {
                 }
             }
         return dorsal;
+    }
+    
+    public static void eliminarCarrera(Carrera c){
+        listaCarreras.remove(c);
     }
 }

@@ -5,8 +5,13 @@
  */
 package gui.carreras;
 
+import Logica.Fechas;
+import Logica.LogicaCarrera;
+import dto.Carrera;
 import gui.PantallaPrincipal;
 import gui.TableModels.CarrerasTableModels;
+import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,7 +27,7 @@ public class PantallaCarreras extends javax.swing.JDialog {
     public PantallaCarreras(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        jTableCarreraNOFinalizada.setModel(new CarrerasTableModels(Logica.LogicaCarrera.getListaCarreras()));
+        jTableCarreraNOFinalizada.setModel(new CarrerasTableModels(Logica.LogicaCarrera.listaCarrerasNoFinalizadas()));
         pp=(PantallaPrincipal)parent;
     }
 
@@ -38,6 +43,7 @@ public class PantallaCarreras extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableCarreraNOFinalizada = new javax.swing.JTable();
         jButtonAlta = new javax.swing.JButton();
+        jButtonBaja = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -61,6 +67,13 @@ public class PantallaCarreras extends javax.swing.JDialog {
             }
         });
 
+        jButtonBaja.setText("Baja");
+        jButtonBaja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBajaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -68,9 +81,11 @@ public class PantallaCarreras extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButtonAlta, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                    .addComponent(jButtonBaja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -78,8 +93,10 @@ public class PantallaCarreras extends javax.swing.JDialog {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 131, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(48, 48, 48)
+                .addContainerGap()
                 .addComponent(jButtonAlta)
+                .addGap(27, 27, 27)
+                .addComponent(jButtonBaja)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -90,9 +107,30 @@ public class PantallaCarreras extends javax.swing.JDialog {
         // TODO add your handling code here:
         PantallaCarrerasAlta pca=new PantallaCarrerasAlta(pp, true);
         pca.setVisible(true);
-        jTableCarreraNOFinalizada.setModel(new CarrerasTableModels(Logica.LogicaCarrera.getListaCarreras()));
+        jTableCarreraNOFinalizada.setModel(new CarrerasTableModels(Logica.LogicaCarrera.listaCarrerasNoFinalizadas()));
     
     }//GEN-LAST:event_jButtonAltaActionPerformed
+
+    private void jButtonBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBajaActionPerformed
+        // TODO add your handling code here:
+        int fila=jTableCarreraNOFinalizada.getSelectedRow();
+        if(fila>=0){
+            String nombre=(String)jTableCarreraNOFinalizada.getValueAt(fila, 0);
+            Date d=Fechas.stringToDate((String)jTableCarreraNOFinalizada.getValueAt(fila, 1));
+            String lugar=(String)jTableCarreraNOFinalizada.getValueAt(fila, 2);
+            Carrera c=new Carrera(nombre, d, lugar, 0);
+            //confirmamos para borrar
+            int opcion=JOptionPane.showConfirmDialog(this, "¿Seguro de borrar?","borrar",JOptionPane.YES_NO_OPTION);
+            if(opcion==JOptionPane.YES_OPTION){
+                LogicaCarrera.eliminarCarrera(c);
+                JOptionPane.showConfirmDialog(this, "Carrera eliminada","Eliminada",JOptionPane.INFORMATION_MESSAGE);
+                jTableCarreraNOFinalizada.setModel(new CarrerasTableModels(LogicaCarrera.listaCarrerasNoFinalizadas()));
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "seleccione una carrera a eliminar","Eliminar",JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_jButtonBajaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -101,6 +139,7 @@ public class PantallaCarreras extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAlta;
+    private javax.swing.JButton jButtonBaja;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableCarreraNOFinalizada;
     // End of variables declaration//GEN-END:variables

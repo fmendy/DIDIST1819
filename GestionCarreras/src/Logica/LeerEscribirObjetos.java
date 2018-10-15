@@ -133,7 +133,7 @@ public class LeerEscribirObjetos {
         
     }
 
-    public void cargar() throws IOException, ClassNotFoundException{
+    public  void cargar() throws IOException, ClassNotFoundException{
         //Cargar corredores
         //sacamos el nombre del archivo
         File[] arCorredores=new File(".").listFiles(new FilenameFilter() {
@@ -167,5 +167,31 @@ public class LeerEscribirObjetos {
             this.cerrarLectura();
         }
         //aqui termina la carga de corredores
+        
+        //Carga de carreras
+        File[] arCarrera=new File(".").listFiles(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.endsWith("Carreras.dat");
+            }
+        });
+        if(arCarrera.length>0){
+            String name=arCarrera[0].getName();
+            //abro lectura
+            this.abrirLectura(name);
+            //vacio las carreras acutales
+            LogicaCarrera.getListaCarreras().clear();
+            //objeto auxiliar
+            Object aux=null;
+            try{
+                while(true){
+                    aux=this.leerObjeto();
+                    if(aux instanceof Carrera){
+                        LogicaCarrera.aniadirCarrera((Carrera) aux);
+                    }
+                }
+            }catch(EOFException e){}
+        }
+        
     }
 }
