@@ -44,6 +44,8 @@ public class PantallaCarreras extends javax.swing.JDialog {
         jTableCarreraNOFinalizada = new javax.swing.JTable();
         jButtonAlta = new javax.swing.JButton();
         jButtonBaja = new javax.swing.JButton();
+        jButtonModificar = new javax.swing.JButton();
+        jButtonInscribirCorredor = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -74,6 +76,20 @@ public class PantallaCarreras extends javax.swing.JDialog {
             }
         });
 
+        jButtonModificar.setText("Modificar");
+        jButtonModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonModificarActionPerformed(evt);
+            }
+        });
+
+        jButtonInscribirCorredor.setText("Inscribir");
+        jButtonInscribirCorredor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonInscribirCorredorActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -84,7 +100,9 @@ public class PantallaCarreras extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButtonAlta, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                    .addComponent(jButtonBaja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButtonBaja, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonInscribirCorredor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -95,8 +113,12 @@ public class PantallaCarreras extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButtonAlta)
-                .addGap(27, 27, 27)
+                .addGap(18, 18, 18)
                 .addComponent(jButtonBaja)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonModificar)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonInscribirCorredor)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -132,6 +154,50 @@ public class PantallaCarreras extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jButtonBajaActionPerformed
 
+    private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
+        // TODO add your handling code here:
+        int fila=jTableCarreraNOFinalizada.getSelectedRow();
+        if(fila>=0){
+            String nombre=(String)jTableCarreraNOFinalizada.getValueAt(fila, 0);
+            Date d=Fechas.stringToDate((String)jTableCarreraNOFinalizada.getValueAt(fila, 1));
+            String lugar=(String)jTableCarreraNOFinalizada.getValueAt(fila, 2);
+            int maximo=(int)jTableCarreraNOFinalizada.getValueAt(fila, 3);
+            Carrera c=new Carrera(nombre, d, lugar, maximo);
+            //llamamos a modifcar
+            PantallaCarrerasAlta pca=new PantallaCarrerasAlta(pp, true,c);
+            pca.setVisible(true);
+            jTableCarreraNOFinalizada.setModel(new CarrerasTableModels(Logica.LogicaCarrera.listaCarrerasNoFinalizadas()));
+    
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "seleccione una carrera a modificar","Modifcar",JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+    }//GEN-LAST:event_jButtonModificarActionPerformed
+
+    private void jButtonInscribirCorredorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInscribirCorredorActionPerformed
+        // TODO add your handling code here:
+        int fila=jTableCarreraNOFinalizada.getSelectedRow();
+        if(fila>=0){
+            String nombre=(String)jTableCarreraNOFinalizada.getValueAt(fila, 0);
+            Date d=Fechas.stringToDate((String)jTableCarreraNOFinalizada.getValueAt(fila, 1));
+            String lugar=(String)jTableCarreraNOFinalizada.getValueAt(fila, 2);
+            int maximo=(int)jTableCarreraNOFinalizada.getValueAt(fila, 3);
+            Carrera c=new Carrera(nombre, d, lugar, maximo);
+            int posicionEstaCarrera=LogicaCarrera.getListaCarreras().indexOf(c);
+            c=LogicaCarrera.getListaCarreras().get(posicionEstaCarrera);
+            //llamamos a modifcar
+            PantallaCarrerasInscribirCorredores pcic=new PantallaCarrerasInscribirCorredores(pp, true,c);
+            pcic.setVisible(true);
+            
+            jTableCarreraNOFinalizada.setModel(new CarrerasTableModels(Logica.LogicaCarrera.listaCarrerasNoFinalizadas()));
+    
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "seleccione una carrera para inscribirse","Inscribir",JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_jButtonInscribirCorredorActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -140,6 +206,8 @@ public class PantallaCarreras extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAlta;
     private javax.swing.JButton jButtonBaja;
+    private javax.swing.JButton jButtonInscribirCorredor;
+    private javax.swing.JButton jButtonModificar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableCarreraNOFinalizada;
     // End of variables declaration//GEN-END:variables

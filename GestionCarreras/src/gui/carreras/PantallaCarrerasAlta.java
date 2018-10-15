@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 public class PantallaCarrerasAlta extends javax.swing.JDialog {
 
     private PantallaPrincipal pp;
+    private Carrera carrera;
     /**
      * Creates new form PantallaCarrerasAlta
      */
@@ -25,6 +26,19 @@ public class PantallaCarrerasAlta extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         pp=(PantallaPrincipal)parent;
+        jButtonModificar.setVisible(false);
+    }
+    
+    public PantallaCarrerasAlta(java.awt.Frame parent, boolean modal, Carrera c) {
+        super(parent, modal);
+        initComponents();
+        pp=(PantallaPrincipal)parent;
+        this.carrera=c;
+        jButtonAlta.setVisible(false);
+        jTextFieldLugar.setText(c.getLugar());
+        jTextFieldNombre.setText(c.getNombre());
+        jSpinnerFecha.setValue(c.getFechaCarrera());
+        jSpinnerMaximo.setValue(c.getParticipantesMaximos());
     }
 
     /**
@@ -45,6 +59,8 @@ public class PantallaCarrerasAlta extends javax.swing.JDialog {
         jSpinnerMaximo = new javax.swing.JSpinner();
         jTextFieldLugar = new javax.swing.JTextField();
         jButtonAlta = new javax.swing.JButton();
+        jButtonSalir = new javax.swing.JButton();
+        jButtonModificar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -65,27 +81,44 @@ public class PantallaCarrerasAlta extends javax.swing.JDialog {
             }
         });
 
+        jButtonSalir.setText("SALIR");
+        jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalirActionPerformed(evt);
+            }
+        });
+
+        jButtonModificar.setText("MODIFICAR");
+        jButtonModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonModificarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(38, 38, 38)
+                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonAlta)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel4)
+                        .addComponent(jLabel3)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel1))
+                    .addComponent(jButtonSalir))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextFieldNombre)
-                            .addComponent(jSpinnerFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
-                            .addComponent(jTextFieldLugar)
-                            .addComponent(jSpinnerMaximo))))
-                .addContainerGap(182, Short.MAX_VALUE))
+                        .addComponent(jButtonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonAlta))
+                    .addComponent(jTextFieldNombre)
+                    .addComponent(jSpinnerFecha)
+                    .addComponent(jTextFieldLugar)
+                    .addComponent(jSpinnerMaximo))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,7 +140,10 @@ public class PantallaCarrerasAlta extends javax.swing.JDialog {
                     .addComponent(jLabel4)
                     .addComponent(jSpinnerMaximo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButtonAlta)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonAlta)
+                    .addComponent(jButtonSalir)
+                    .addComponent(jButtonModificar))
                 .addContainerGap(51, Short.MAX_VALUE))
         );
 
@@ -163,6 +199,54 @@ public class PantallaCarrerasAlta extends javax.swing.JDialog {
         }      
     }//GEN-LAST:event_jButtonAltaActionPerformed
 
+    private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+    }//GEN-LAST:event_jButtonSalirActionPerformed
+
+    private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
+        // TODO add your handling code here:
+        //Validamos todo
+        //Nombre
+        if(Validaciones.jTextFieldContieneAlgo(jTextFieldNombre)){
+            //Lugar
+            if(Validaciones.jTextFieldContieneAlgo(jTextFieldLugar)){
+                //maximo participantes
+                if((int)jSpinnerMaximo.getValue()>0){
+                    //Se crea el objeto carrera
+                    String nombre=jTextFieldNombre.getText();
+                    int numMaximo=(int)jSpinnerMaximo.getValue();
+                    Date d=(Date)jSpinnerFecha.getValue();
+                    String lugar=jTextFieldLugar.getText();
+                    Carrera c=new Carrera(nombre, d, lugar, numMaximo);
+                        //Se comprueba que no este ya dada de alta
+                        //Para ello se compara por nombre
+                    int i=JOptionPane.showConfirmDialog(this, "¿Esta seguro de dar de Modifcar?", "Modificar", JOptionPane.YES_NO_CANCEL_OPTION);
+                    if(i==JOptionPane.YES_OPTION){
+                        JOptionPane.showMessageDialog(this, "Carrera modificada");
+                        //PantallaCarrerasInscribirCorredores pcic=new PantallaCarrerasInscribirCorredores(pp, true,c);
+                        //pcic.setVisible(true);
+                        LogicaCarrera.modificarCarrera(carrera, c);
+                        this.setVisible(false);
+                    }
+                    else if(i==JOptionPane.NO_OPTION){
+                        this.setVisible(false);
+                    }
+                    
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "Al menos un corredor", "Corredores", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Introduzca un lugar", "Lugar", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Introduzca un nombe", "Nombre", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_jButtonModificarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -170,6 +254,8 @@ public class PantallaCarrerasAlta extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAlta;
+    private javax.swing.JButton jButtonModificar;
+    private javax.swing.JButton jButtonSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

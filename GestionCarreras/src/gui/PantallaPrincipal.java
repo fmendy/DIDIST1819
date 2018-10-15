@@ -5,21 +5,27 @@
  */
 package gui;
 
+import Logica.LeerEscribirObjetos;
 import gui.carreras.PantallaCarreras;
 import gui.corredores.PantallaCorredores;
 import gui.opciones.PantallaOpciones;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author alvar
  */
 public class PantallaPrincipal extends javax.swing.JFrame {
-
+    private LeerEscribirObjetos leo=new LeerEscribirObjetos();
     /**
      * Creates new form PantallaPrincipal
      */
-    public PantallaPrincipal() {
+    public PantallaPrincipal() throws IOException, ClassNotFoundException {
         initComponents();
+        leo.cargar();
+        
     }
 
     /**
@@ -135,7 +141,13 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PantallaPrincipal().setVisible(true);
+                try {
+                    new PantallaPrincipal().setVisible(true);
+                } catch (IOException ex) {
+                    Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

@@ -74,4 +74,14 @@ public class LogicaCarrera {
     public static void eliminarCarrera(Carrera c){
         listaCarreras.remove(c);
     }
+    
+    public static void modificarCarrera(Carrera vieja, Carrera nueva){
+        //saco la posicion de la vieja
+        int pvieja=listaCarreras.indexOf(vieja);
+        //actualizo los daros
+        listaCarreras.get(pvieja).setNombre(nueva.getNombre());
+        listaCarreras.get(pvieja).setLugar(nueva.getLugar());
+        listaCarreras.get(pvieja).setParticipantesMaximos(nueva.getParticipantesMaximos());
+        listaCarreras.get(pvieja).setFechaCarrera(nueva.getFechaCarrera());
+    }
 }
