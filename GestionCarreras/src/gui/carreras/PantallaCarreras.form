@@ -28,10 +28,13 @@
               <Component id="jScrollPane1" min="-2" pref="375" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jButtonAlta" pref="100" max="32767" attributes="0"/>
-                  <Component id="jButtonBaja" max="32767" attributes="0"/>
-                  <Component id="jButtonModificar" max="32767" attributes="0"/>
-                  <Component id="jButtonInscribirCorredor" max="32767" attributes="0"/>
+                  <Component id="jButtonSalir" pref="100" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jButtonAlta" pref="100" max="32767" attributes="0"/>
+                      <Component id="jButtonBaja" max="32767" attributes="0"/>
+                      <Component id="jButtonModificar" max="32767" attributes="0"/>
+                      <Component id="jButtonInscribirCorredor" max="32767" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace pref="45" max="32767" attributes="0"/>
           </Group>
@@ -53,6 +56,8 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jButtonInscribirCorredor" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
+              <Component id="jButtonSalir" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -109,6 +114,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonInscribirCorredorActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonSalir">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Salir"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSalirActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

@@ -40,6 +40,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jButtonCorredores = new javax.swing.JButton();
         jButtonCarreras = new javax.swing.JButton();
         jButtonOpciones = new javax.swing.JButton();
+        jButtonSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -64,6 +65,13 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jButtonSalir.setText("Salir");
+        jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -71,11 +79,12 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(70, 70, 70)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonCarreras)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonCorredores)
-                        .addGap(42, 42, 42)
-                        .addComponent(jButtonOpciones)))
+                    .addComponent(jButtonCorredores)
+                    .addComponent(jButtonCarreras))
+                .addGap(42, 42, 42)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButtonOpciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonSalir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(124, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -86,7 +95,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                     .addComponent(jButtonCorredores)
                     .addComponent(jButtonOpciones))
                 .addGap(31, 31, 31)
-                .addComponent(jButtonCarreras)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonCarreras)
+                    .addComponent(jButtonSalir))
                 .addContainerGap(126, Short.MAX_VALUE))
         );
 
@@ -110,6 +121,12 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         PantallaOpciones po=new PantallaOpciones(this, true);
         po.setVisible(true);
     }//GEN-LAST:event_jButtonOpcionesActionPerformed
+
+    private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
+        // TODO add your handling code here:
+        leo.guardar();
+        this.dispose();
+    }//GEN-LAST:event_jButtonSalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -156,5 +173,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButtonCarreras;
     private javax.swing.JButton jButtonCorredores;
     private javax.swing.JButton jButtonOpciones;
+    private javax.swing.JButton jButtonSalir;
     // End of variables declaration//GEN-END:variables
 }

@@ -26,12 +26,13 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jButtonCarreras" min="-2" max="-2" attributes="0"/>
-                  <Group type="102" attributes="0">
-                      <Component id="jButtonCorredores" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                      <Component id="jButtonOpciones" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="jButtonCorredores" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonCarreras" alignment="0" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="jButtonOpciones" max="32767" attributes="0"/>
+                  <Component id="jButtonSalir" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="124" max="32767" attributes="0"/>
           </Group>
@@ -46,7 +47,10 @@
                   <Component id="jButtonOpciones" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-              <Component id="jButtonCarreras" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jButtonCarreras" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButtonSalir" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace pref="126" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -75,6 +79,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonOpcionesActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jButtonSalir">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Salir"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonSalirActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

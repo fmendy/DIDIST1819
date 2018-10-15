@@ -93,11 +93,11 @@ public class LeerEscribirObjetos {
         });
         
         //Los movemos a //copias de seguridad
+        //System.out.println(archivosDat.length);
         for(File f: archivosDat){
+            File nuevo=new File((".\\copiasSeguridad\\"+f.getName()));
            // System.out.println(f.getName());
-            if(f.renameTo(new File(".\\copiasSeguridad\\"+f.getName()))){
-            //    System.out.println("movido");
-            }
+            f.renameTo(nuevo);
         }
         
         //sacamos en una variable la fecha y hora de hoy
@@ -191,6 +191,7 @@ public class LeerEscribirObjetos {
                     }
                 }
             }catch(EOFException e){}
+            this.cerrarLectura();
         }
         
     }
