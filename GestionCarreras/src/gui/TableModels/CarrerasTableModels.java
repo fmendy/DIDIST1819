@@ -29,7 +29,7 @@ public class CarrerasTableModels extends AbstractTableModel{
     @Override
     public int getColumnCount() {
        // return 3;
-        return 4;
+        return 5;
     }
 
     @Override
@@ -43,17 +43,25 @@ public class CarrerasTableModels extends AbstractTableModel{
                 return listaCarreras.get(rowIndex).getLugar();
             case 3:
                 return listaCarreras.get(rowIndex).getParticipantesMaximos();
+            case 4:
+                if(listaCarreras.get(rowIndex).isFinalizada()){
+                    return "True";
+                }
+                else{
+                    return "False";
+                }
         }
         return null;
     }
 
     @Override
     public String getColumnName(int column) {
-        String[] nombres=new String[4];
+        String[] nombres=new String[5];
         nombres[0]="Nombre";
         nombres[1]="Fecha";
         nombres[2]="Lugar";
         nombres[3]="Nº Maximo";
+        nombres[4]="Finalizada";
         return nombres[column];
     }
     

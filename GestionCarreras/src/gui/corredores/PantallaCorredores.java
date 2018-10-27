@@ -17,6 +17,7 @@ import gui.PantallaPrincipal;
 import java.awt.HeadlessException;
 import java.util.AbstractList;
 import java.util.List;
+import javax.swing.table.TableRowSorter;
 import logica.LeerEscribirCSV;
 
 /**
@@ -34,7 +35,8 @@ public class PantallaCorredores extends javax.swing.JDialog {
     public PantallaCorredores(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        jTableCorredores.setModel(new CorredoresTableModels(LogicaCorredores.getListaCorredores()));
+        //jTableCorredores.setModel(new CorredoresTableModels(LogicaCorredores.getListaCorredores()));
+        rellenarTabla();
         pantallaPrincipal=(PantallaPrincipal)parent;
         
     }
@@ -166,6 +168,15 @@ public class PantallaCorredores extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void rellenarTabla(){
+        CorredoresTableModels ctm=new CorredoresTableModels(LogicaCorredores.getListaCorredores());
+        jTableCorredores.setModel(ctm);
+        TableRowSorter<CorredoresTableModels> trw=new TableRowSorter<>(ctm);
+        //jTableCorredores.setModel(new CorredoresTableModels(LogicaCorredores.getListaCorredores()));
+        jTableCorredores.setRowSorter(trw);
+        
+        
+    }
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_jButtonSalirActionPerformed
@@ -182,7 +193,7 @@ public class PantallaCorredores extends javax.swing.JDialog {
             //Paso la lista a la logica
             LogicaCorredores.setListaCorredores(listaCorredorOrdenada);
             //Le mando que actualice la tabla.
-            jTableCorredores.setModel(new CorredoresTableModels(listaCorredorOrdenada));
+            rellenarTabla();
             //jTableCorredores.setModel(new CorredoresTableModels(LogicaCorredores.getListaCorredores()));
             
             JOptionPane.showMessageDialog(this,"Datos ordenados","ordenar",JOptionPane.INFORMATION_MESSAGE);
@@ -229,7 +240,7 @@ public class PantallaCorredores extends javax.swing.JDialog {
                 //Terminamos la lectura y cerramos
                 le.cerrarLectura();
                 //Actualizamos la tabla
-                jTableCorredores.setModel(new CorredoresTableModels(LogicaCorredores.getListaCorredores()));
+                rellenarTabla();
                 JOptionPane.showMessageDialog(this, "Datos Importados correstamente", "Importacion", JOptionPane.INFORMATION_MESSAGE);
             }
             else{
@@ -245,7 +256,7 @@ public class PantallaCorredores extends javax.swing.JDialog {
     private void jButtonAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAltaActionPerformed
         PantallaCorredoresAlta pca=new PantallaCorredoresAlta(pantallaPrincipal, true);
         pca.setVisible(true);
-        jTableCorredores.setModel(new CorredoresTableModels(LogicaCorredores.getListaCorredores()));
+        rellenarTabla();
     }//GEN-LAST:event_jButtonAltaActionPerformed
 
     private void jButtonBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBajaActionPerformed
@@ -267,7 +278,7 @@ public class PantallaCorredores extends javax.swing.JDialog {
                 if(LogicaCorredores.eliminarCorredor(c)){
                     JOptionPane.showMessageDialog(this, "Eliminado correctamente","Confirmado",JOptionPane.INFORMATION_MESSAGE);
                     //Actulizamos la tabla
-                    jTableCorredores.setModel(new CorredoresTableModels(LogicaCorredores.getListaCorredores()));
+                    rellenarTabla();
                 }
                 else{
                     JOptionPane.showMessageDialog(this, "Error al eliminar", "Eliminar", JOptionPane.ERROR);
@@ -297,7 +308,7 @@ public class PantallaCorredores extends javax.swing.JDialog {
             //Abrmos la pantalla nueva
             PantallaCorredoresModificar pantallaCorredoresModificar=new PantallaCorredoresModificar(pantallaPrincipal, true, c);
             pantallaCorredoresModificar.setVisible(true);
-            jTableCorredores.setModel(new CorredoresTableModels(LogicaCorredores.getListaCorredores()));
+            rellenarTabla();
         }
         else{
             JOptionPane.showMessageDialog(this, "No ha seleccionado ningun Corredor","Borrado",JOptionPane.INFORMATION_MESSAGE);
