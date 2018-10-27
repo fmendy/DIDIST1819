@@ -215,13 +215,9 @@ public class PantallaCarreras extends javax.swing.JDialog {
     private void jButtonBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBajaActionPerformed
         // TODO add your handling code here:
         //Para seleccionar la correspondiente, debido a que estan ordenas
-        int fila = jTableCarreraNOFinalizada.convertColumnIndexToModel(jTableCarreraNOFinalizada.getSelectedRow());
-        // int fila = jTableCarreraNOFinalizada.getSelectedRow();
-        if (fila >= 0) {
-//            String nombre = (String) jTableCarreraNOFinalizada.getValueAt(fila, 0);
-//            Date d = Fechas.stringToDate((String) jTableCarreraNOFinalizada.getValueAt(fila, 1));
-//            String lugar = (String) jTableCarreraNOFinalizada.getValueAt(fila, 2);
-//            Carrera c = new Carrera(nombre, d, lugar, 0);
+        
+        try {
+            int fila = jTableCarreraNOFinalizada.convertRowIndexToModel(jTableCarreraNOFinalizada.getSelectedRow());
             Carrera c = LogicaCarrera.getListaCarreras().get(fila);
             //confirmamos para borrar
             int opcion = JOptionPane.showConfirmDialog(this, "¿Seguro de borrar?", "borrar", JOptionPane.YES_NO_OPTION);
@@ -229,9 +225,8 @@ public class PantallaCarreras extends javax.swing.JDialog {
                 LogicaCarrera.eliminarCarrera(c);
                 JOptionPane.showConfirmDialog(this, "Carrera eliminada", "Eliminada", JOptionPane.INFORMATION_MESSAGE);
                 rellenarTabla();
-                //jTableCarreraNOFinalizada.setModel(new CarrerasTableModels(LogicaCarrera.listaCarrerasNoFinalizadas()));
             }
-        } else {
+        } catch(Exception  e) {
             JOptionPane.showMessageDialog(this, "seleccione una carrera a eliminar", "Eliminar", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jButtonBajaActionPerformed
@@ -239,23 +234,14 @@ public class PantallaCarreras extends javax.swing.JDialog {
     private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
         // TODO add your handling code here:
         //Para seleccionar la correspondiente, debido a que estan ordenas
-        int fila = jTableCarreraNOFinalizada.convertColumnIndexToModel(jTableCarreraNOFinalizada.getSelectedRow());
-        if (fila >= 0) {
-
-            String nombre = (String) jTableCarreraNOFinalizada.getValueAt(fila, 0);
-            Date d = Fechas.stringToDate((String) jTableCarreraNOFinalizada.getValueAt(fila, 1));
-            String lugar = (String) jTableCarreraNOFinalizada.getValueAt(fila, 2);
-            int maximo = (int) jTableCarreraNOFinalizada.getValueAt(fila, 3);
-            Carrera c = new Carrera(nombre, d, lugar, maximo);
-            int posicionEstaCarrera = LogicaCarrera.getListaCarreras().indexOf(c);
-            c = LogicaCarrera.getListaCarreras().get(posicionEstaCarrera);
+        try {
+            int fila = jTableCarreraNOFinalizada.convertRowIndexToModel(jTableCarreraNOFinalizada.getSelectedRow());
+            Carrera c = LogicaCarrera.getListaCarreras().get(fila);
             //llamamos a modifcar
             PantallaCarrerasAlta pca = new PantallaCarrerasAlta(pp, true, c);
             pca.setVisible(true);
             rellenarTabla();
-            // jTableCarreraNOFinalizada.setModel(new CarrerasTableModels(Logica.LogicaCarrera.listaCarrerasNoFinalizadas()));
-
-        } else {
+        } catch(Exception e) {         
             JOptionPane.showMessageDialog(this, "seleccione una carrera a modificar", "Modifcar", JOptionPane.INFORMATION_MESSAGE);
         }
 
@@ -263,23 +249,16 @@ public class PantallaCarreras extends javax.swing.JDialog {
 
     private void jButtonInscribirCorredorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInscribirCorredorActionPerformed
         // TODO add your handling code here:
-        int fila = jTableCarreraNOFinalizada.getSelectedRow();
-        
-        if (fila >= 0) {
-            String nombre = (String) jTableCarreraNOFinalizada.getValueAt(fila, 0);
-            Date d = Fechas.stringToDate((String) jTableCarreraNOFinalizada.getValueAt(fila, 1));
-            String lugar = (String) jTableCarreraNOFinalizada.getValueAt(fila, 2);
-            int maximo = (int) jTableCarreraNOFinalizada.getValueAt(fila, 3);
-            Carrera c = new Carrera(nombre, d, lugar, maximo);
-            int posicionEstaCarrera = LogicaCarrera.getListaCarreras().indexOf(c);
-            c = LogicaCarrera.getListaCarreras().get(posicionEstaCarrera);
+        try  {
+            int fila = jTableCarreraNOFinalizada.convertRowIndexToModel(jTableCarreraNOFinalizada.getSelectedRow());
+            Carrera c = LogicaCarrera.getListaCarreras().get(fila);
             //llamamos a modifcar
             PantallaCarrerasInscribirCorredores pcic = new PantallaCarrerasInscribirCorredores(pp, true, c);
             pcic.setVisible(true);
             rellenarTabla();
             //jTableCarreraNOFinalizada.setModel(new CarrerasTableModels(Logica.LogicaCarrera.listaCarrerasNoFinalizadas()));
 
-        } else {
+        } catch(Exception e) {
             JOptionPane.showMessageDialog(this, "seleccione una carrera para inscribirse", "Inscribir", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jButtonInscribirCorredorActionPerformed
@@ -291,26 +270,20 @@ public class PantallaCarreras extends javax.swing.JDialog {
 
     private void jButtonCorrerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCorrerActionPerformed
         // TODO add your handling code here:
-        int fila = jTableCarreraNOFinalizada.getSelectedRow();
-        
-        if (fila >= 0) {
-            String nombre = (String) jTableCarreraNOFinalizada.getValueAt(fila, 0);
-            Date d = Fechas.stringToDate((String) jTableCarreraNOFinalizada.getValueAt(fila, 1));
-            String lugar = (String) jTableCarreraNOFinalizada.getValueAt(fila, 2);
-            int maximo = (int) jTableCarreraNOFinalizada.getValueAt(fila, 3);
-            Carrera c = new Carrera(nombre, d, lugar, maximo);
-            int posicionEstaCarrera = LogicaCarrera.getListaCarreras().indexOf(c);
-            c = LogicaCarrera.getListaCarreras().get(posicionEstaCarrera);
+
+        try {
+            int fila = jTableCarreraNOFinalizada.convertRowIndexToModel(jTableCarreraNOFinalizada.getSelectedRow());
+            Carrera c = LogicaCarrera.getListaCarreras().get(fila);
             //llamamos a modifcar
-            PantallaCarrerasCorriendo pcc=new PantallaCarrerasCorriendo(c, pp, true);
+            PantallaCarrerasCorriendo pcc = new PantallaCarrerasCorriendo(c, pp, true);
             pcc.setVisible(true);
             rellenarTabla();
             //jTableCarreraNOFinalizada.setModel(new CarrerasTableModels(Logica.LogicaCarrera.listaCarrerasNoFinalizadas()));
 
-        } else {
-            JOptionPane.showMessageDialog(this, "seleccione una carrera para inscribirse", "Inscribir", JOptionPane.INFORMATION_MESSAGE);
+        } catch(Exception e) {
+            JOptionPane.showMessageDialog(this, "seleccione una carrera para correr", "Correr", JOptionPane.INFORMATION_MESSAGE);
         }
-     
+
     }//GEN-LAST:event_jButtonCorrerActionPerformed
 
     /**

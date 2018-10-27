@@ -199,7 +199,9 @@ public class PantallaCarrerasInscribirCorredores extends javax.swing.JDialog {
                Date fecha=Fechas.stringToDate((String)(jTableCorredoresNoInscritos.getValueAt(fila, 2)));
                String direccion=(String)jTableCorredoresNoInscritos.getValueAt(fila, 3);       
                int telefono=(int)jTableCorredoresNoInscritos.getValueAt(fila, 4);  
-               Corredor c1=new Corredor(nombre, dni, fecha, direccion, telefono);;
+               Corredor c1=new Corredor(nombre, dni, fecha, direccion, telefono);
+               int pos=LogicaCorredores.getListaCorredores().indexOf(c1);
+               c1=LogicaCorredores.getListaCorredores().get(pos);
                //lo meto en inscritos
                 LogicaCarrera.inscribirCorredor(carrera, c1);
                 //recargo las tablas

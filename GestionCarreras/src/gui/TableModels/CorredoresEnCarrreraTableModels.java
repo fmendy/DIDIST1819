@@ -38,11 +38,11 @@ public class CorredoresEnCarrreraTableModels extends AbstractTableModel{
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        switch(rowIndex){
-            case 1:
+        switch(columnIndex){
+            case 0:
                 return dorsales.get(rowIndex);
-            case 2:
-                return carrera.getCorredoresInscritos().get(rowIndex).getNombre();
+            case 1:
+                return carrera.getCorredoresInscritos().get(dorsales.get(rowIndex)).getNombre();
         }
         return null;
     }

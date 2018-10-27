@@ -169,8 +169,10 @@ public class PantallaCorredores extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     public void rellenarTabla(){
+        //Creo el modelo
         CorredoresTableModels ctm=new CorredoresTableModels(LogicaCorredores.getListaCorredores());
         jTableCorredores.setModel(ctm);
+        //Hafo que se pueda ordenar
         TableRowSorter<CorredoresTableModels> trw=new TableRowSorter<>(ctm);
         //jTableCorredores.setModel(new CorredoresTableModels(LogicaCorredores.getListaCorredores()));
         jTableCorredores.setRowSorter(trw);
@@ -260,20 +262,10 @@ public class PantallaCorredores extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonAltaActionPerformed
 
     private void jButtonBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBajaActionPerformed
-        int fila=jTableCorredores.getSelectedRow();
-        int col=jTableCorredores.getSelectedColumn();
-        //Se comprueba que haya algo seleccionado
-        if(fila>=0&&col>=0){
-            //Se crea el corredor
-//            String nombre=(String)jTableCorredores.getValueAt(fila, 0);
-//            String dni=(String)jTableCorredores.getValueAt(fila, 1);
-//            String fecha=(String)jTableCorredores.getValueAt(fila, 2);
-//            String direccion=(String)jTableCorredores.getValueAt(fila, 3);
-//            int tlf=(int)jTableCorredores.getValueAt(fila, 4);
-//            Corredor c=new Corredor(nombre, dni, fecha, direccion, tlf);
-            
-            Corredor c=LogicaCorredores.getListaCorredores().get(fila);
-            
+
+        try{  
+            int fila = jTableCorredores.convertRowIndexToModel(jTableCorredores.getSelectedRow());
+            Corredor c=LogicaCorredores.getListaCorredores().get(fila);       
             //confirmamos borrado
             int opcion=JOptionPane.showConfirmDialog(this, "¿Esta seguro de eliminar a "+c.getNombre()+" ?", "Confirmacion", JOptionPane.YES_NO_OPTION);
             if(opcion==JOptionPane.YES_OPTION){
@@ -288,32 +280,25 @@ public class PantallaCorredores extends javax.swing.JDialog {
                 }
            }               
         }
-        else{
+        catch(Exception e){
             JOptionPane.showMessageDialog(this, "No ha seleccionado ningun Corredor","Borrado",JOptionPane.INFORMATION_MESSAGE);
         }
         
     }//GEN-LAST:event_jButtonBajaActionPerformed
 
     private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
-        // TODO add your handling code here:
-        int fila=jTableCorredores.getSelectedRow();
-        int col=jTableCorredores.getSelectedColumn();
+        // TODO add your handling code here:      
         //Se comprueba que haya algo seleccionado
-        if(fila>=0&&col>=0){
+        try{
+            int fila = jTableCorredores.convertRowIndexToModel(jTableCorredores.getSelectedRow());
             //Se crea el corredor
-//            String nombre=(String)jTableCorredores.getValueAt(fila, 0);
-//            String dni=(String)jTableCorredores.getValueAt(fila, 1);
-//            String fecha=(String)jTableCorredores.getValueAt(fila, 2);
-//            String direccion=(String)jTableCorredores.getValueAt(fila, 3);
-//            int tlf=(int)jTableCorredores.getValueAt(fila, 4);
-//            Corredor c=new Corredor(nombre, dni, fecha, direccion, tlf);
             Corredor c=LogicaCorredores.getListaCorredores().get(fila);
             //Abrmos la pantalla nueva
             PantallaCorredoresModificar pantallaCorredoresModificar=new PantallaCorredoresModificar(pantallaPrincipal, true, c);
             pantallaCorredoresModificar.setVisible(true);
             rellenarTabla();
         }
-        else{
+        catch(Exception e){
             JOptionPane.showMessageDialog(this, "No ha seleccionado ningun Corredor","Borrado",JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jButtonModificarActionPerformed
