@@ -265,14 +265,17 @@ public class PantallaCorredores extends javax.swing.JDialog {
         //Se comprueba que haya algo seleccionado
         if(fila>=0&&col>=0){
             //Se crea el corredor
-            String nombre=(String)jTableCorredores.getValueAt(fila, 0);
-            String dni=(String)jTableCorredores.getValueAt(fila, 1);
-            String fecha=(String)jTableCorredores.getValueAt(fila, 2);
-            String direccion=(String)jTableCorredores.getValueAt(fila, 3);
-            int tlf=(int)jTableCorredores.getValueAt(fila, 4);
-            Corredor c=new Corredor(nombre, dni, fecha, direccion, tlf);
+//            String nombre=(String)jTableCorredores.getValueAt(fila, 0);
+//            String dni=(String)jTableCorredores.getValueAt(fila, 1);
+//            String fecha=(String)jTableCorredores.getValueAt(fila, 2);
+//            String direccion=(String)jTableCorredores.getValueAt(fila, 3);
+//            int tlf=(int)jTableCorredores.getValueAt(fila, 4);
+//            Corredor c=new Corredor(nombre, dni, fecha, direccion, tlf);
+            
+            Corredor c=LogicaCorredores.getListaCorredores().get(fila);
+            
             //confirmamos borrado
-            int opcion=JOptionPane.showConfirmDialog(this, "¿Esta seguro de eliminar a "+nombre+" ?", "Confirmacion", JOptionPane.YES_NO_OPTION);
+            int opcion=JOptionPane.showConfirmDialog(this, "¿Esta seguro de eliminar a "+c.getNombre()+" ?", "Confirmacion", JOptionPane.YES_NO_OPTION);
             if(opcion==JOptionPane.YES_OPTION){
                 //realizamos borrado
                 if(LogicaCorredores.eliminarCorredor(c)){
@@ -298,13 +301,13 @@ public class PantallaCorredores extends javax.swing.JDialog {
         //Se comprueba que haya algo seleccionado
         if(fila>=0&&col>=0){
             //Se crea el corredor
-            String nombre=(String)jTableCorredores.getValueAt(fila, 0);
-            String dni=(String)jTableCorredores.getValueAt(fila, 1);
-            String fecha=(String)jTableCorredores.getValueAt(fila, 2);
-            String direccion=(String)jTableCorredores.getValueAt(fila, 3);
-            int tlf=(int)jTableCorredores.getValueAt(fila, 4);
-            Corredor c=new Corredor(nombre, dni, fecha, direccion, tlf);
-            
+//            String nombre=(String)jTableCorredores.getValueAt(fila, 0);
+//            String dni=(String)jTableCorredores.getValueAt(fila, 1);
+//            String fecha=(String)jTableCorredores.getValueAt(fila, 2);
+//            String direccion=(String)jTableCorredores.getValueAt(fila, 3);
+//            int tlf=(int)jTableCorredores.getValueAt(fila, 4);
+//            Corredor c=new Corredor(nombre, dni, fecha, direccion, tlf);
+            Corredor c=LogicaCorredores.getListaCorredores().get(fila);
             //Abrmos la pantalla nueva
             PantallaCorredoresModificar pantallaCorredoresModificar=new PantallaCorredoresModificar(pantallaPrincipal, true, c);
             pantallaCorredoresModificar.setVisible(true);

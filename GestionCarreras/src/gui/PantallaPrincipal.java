@@ -168,7 +168,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                     Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-        });
+});
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

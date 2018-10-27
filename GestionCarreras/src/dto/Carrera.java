@@ -20,6 +20,7 @@ public class Carrera implements Serializable{
     private String lugar;
     private int participantesMaximos;
     private HashMap<Integer,Corredor> corredoresInscritos; 
+    private HashMap<Integer,Date> clasificacion; 
     private boolean finalizada;
 
     public Carrera(String nombre, Date fechaCarrera, String lugar, int participantesMaximos) {
@@ -28,7 +29,16 @@ public class Carrera implements Serializable{
         this.lugar = lugar;
         this.participantesMaximos = participantesMaximos;
         this.finalizada=false;
-        corredoresInscritos=new HashMap<>();
+        this.corredoresInscritos=new HashMap<>();
+        this.clasificacion=new HashMap<>();
+    }
+
+    public HashMap<Integer, Date> getClasificacion() {
+        return clasificacion;
+    }
+
+    public void setClasificacion(HashMap<Integer, Date> clasificacion) {
+        this.clasificacion = clasificacion;
     }
 
     public String getNombre() {
