@@ -1,0 +1,5 @@
+<index version="1.0">
+	<indexitem text="Indice" target="indice"/>
+	<indexitem text="Corredor" target="ayuda_corredor"/>
+	<indexitem text="Carrera" target="ayuda_carrera"/>
+</index>

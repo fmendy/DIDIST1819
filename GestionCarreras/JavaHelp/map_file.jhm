@@ -1,0 +1,5 @@
+<map version="1.0">
+	<mapID target="indice" url="html/AyudaPrincipal.html">
+	<mapID target="ayuda_corredor" url="html/AyudaCorredor.html">
+	<mapID target="ayuda_carrera" url="html/AyudaCarrera.html">
+</map>

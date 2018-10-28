@@ -221,10 +221,8 @@ public class PantallaCarrerasCorriendo extends javax.swing.JDialog {
 
     private void cronometro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cronometro1ActionPerformed
         // TODO add your handling code here:
-        cronometro1.pausarCronometro();
         PantallaCarraresLlegadaCorredor pclc=new PantallaCarraresLlegadaCorredor(pp, true, dorsalesSinLlegar, cronometro1.getText(),this.carrera);
         pclc.setVisible(true);
-        cronometro1.reanudarCronometro();
         cronometro1.setEnabled(false);
         jButtonLlegar.setEnabled(true);
         rellenarTabla();
