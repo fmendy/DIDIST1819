@@ -6,7 +6,9 @@
 package gui.carreras;
 
 import dto.Carrera;
+import gui.PantallaPrincipal;
 import gui.TableModels.CorredoresEnCarrreraTableModels;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -22,17 +24,27 @@ public class PantallaCarrerasCorriendo extends javax.swing.JDialog {
     private Carrera carrera;
     private List<Integer> dorsalesSinLlegar=new ArrayList();
     private List<Integer> dorsalesLlegaron=new ArrayList();
+    private PantallaPrincipal pp;
     /**
      * Creates new form PantallaCarrerasCorriendo
      */
     public PantallaCarrerasCorriendo(Carrera carrera, java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         this.carrera=carrera;
+        pp=(PantallaPrincipal)parent;
         initComponents();
         rellenarTabla();
+        jLabelNombreCarrera.setText(carrera.getNombre());
+        
+        jButtonLlegar.setVisible(false);
+        cronometro1.setVisible(false);
+        cronometro1.setEnabled(false);
     }
     
     public void cargarDorsales(){
+        //Vaciamos ambas listas
+        dorsalesSinLlegar=new ArrayList<>();
+        dorsalesLlegaron=new ArrayList<>();
         //Cargamos todos en los que no llegaron
         Iterator ite=carrera.getCorredoresInscritos().keySet().iterator();
         while(ite.hasNext()){
@@ -51,7 +63,24 @@ public class PantallaCarrerasCorriendo extends javax.swing.JDialog {
         //Cargamos la lista de corredores sin llegar
         CorredoresEnCarrreraTableModels cidtm=new CorredoresEnCarrreraTableModels(dorsalesSinLlegar, carrera);
         jTableCorredoresNoLlegaron.setModel(cidtm);
+        estadoCarrera();
+        
     }
+    public void estadoCarrera(){
+        jLabelSituacion.setText("En Curso");
+        jLabelSituacion.setForeground(Color.GREEN);
+        jLabelSituacion.setBackground(Color.BLACK);
+        //Comprobamos si ha llegado el final
+        if(dorsalesSinLlegar.size()==0){
+            jButtonLlegar.setVisible(false);
+            cronometro1.setVisible(false);
+            jLabelSituacion.setText("Finalizada");
+            jLabelSituacion.setForeground(Color.red);
+            Logica.LogicaCarrera.finalizarCarrera(carrera);
+        }
+    }
+        
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -64,6 +93,11 @@ public class PantallaCarrerasCorriendo extends javax.swing.JDialog {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableCorredoresNoLlegaron = new javax.swing.JTable();
+        jButtonIniciar = new javax.swing.JButton();
+        jButtonLlegar = new javax.swing.JButton();
+        cronometro1 = new cronometro.Cronometro();
+        jLabelNombreCarrera = new javax.swing.JLabel();
+        jLabelSituacion = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -80,30 +114,110 @@ public class PantallaCarrerasCorriendo extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(jTableCorredoresNoLlegaron);
 
+        jButtonIniciar.setText("Iniciar");
+        jButtonIniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonIniciarActionPerformed(evt);
+            }
+        });
+
+        jButtonLlegar.setText("Llegar");
+        jButtonLlegar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLlegarActionPerformed(evt);
+            }
+        });
+
+        cronometro1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cronometro1ActionPerformed(evt);
+            }
+        });
+
+        jLabelNombreCarrera.setFont(new java.awt.Font("Yu Gothic Medium", 1, 18)); // NOI18N
+        jLabelNombreCarrera.setText("jLabel1");
+        jLabelNombreCarrera.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+
+        jLabelSituacion.setText("jLabel1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(302, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabelNombreCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(37, 37, 37)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cronometro1, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                    .addComponent(jButtonIniciar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonLlegar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelSituacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(172, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 81, Short.MAX_VALUE)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelNombreCarrera, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabelSituacion, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(cronometro1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonIniciar)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonLlegar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIniciarActionPerformed
+        // TODO add your handling code here:
+        jButtonLlegar.setEnabled(true);
+        cronometro1.setVisible(true);
+        jButtonLlegar.setVisible(true);
+        cronometro1.reiniciar();
+        jButtonIniciar.setEnabled(false);
+        jButtonIniciar.setVisible(false);
+        this.setDefaultCloseOperation(0);
+    }//GEN-LAST:event_jButtonIniciarActionPerformed
+
+    private void jButtonLlegarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLlegarActionPerformed
+        // TODO add your handling code here:
+        cronometro1.setEnabled(true);
+        jButtonLlegar.setEnabled(false);
+        
+    }//GEN-LAST:event_jButtonLlegarActionPerformed
+
+    private void cronometro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cronometro1ActionPerformed
+        // TODO add your handling code here:
+        cronometro1.pausarCronometro();
+        PantallaCarraresLlegadaCorredor pclc=new PantallaCarraresLlegadaCorredor(pp, true, dorsalesSinLlegar, cronometro1.getText(),this.carrera);
+        pclc.setVisible(true);
+        cronometro1.reanudarCronometro();
+        cronometro1.setEnabled(false);
+        jButtonLlegar.setEnabled(true);
+        rellenarTabla();
+    }//GEN-LAST:event_cronometro1ActionPerformed
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private cronometro.Cronometro cronometro1;
+    private javax.swing.JButton jButtonIniciar;
+    private javax.swing.JButton jButtonLlegar;
+    private javax.swing.JLabel jLabelNombreCarrera;
+    private javax.swing.JLabel jLabelSituacion;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableCorredoresNoLlegaron;
     // End of variables declaration//GEN-END:variables

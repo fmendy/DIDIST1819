@@ -14,13 +14,14 @@ import java.util.Objects;
  *
  * @author alvar
  */
-public class Carrera implements Serializable{
+public class Carrera implements Serializable {
+
     private String nombre;
     private Date fechaCarrera;
     private String lugar;
     private int participantesMaximos;
-    private HashMap<Integer,Corredor> corredoresInscritos; 
-    private HashMap<Integer,Date> clasificacion; 
+    private HashMap<Integer, Corredor> corredoresInscritos;
+    private HashMap<Integer, String> clasificacion;
     private boolean finalizada;
 
     public Carrera(String nombre, Date fechaCarrera, String lugar, int participantesMaximos) {
@@ -28,16 +29,16 @@ public class Carrera implements Serializable{
         this.fechaCarrera = fechaCarrera;
         this.lugar = lugar;
         this.participantesMaximos = participantesMaximos;
-        this.finalizada=false;
-        this.corredoresInscritos=new HashMap<>();
-        this.clasificacion=new HashMap<>();
+        this.finalizada = false;
+        this.corredoresInscritos = new HashMap<>();
+        this.clasificacion = new HashMap<>();
     }
 
-    public HashMap<Integer, Date> getClasificacion() {
+    public HashMap<Integer, String> getClasificacion() {
         return clasificacion;
     }
 
-    public void setClasificacion(HashMap<Integer, Date> clasificacion) {
+    public void setClasificacion(HashMap<Integer, String> clasificacion) {
         this.clasificacion = clasificacion;
     }
 
@@ -87,8 +88,7 @@ public class Carrera implements Serializable{
 
     public void setFinalizada(boolean finalizada) {
         this.finalizada = finalizada;
-        
-        
+
     }
 
     @Override
@@ -115,7 +115,5 @@ public class Carrera implements Serializable{
         }
         return true;
     }
-    
-    
-    
+
 }
