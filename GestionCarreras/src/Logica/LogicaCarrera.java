@@ -87,13 +87,38 @@ public class LogicaCarrera {
         listaCarreras.get(pvieja).setFechaCarrera(nueva.getFechaCarrera());
     }
 
-    public static void corredorLlega(Carrera c, int i, String s) {
-        int pos = listaCarreras.indexOf(c);
-        listaCarreras.get(pos).getClasificacion().put(i, s);
+//    public static void corredorLlega(Carrera c, int i, String s) {
+//        int pos = listaCarreras.indexOf(c);
+//        listaCarreras.get(pos).getClasificacion().put(i, s);
+//    }
+    
+        public static void corredorLlega(Carrera carrera, int dorsal, String tiempo) {
+        int posCarrera = listaCarreras.indexOf(carrera);    
+        boolean vacio=false;
+        int i=0;
+        while(!vacio){
+            if(listaCarreras.get(posCarrera).getClasificacion()[i][0]==null){
+                vacio=true;
+            }
+            else{
+                i++;
+            }
+        }
+        listaCarreras.get(posCarrera).getClasificacion()[i][0]=Integer.toString(dorsal);
+        listaCarreras.get(posCarrera).getClasificacion()[i][1]=tiempo;
+        
+        
     }
+    
 
     public static void finalizarCarrera(Carrera c) {
         int pos = listaCarreras.indexOf(c);
-        listaCarreras.get(pos).setFinalizada(true);;
+        listaCarreras.get(pos).setFinalizada(true);
+    }
+    
+    public static void inicializarClasificacion(Carrera c){
+        int pos = listaCarreras.indexOf(c);
+        int tamanoCarrera=listaCarreras.get(pos).getCorredoresInscritos().size();
+        listaCarreras.get(pos).setClasificacion(new String[tamanoCarrera][2]);
     }
 }

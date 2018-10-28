@@ -270,7 +270,7 @@ public class PantallaCarreras extends javax.swing.JDialog {
 
     private void jButtonCorrerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCorrerActionPerformed
         // TODO add your handling code here:
-
+            
         try {
             int fila = jTableCarreraNOFinalizada.convertRowIndexToModel(jTableCarreraNOFinalizada.getSelectedRow());
             Carrera c = LogicaCarrera.getListaCarreras().get(fila);
