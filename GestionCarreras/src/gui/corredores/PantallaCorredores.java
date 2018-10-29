@@ -8,20 +8,16 @@ package gui.corredores;
 import dto.Corredor;
 import gui.TableModels.CorredoresTableModels;
 import java.util.ArrayList;
-import java.util.Arrays;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
-import javax.swing.table.DefaultTableModel;
 import Logica.*;
 import gui.PantallaPrincipal;
 import java.awt.HeadlessException;
 import java.awt.Image;
-import java.util.AbstractList;
 import java.util.List;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.table.TableRowSorter;
-import logica.LeerEscribirCSV;
+import Logica.LeerEscribirCSV;
 
 /**
  *

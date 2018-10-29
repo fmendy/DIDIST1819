@@ -215,7 +215,7 @@ public class PantallaCarreras extends javax.swing.JDialog {
     private void jButtonBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBajaActionPerformed
         // TODO add your handling code here:
         //Para seleccionar la correspondiente, debido a que estan ordenas
-        
+
         try {
             int fila = jTableCarreraNOFinalizada.convertRowIndexToModel(jTableCarreraNOFinalizada.getSelectedRow());
             Carrera c = LogicaCarrera.getListaCarreras().get(fila);
@@ -226,7 +226,7 @@ public class PantallaCarreras extends javax.swing.JDialog {
                 JOptionPane.showConfirmDialog(this, "Carrera eliminada", "Eliminada", JOptionPane.INFORMATION_MESSAGE);
                 rellenarTabla();
             }
-        } catch(Exception  e) {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "seleccione una carrera a eliminar", "Eliminar", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jButtonBajaActionPerformed
@@ -241,7 +241,7 @@ public class PantallaCarreras extends javax.swing.JDialog {
             PantallaCarrerasAlta pca = new PantallaCarrerasAlta(pp, true, c);
             pca.setVisible(true);
             rellenarTabla();
-        } catch(Exception e) {         
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "seleccione una carrera a modificar", "Modifcar", JOptionPane.INFORMATION_MESSAGE);
         }
 
@@ -249,7 +249,7 @@ public class PantallaCarreras extends javax.swing.JDialog {
 
     private void jButtonInscribirCorredorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInscribirCorredorActionPerformed
         // TODO add your handling code here:
-        try  {
+        try {
             int fila = jTableCarreraNOFinalizada.convertRowIndexToModel(jTableCarreraNOFinalizada.getSelectedRow());
             Carrera c = LogicaCarrera.getListaCarreras().get(fila);
             //llamamos a modifcar
@@ -258,7 +258,7 @@ public class PantallaCarreras extends javax.swing.JDialog {
             rellenarTabla();
             //jTableCarreraNOFinalizada.setModel(new CarrerasTableModels(Logica.LogicaCarrera.listaCarrerasNoFinalizadas()));
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "seleccione una carrera para inscribirse", "Inscribir", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jButtonInscribirCorredorActionPerformed
@@ -270,17 +270,19 @@ public class PantallaCarreras extends javax.swing.JDialog {
 
     private void jButtonCorrerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCorrerActionPerformed
         // TODO add your handling code here:
-            
+
         try {
             int fila = jTableCarreraNOFinalizada.convertRowIndexToModel(jTableCarreraNOFinalizada.getSelectedRow());
             Carrera c = LogicaCarrera.getListaCarreras().get(fila);
-            //llamamos a modifcar
-            PantallaCarrerasCorriendo pcc = new PantallaCarrerasCorriendo(c, pp, true);
-            pcc.setVisible(true);
-            rellenarTabla();
-            //jTableCarreraNOFinalizada.setModel(new CarrerasTableModels(Logica.LogicaCarrera.listaCarrerasNoFinalizadas()));
-
-        } catch(Exception e) {
+            if ((c.getCorredoresInscritos().size() > 0) && (c.getCorredoresInscritos().size() <= c.getParticipantesMaximos())) {
+                //llamamos a Correr
+                PantallaCarrerasCorriendo pcc = new PantallaCarrerasCorriendo(c, pp, true);
+                pcc.setVisible(true);
+                rellenarTabla();
+            } else {
+                JOptionPane.showMessageDialog(this, "Revise las inscribiciones, el numero de corredores no es correcot", "Correr", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "seleccione una carrera para correr", "Correr", JOptionPane.INFORMATION_MESSAGE);
         }
 

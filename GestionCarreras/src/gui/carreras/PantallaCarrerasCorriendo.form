@@ -33,7 +33,6 @@
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Component id="cronometro1" pref="93" max="32767" attributes="0"/>
                   <Component id="jButtonIniciar" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jButtonLlegar" alignment="0" max="32767" attributes="0"/>
                   <Component id="jLabelSituacion" max="32767" attributes="0"/>
                   <Component id="jButtonFinalizar" max="32767" attributes="0"/>
               </Group>
@@ -56,9 +55,7 @@
               <Component id="cronometro1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jButtonIniciar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jButtonLlegar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
               <Component id="jButtonFinalizar" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -93,14 +90,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonIniciarActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="jButtonLlegar">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Llegar"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonLlegarActionPerformed"/>
       </Events>
     </Component>
     <Component class="cronometro.Cronometro" name="cronometro1">

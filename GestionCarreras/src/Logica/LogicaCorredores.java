@@ -15,8 +15,8 @@ import java.util.List;
  * @author alvar
  */
 public class LogicaCorredores {
-    private static List<Corredor> listaCorredores=new ArrayList<Corredor>();
 
+    private static List<Corredor> listaCorredores = new ArrayList<Corredor>();
 
     public static List<Corredor> getListaCorredores() {
         return listaCorredores;
@@ -26,45 +26,48 @@ public class LogicaCorredores {
         LogicaCorredores.listaCorredores = listaCorredores;
     }
 
-    public static void aniadirCorredor(Corredor c){
+    public static void aniadirCorredor(Corredor c) {
         listaCorredores.add(c);
     }
-    
-    public static List<Corredor> ordenarCorredores(){
+
+    public static List<Corredor> ordenarCorredores() {
         //Creo un array de corredores
-        Corredor[] arrayCorredores=new Corredor[listaCorredores.size()];
+        Corredor[] arrayCorredores = new Corredor[listaCorredores.size()];
         //Lo relleno
-        arrayCorredores=listaCorredores.toArray(arrayCorredores);
+        arrayCorredores = listaCorredores.toArray(arrayCorredores);
         //Lo ordeno
         Arrays.sort(arrayCorredores);
         //lo devuelvo
         return Arrays.asList(arrayCorredores);
     }
-    
-    public static boolean eliminarCorredor(Corredor c){
-        if(listaCorredores.contains(c)){
+
+    public static boolean eliminarCorredor(Corredor c) {
+        if (listaCorredores.contains(c)) {
             listaCorredores.remove(c);
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
-    
-    public static boolean actualizarCorredor(Corredor cNuevo, Corredor cAntiguo){
-        //sacamos la posicion del corredor antiguo
-        int posicion=listaCorredores.indexOf(cAntiguo);
-        System.out.println(posicion);
-        //Dos corredores son iguales si el DNI de estos es el mismo
-            //borramos el antiguo, como buscamos por posicion, el resto de datos pueden ser diferentes
-            if(listaCorredores.remove(cAntiguo)){
-                listaCorredores.add(posicion, cNuevo);
-                System.out.println(cNuevo.getNombre());
-                return true;
-            }
-            //metemos el nuevo
-            
-            return false;
 
+    public static boolean actualizarCorredor(Corredor cNuevo, Corredor cAntiguo) {
+        //sacamos la posicion del corredor antiguo
+        int posicion = listaCorredores.indexOf(cAntiguo);
+        //Cambiamos los datos de uno por el otro
+        try {
+            //Direccion
+            LogicaCorredores.getListaCorredores().get(posicion).setDireccion(cNuevo.getDireccion());
+            //Nombre
+            LogicaCorredores.getListaCorredores().get(posicion).setNombre(cNuevo.getNombre());
+            //Telegono
+            LogicaCorredores.getListaCorredores().get(posicion).setTelefono(cNuevo.getTelefono());
+            //DNI
+            LogicaCorredores.getListaCorredores().get(posicion).setDni(cNuevo.getDni());
+            //Fecha
+            LogicaCorredores.getListaCorredores().get(posicion).setFecha(cNuevo.getFecha());
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

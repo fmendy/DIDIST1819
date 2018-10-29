@@ -12,9 +12,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableModel;
-import logica.LeerEscribirCSV;
+import Logica.LeerEscribirCSV;
 
 /**
  *
@@ -23,66 +21,60 @@ import logica.LeerEscribirCSV;
 public class PantallaCarrerasCorriendo extends javax.swing.JDialog {
 
     private Carrera carrera;
-    private List<Integer> dorsalesSinLlegar=new ArrayList();
-    private List<Integer> dorsalesLlegaron=new ArrayList();
+    private List<Integer> dorsalesSinLlegar = new ArrayList();
+    private List<Integer> dorsalesLlegaron = new ArrayList();
     private PantallaPrincipal pp;
+
     /**
      * Creates new form PantallaCarrerasCorriendo
      */
     public PantallaCarrerasCorriendo(Carrera carrera, java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        this.carrera=carrera;
+        this.carrera = carrera;
         Logica.LogicaCarrera.inicializarClasificacion(carrera);
-        pp=(PantallaPrincipal)parent;
+        pp = (PantallaPrincipal) parent;
         initComponents();
         rellenarTabla();
         jLabelNombreCarrera.setText(carrera.getNombre());
-        
-        jButtonLlegar.setVisible(false);
+
         cronometro1.setVisible(false);
-        cronometro1.setEnabled(false);
         jButtonFinalizar.setVisible(false);
     }
-    
-    public void cargarDorsales(){
+
+    public void cargarDorsales() {
         //Vaciamos ambas listas
-        dorsalesSinLlegar=new ArrayList<>();
-        dorsalesLlegaron=new ArrayList<>();
+        dorsalesSinLlegar = new ArrayList<>();
+        dorsalesLlegaron = new ArrayList<>();
         //Cargamos todos en los que no llegaron
-        Iterator ite=carrera.getCorredoresInscritos().keySet().iterator();
-        while(ite.hasNext()){
+        Iterator ite = carrera.getCorredoresInscritos().keySet().iterator();
+        while (ite.hasNext()) {
             dorsalesSinLlegar.add((Integer) ite.next());
         }
-        //Cargamos los que llegaron
-        
-//         ite=carrera.getClasificacion().keySet().iterator();
-//         while(ite.hasNext()){
-//            dorsalesLlegaron.add((Integer) ite.next());
-//        }
-         for(int i=0;i<carrera.getClasificacion().length;i++){
-             if(carrera.getClasificacion()[i][0]!=null){
-                 dorsalesLlegaron.add(Integer.parseInt(carrera.getClasificacion()[i][0]));
-             }
-             
-         }
+        for (int i = 0; i < carrera.getClasificacion().length; i++) {
+            if (carrera.getClasificacion()[i][0] != null) {
+                dorsalesLlegaron.add(Integer.parseInt(carrera.getClasificacion()[i][0]));
+            }
+
+        }
         //Borramos de los que no llegaron los que llegaron
         dorsalesSinLlegar.removeAll(dorsalesLlegaron);
     }
-    public void rellenarTabla(){
+
+    public void rellenarTabla() {
         cargarDorsales();
         //Cargamos la lista de corredores sin llegar
-        CorredoresEnCarrreraTableModels cidtm=new CorredoresEnCarrreraTableModels(dorsalesSinLlegar, carrera);
+        CorredoresEnCarrreraTableModels cidtm = new CorredoresEnCarrreraTableModels(dorsalesSinLlegar, carrera);
         jTableCorredoresNoLlegaron.setModel(cidtm);
         estadoCarrera();
-        
+
     }
-    public void estadoCarrera(){
+
+    public void estadoCarrera() {
         jLabelSituacion.setText("En Curso");
         jLabelSituacion.setForeground(Color.GREEN);
         jLabelSituacion.setBackground(Color.BLACK);
         //Comprobamos si ha llegado el final
-        if(dorsalesSinLlegar.size()==0){
-            jButtonLlegar.setVisible(false);
+        if (dorsalesSinLlegar.size() == 0) {
             cronometro1.setVisible(false);
             jLabelSituacion.setText("Finalizada");
             jLabelSituacion.setForeground(Color.red);
@@ -90,8 +82,6 @@ public class PantallaCarrerasCorriendo extends javax.swing.JDialog {
             jButtonFinalizar.setVisible(true);
         }
     }
-        
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -105,7 +95,6 @@ public class PantallaCarrerasCorriendo extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableCorredoresNoLlegaron = new javax.swing.JTable();
         jButtonIniciar = new javax.swing.JButton();
-        jButtonLlegar = new javax.swing.JButton();
         cronometro1 = new cronometro.Cronometro();
         jLabelNombreCarrera = new javax.swing.JLabel();
         jLabelSituacion = new javax.swing.JLabel();
@@ -130,13 +119,6 @@ public class PantallaCarrerasCorriendo extends javax.swing.JDialog {
         jButtonIniciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonIniciarActionPerformed(evt);
-            }
-        });
-
-        jButtonLlegar.setText("Llegar");
-        jButtonLlegar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonLlegarActionPerformed(evt);
             }
         });
 
@@ -172,7 +154,6 @@ public class PantallaCarrerasCorriendo extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(cronometro1, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
                     .addComponent(jButtonIniciar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonLlegar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabelSituacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonFinalizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(172, Short.MAX_VALUE))
@@ -191,9 +172,7 @@ public class PantallaCarrerasCorriendo extends javax.swing.JDialog {
                 .addComponent(cronometro1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButtonIniciar)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonLlegar)
-                .addGap(29, 29, 29)
+                .addGap(70, 70, 70)
                 .addComponent(jButtonFinalizar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -203,28 +182,17 @@ public class PantallaCarrerasCorriendo extends javax.swing.JDialog {
 
     private void jButtonIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIniciarActionPerformed
         // TODO add your handling code here:
-        jButtonLlegar.setEnabled(true);
-        cronometro1.setVisible(true);
-        jButtonLlegar.setVisible(true);
         cronometro1.reiniciar();
         jButtonIniciar.setEnabled(false);
         jButtonIniciar.setVisible(false);
+        cronometro1.setVisible(true);
         this.setDefaultCloseOperation(0);
     }//GEN-LAST:event_jButtonIniciarActionPerformed
 
-    private void jButtonLlegarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLlegarActionPerformed
-        // TODO add your handling code here:
-        cronometro1.setEnabled(true);
-        jButtonLlegar.setEnabled(false);
-        
-    }//GEN-LAST:event_jButtonLlegarActionPerformed
-
     private void cronometro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cronometro1ActionPerformed
         // TODO add your handling code here:
-        PantallaCarraresLlegadaCorredor pclc=new PantallaCarraresLlegadaCorredor(pp, true, dorsalesSinLlegar, cronometro1.getText(),this.carrera);
+        PantallaCarraresLlegadaCorredor pclc = new PantallaCarraresLlegadaCorredor(pp, true, dorsalesSinLlegar, cronometro1.getText(), this.carrera);
         pclc.setVisible(true);
-        cronometro1.setEnabled(false);
-        jButtonLlegar.setEnabled(true);
         rellenarTabla();
     }//GEN-LAST:event_cronometro1ActionPerformed
 
@@ -232,11 +200,13 @@ public class PantallaCarrerasCorriendo extends javax.swing.JDialog {
         // TODO add your handling code here:
         cronometro1.cerrarCronometro();
         LeerEscribirCSV lec=new LeerEscribirCSV();
-        lec.abrirEscritura(carrera.getNombre().trim().toUpperCase()+".csv");
+        lec.escribirClasificacionCarrera(carrera);
+       /* LeerEscribirCSV lec = new LeerEscribirCSV();
+        lec.abrirEscritura(carrera.getNombre().trim().toUpperCase() + ".csv");
         lec.escribirCSVCarrera(carrera);
-        lec.cerrarEscritura();
-       // this.setVisible(false);
-       this.dispose();
+        lec.cerrarEscritura();*/
+        // this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_jButtonFinalizarActionPerformed
 
     /**
@@ -247,7 +217,6 @@ public class PantallaCarrerasCorriendo extends javax.swing.JDialog {
     private cronometro.Cronometro cronometro1;
     private javax.swing.JButton jButtonFinalizar;
     private javax.swing.JButton jButtonIniciar;
-    private javax.swing.JButton jButtonLlegar;
     private javax.swing.JLabel jLabelNombreCarrera;
     private javax.swing.JLabel jLabelSituacion;
     private javax.swing.JScrollPane jScrollPane1;

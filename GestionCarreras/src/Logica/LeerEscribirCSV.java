@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package logica;
+package Logica;
 
 import dto.Carrera;
 import dto.Corredor;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -56,19 +57,21 @@ public class LeerEscribirCSV {
             bw.write("\n");
             String linea;
             //saco los dorsales de la carrera final
-            for(int i=0;i<c.getClasificacion().length;i++){
-                int dorsal=Integer.parseInt(c.getClasificacion()[i][0]);
+            for (int i = 0; i < c.getClasificacion().length; i++) {
+                int dorsal = Integer.parseInt(c.getClasificacion()[i][0]);
                 linea = "";
                 //Dorsal
                 linea = linea + dorsal + ", ";
                 //Tiempo
-                String tiempo=c.getClasificacion()[i][1];
-                linea=linea+tiempo+", ";
+                String tiempo = c.getClasificacion()[i][1];
+                linea = linea + tiempo + ", ";
                 //Nombre
-                String nombre=c.getCorredoresInscritos().get(dorsal).getNombre();
-                linea=linea+nombre;
+                String nombre = c.getCorredoresInscritos().get(dorsal).getNombre();
+                linea = linea + nombre;
                 bw.write(linea);
-                bw.write("\n");
+                if (i != c.getClasificacion().length - 1) {
+                    bw.write("\n");
+                }
             }
         } catch (IOException e) {
         }
@@ -121,5 +124,15 @@ public class LeerEscribirCSV {
             } catch (IOException e) {
             };
         }
+    }
+
+    public void escribirClasificacionCarrera(Carrera c) {
+        File file = new File("clasificaciones");
+        if (!file.exists()) {
+            file.mkdir();
+        }
+        abrirEscritura(file.getName() + "//" + c.getNombre() + ".csv");
+        escribirCSVCarrera(c);
+        cerrarEscritura();
     }
 }
