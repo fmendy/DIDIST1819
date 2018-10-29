@@ -12,12 +12,12 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.LookAndFeel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
-
 
 /**
  *
@@ -26,7 +26,8 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class PantallaOpciones extends javax.swing.JDialog {
 
     //variable para escribir/leer objetos
-    LeerEscribirObjetos leo=new LeerEscribirObjetos();
+    LeerEscribirObjetos leo = new LeerEscribirObjetos();
+
     /**
      * Creates new form PantallaOpciones
      */
@@ -34,8 +35,8 @@ public class PantallaOpciones extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         //iniciamos el looka and fell
-        DefaultComboBoxModel dcb=new DefaultComboBoxModel();
-        for(UIManager.LookAndFeelInfo l:UIManager.getInstalledLookAndFeels()){
+        DefaultComboBoxModel dcb = new DefaultComboBoxModel();
+        for (UIManager.LookAndFeelInfo l : UIManager.getInstalledLookAndFeels()) {
             dcb.addElement(l.getName());
         }
         jComboBoxLookAndFeel.setModel(dcb);
@@ -54,11 +55,12 @@ public class PantallaOpciones extends javax.swing.JDialog {
         jComboBoxLookAndFeel = new javax.swing.JComboBox<>();
         jButtonCargar = new javax.swing.JButton();
         jButtonGuardar = new javax.swing.JButton();
+        jSliderGuardadoAutomático = new javax.swing.JSlider();
         jButtonSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setLayout(new java.awt.GridLayout(4, 1, 10, 10));
+        jPanel1.setLayout(new java.awt.GridLayout(5, 1, 10, 10));
 
         jComboBoxLookAndFeel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBoxLookAndFeel.addActionListener(new java.awt.event.ActionListener() {
@@ -83,6 +85,13 @@ public class PantallaOpciones extends javax.swing.JDialog {
             }
         });
         jPanel1.add(jButtonGuardar);
+
+        jSliderGuardadoAutomático.setMaximum(20);
+        jSliderGuardadoAutomático.setMinimum(1);
+        jSliderGuardadoAutomático.setToolTipText("");
+        jSliderGuardadoAutomático.setValue(10);
+        jSliderGuardadoAutomático.setBorder(javax.swing.BorderFactory.createTitledBorder("Guardado Automático"));
+        jPanel1.add(jSliderGuardadoAutomático);
 
         jButtonSalir.setText("Salir");
         jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -114,16 +123,23 @@ public class PantallaOpciones extends javax.swing.JDialog {
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         // TODO add your handling code here:
-        
-        LeerEscribirObjetos leo=new LeerEscribirObjetos();
-        leo.guardar();
+
+        LeerEscribirObjetos leo = new LeerEscribirObjetos();
+        try {
+            leo.guardar();
+            JOptionPane.showMessageDialog(this, "Guardado", "Correcto", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al guardar", "Error", JOptionPane.INFORMATION_MESSAGE);
+        }
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCargarActionPerformed
         // TODO add your handling code here:
-        LeerEscribirObjetos leo=new LeerEscribirObjetos();
+        LeerEscribirObjetos leo = new LeerEscribirObjetos();
         try {
             leo.cargar();
+            JOptionPane.showMessageDialog(this, "Datos cargados", "Cargar", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException ex) {
             Logger.getLogger(PantallaOpciones.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -133,21 +149,24 @@ public class PantallaOpciones extends javax.swing.JDialog {
 
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
         // TODO add your handling code here:
+        //Sacamos el valor del deslizador
+        int i=jSliderGuardadoAutomático.getValue();
+        LeerEscribirObjetos.setTiempoAutoguardado(i);
+        System.out.println(i);
         this.setVisible(false);
+        
     }//GEN-LAST:event_jButtonSalirActionPerformed
 
     private void jComboBoxLookAndFeelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxLookAndFeelActionPerformed
         // TODO add your handling code here:
         //recogo la posicion sleccionada
-        int seleccionado=jComboBoxLookAndFeel.getSelectedIndex();
+        int seleccionado = jComboBoxLookAndFeel.getSelectedIndex();
         //Cargo el lookAndFell
-        LookAndFeelInfo lafi=UIManager.getInstalledLookAndFeels()[seleccionado];
+        LookAndFeelInfo lafi = UIManager.getInstalledLookAndFeels()[seleccionado];
         Logica.LookAndFeel.cambiarLookAndFeel(lafi.getClassName());
         Logica.LookAndFeel.actulizarLookAndFeel(this);
     }//GEN-LAST:event_jComboBoxLookAndFeelActionPerformed
 
-
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCargar;
@@ -155,5 +174,6 @@ public class PantallaOpciones extends javax.swing.JDialog {
     private javax.swing.JButton jButtonSalir;
     private javax.swing.JComboBox<String> jComboBoxLookAndFeel;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JSlider jSliderGuardadoAutomático;
     // End of variables declaration//GEN-END:variables
 }

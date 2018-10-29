@@ -28,7 +28,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     public PantallaPrincipal() throws IOException, ClassNotFoundException {
         initComponents();
         leo.cargar();
+        //Establecemos Icono
         this.establecerIcono();
+        //Empieza el autoguardado
+        LeerEscribirObjetos.guardadoAutomático();
+        
         
     }
 

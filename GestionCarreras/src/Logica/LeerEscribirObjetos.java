@@ -5,6 +5,7 @@
  */
 package Logica;
 
+import cronometro.Cronometro;
 import dto.Carrera;
 import dto.Corredor;
 import gui.opciones.PantallaOpciones;
@@ -22,107 +23,122 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.Timer;
+import java.util.TimerTask;
+import jdk.nashorn.internal.codegen.CompilerConstants;
 
 /**
  *
  * @author alvar
  */
 public class LeerEscribirObjetos {
+
     FileOutputStream fos;
     ObjectOutputStream oos;
-    
+
     FileInputStream fis;
     ObjectInputStream ois;
-    
-    public void abrirEscritura(String name) throws FileNotFoundException, IOException{
-        File file=new File(name);
-        if(!file.exists()){
-            fos=new FileOutputStream(file);
-            oos=new ObjectOutputStream(fos);
+
+    public static int tiempoAutoguardado = 1;
+
+    public static int getTiempoAutoguardado() {
+        return tiempoAutoguardado;
+    }
+
+    public static void setTiempoAutoguardado(int tiempoAutoguardado) {
+        LeerEscribirObjetos.tiempoAutoguardado = tiempoAutoguardado*6000;
+    }
+
+    public void abrirEscritura(String name) throws FileNotFoundException, IOException {
+        File file = new File(name);
+        if (!file.exists()) {
+            fos = new FileOutputStream(file);
+            oos = new ObjectOutputStream(fos);
+        } else {
+            fos = new FileOutputStream(file, true);
+            oos = new AniadirObjetoEscritura(fos);
         }
-        else{
-            fos=new FileOutputStream(file,true);
-            oos=new AniadirObjetoEscritura(fos);
-        }
-    }   
-    public void escribirObjeto(Object o) throws IOException{
+    }
+
+    public void escribirObjeto(Object o) throws IOException {
         oos.writeObject(o);
     }
-    
-    public void cerrarEscritura() throws IOException{
+
+    public void cerrarEscritura() throws IOException {
         oos.close();
         fos.close();
     }
-    
-    public void abrirLectura(String name){
-        File file=new File(name);
+
+    public void abrirLectura(String name) {
+        File file = new File(name);
         try {
-            fis=new FileInputStream(file);
+            fis = new FileInputStream(file);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(LeerEscribirObjetos.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            ois=new ObjectInputStream(fis);
+            ois = new ObjectInputStream(fis);
         } catch (IOException ex) {
             Logger.getLogger(LeerEscribirObjetos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public Object leerObjeto() throws IOException, ClassNotFoundException{
+
+    public Object leerObjeto() throws IOException, ClassNotFoundException {
         return ois.readObject();
     }
-    
-    public void cerrarLectura() throws IOException{
+
+    public void cerrarLectura() throws IOException {
         ois.close();
         fis.close();
     }
-    public  void guardar(){
+
+    public void guardar() {
         //Las copias antiguas se mueven a copiasSeguridad
-        File copiasSeguridad=new File(".\\copiasSeguridad");
-        if(!copiasSeguridad.exists()){
+        File copiasSeguridad = new File(".\\copiasSeguridad");
+        if (!copiasSeguridad.exists()) {
             copiasSeguridad.mkdir();
         }
         //Sacamos los .dat existentes
-        File file=new File(".");
-        File[] archivosDat=file.listFiles(new FilenameFilter() {
+        File file = new File(".");
+        File[] archivosDat = file.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
-               // System.out.println(name);
+                // System.out.println(name);
                 return name.endsWith(".dat");
             }
         });
-        
+
         //Los movemos a //copias de seguridad
         //System.out.println(archivosDat.length);
-        for(File f: archivosDat){
-            File nuevo=new File((".\\copiasSeguridad\\"+f.getName()));
-           // System.out.println(f.getName());
+        for (File f : archivosDat) {
+            File nuevo = new File((".\\copiasSeguridad\\" + f.getName()));
+            // System.out.println(f.getName());
             f.renameTo(nuevo);
         }
-        
+
         //sacamos en una variable la fecha y hora de hoy
-        SimpleDateFormat sdf=new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss");
-        Date d=new Date();
-        String fecha=sdf.format(d);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss");
+        Date d = new Date();
+        String fecha = sdf.format(d);
 
         //guardar corredores
         try {
             //entramos en bucle para sacar corredores
-            for(Corredor co: LogicaCorredores.getListaCorredores()){
+            for (Corredor co : LogicaCorredores.getListaCorredores()) {
                 this.abrirEscritura(fecha.concat("_Corredores.dat"));
                 this.escribirObjeto(co);
                 this.cerrarEscritura();
             }
         } catch (IOException ex) {
             Logger.getLogger(PantallaOpciones.class.getName()).log(Level.SEVERE, null, ex);
-        }   
+        }
         //hasta aqui guardamos los corredores
-        
+
         //guardar carreras
         try {
             //entramos en bucle para sacar corredores
-          //  System.out.println(LogicaCarrera.getListaCarreras().size());
-            for(Carrera ca: LogicaCarrera.getListaCarreras()){
+            //  System.out.println(LogicaCarrera.getListaCarreras().size());
+            for (Carrera ca : LogicaCarrera.getListaCarreras()) {
                 this.abrirEscritura(fecha.concat("_Carreras.dat"));
                 this.escribirObjeto(ca);
                 this.cerrarEscritura();
@@ -130,13 +146,13 @@ public class LeerEscribirObjetos {
         } catch (IOException ex) {
             Logger.getLogger(PantallaOpciones.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }
 
-    public  void cargar() throws IOException, ClassNotFoundException{
+    public void cargar() throws IOException, ClassNotFoundException {
         //Cargar corredores
         //sacamos el nombre del archivo
-        File[] arCorredores=new File(".").listFiles(new FilenameFilter() {
+        File[] arCorredores = new File(".").listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
                 return name.endsWith("Corredores.dat");
@@ -144,55 +160,70 @@ public class LeerEscribirObjetos {
         });
         String nombreArchivo;
         //si hay algun archivo corredores cargamos
-        if(arCorredores.length>0){
-            nombreArchivo=arCorredores[0].getName();
+        if (arCorredores.length > 0) {
+            nombreArchivo = arCorredores[0].getName();
             //procemos a abrilo
             this.abrirLectura(nombreArchivo);
             //limpiamos los datos actuales
             LogicaCorredores.getListaCorredores().clear();
             //comenzamos lectura
-            Object aux=this.leerObjeto();
-            try{
-                while(aux!=null){
-                   // System.out.println("hola");
+            Object aux = this.leerObjeto();
+            try {
+                while (aux != null) {
+                    // System.out.println("hola");
                     //leemos le objeto
 
-                    if(aux instanceof Corredor){
+                    if (aux instanceof Corredor) {
                         LogicaCorredores.aniadirCorredor((Corredor) aux);
                     }
-                    aux=this.leerObjeto();
+                    aux = this.leerObjeto();
                 }
-            }catch(EOFException e){}
+            } catch (EOFException e) {
+            }
             //ceramos lectura
             this.cerrarLectura();
         }
         //aqui termina la carga de corredores
-        
+
         //Carga de carreras
-        File[] arCarrera=new File(".").listFiles(new FilenameFilter() {
+        File[] arCarrera = new File(".").listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
                 return name.endsWith("Carreras.dat");
             }
         });
-        if(arCarrera.length>0){
-            String name=arCarrera[0].getName();
+        if (arCarrera.length > 0) {
+            String name = arCarrera[0].getName();
             //abro lectura
             this.abrirLectura(name);
             //vacio las carreras acutales
             LogicaCarrera.getListaCarreras().clear();
             //objeto auxiliar
-            Object aux=null;
-            try{
-                while(true){
-                    aux=this.leerObjeto();
-                    if(aux instanceof Carrera){
+            Object aux = null;
+            try {
+                while (true) {
+                    aux = this.leerObjeto();
+                    if (aux instanceof Carrera) {
                         LogicaCarrera.aniadirCarrera((Carrera) aux);
                     }
                 }
-            }catch(EOFException e){}
+            } catch (EOFException e) {
+            }
             this.cerrarLectura();
         }
-        
+
+    }
+
+    public static void guardadoAutomático() {
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+                System.out.println(new Date().toString());
+               
+
+            }
+        },  0,1000*getTiempoAutoguardado() );
     }
 }
