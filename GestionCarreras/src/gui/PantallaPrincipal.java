@@ -10,9 +10,11 @@ import Logica.LookAndFeel;
 import gui.carreras.PantallaCarreras;
 import gui.corredores.PantallaCorredores;
 import gui.opciones.PantallaOpciones;
+import java.awt.Image;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -26,6 +28,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     public PantallaPrincipal() throws IOException, ClassNotFoundException {
         initComponents();
         leo.cargar();
+        this.establecerIcono();
         
     }
 
@@ -130,6 +133,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButtonSalirActionPerformed
 
+    public void establecerIcono(){
+        ImageIcon imageIcon=new ImageIcon("src/gui/Imagenes/race.png");
+        Image img=imageIcon.getImage();
+        this.setIconImage(img);            
+    }
     /**
      * @param args the command line arguments
      */
