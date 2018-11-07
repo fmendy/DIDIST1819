@@ -5,7 +5,6 @@
  */
 package Logica;
 
-import cronometro.Cronometro;
 import dto.Carrera;
 import dto.Corredor;
 import gui.opciones.PantallaOpciones;
@@ -17,7 +16,6 @@ import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -25,7 +23,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Timer;
 import java.util.TimerTask;
-import jdk.nashorn.internal.codegen.CompilerConstants;
 
 /**
  *
@@ -39,15 +36,7 @@ public class LeerEscribirObjetos {
     FileInputStream fis;
     ObjectInputStream ois;
 
-    public static int tiempoAutoguardado = 1;
 
-    public static int getTiempoAutoguardado() {
-        return tiempoAutoguardado;
-    }
-
-    public static void setTiempoAutoguardado(int tiempoAutoguardado) {
-        LeerEscribirObjetos.tiempoAutoguardado = tiempoAutoguardado*6000;
-    }
 
     public void abrirEscritura(String name) throws FileNotFoundException, IOException {
         File file = new File(name);
@@ -212,18 +201,5 @@ public class LeerEscribirObjetos {
             this.cerrarLectura();
         }
 
-    }
-
-    public static void guardadoAutomático() {
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-
-                System.out.println(new Date().toString());
-               
-
-            }
-        },  0,1000*getTiempoAutoguardado() );
     }
 }

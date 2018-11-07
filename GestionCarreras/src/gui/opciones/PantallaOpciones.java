@@ -5,6 +5,7 @@
  */
 package gui.opciones;
 
+import Logica.GuardadoAutomatico;
 import Logica.LeerEscribirObjetos;
 import gui.PantallaPrincipal;
 import java.awt.Frame;
@@ -151,7 +152,7 @@ public class PantallaOpciones extends javax.swing.JDialog {
         // TODO add your handling code here:
         //Sacamos el valor del deslizador
         int i=jSliderGuardadoAutomático.getValue();
-        LeerEscribirObjetos.setTiempoAutoguardado(i);
+        GuardadoAutomatico.cambiarTiempo(i);
         System.out.println(i);
         this.setVisible(false);
         

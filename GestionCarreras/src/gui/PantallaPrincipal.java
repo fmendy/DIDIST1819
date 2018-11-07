@@ -5,6 +5,7 @@
  */
 package gui;
 
+import Logica.GuardadoAutomatico;
 import Logica.LeerEscribirObjetos;
 import Logica.LookAndFeel;
 import gui.carreras.PantallaCarreras;
@@ -31,9 +32,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         //Establecemos Icono
         this.establecerIcono();
         //Empieza el autoguardado
-        LeerEscribirObjetos.guardadoAutomático();
-        
-        
+         GuardadoAutomatico.guardar();     
     }
 
     /**
@@ -134,6 +133,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
         // TODO add your handling code here:
         leo.guardar();
+        GuardadoAutomatico.cerrarGuardado();
         this.dispose();
     }//GEN-LAST:event_jButtonSalirActionPerformed
 
