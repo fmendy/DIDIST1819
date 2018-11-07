@@ -30,11 +30,13 @@
                   <Component id="jScrollPane1" min="-2" pref="326" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="cronometro1" pref="93" max="32767" attributes="0"/>
-                  <Component id="jButtonIniciar" alignment="0" max="32767" attributes="0"/>
-                  <Component id="jLabelSituacion" max="32767" attributes="0"/>
-                  <Component id="jButtonFinalizar" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="jButtonIniciar" alignment="0" max="32767" attributes="0"/>
+                      <Component id="jLabelSituacion" max="32767" attributes="0"/>
+                      <Component id="jButtonFinalizar" pref="93" max="32767" attributes="0"/>
+                  </Group>
+                  <Component id="cronometro1" alignment="0" min="-2" pref="93" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="172" max="32767" attributes="0"/>
           </Group>
@@ -92,11 +94,6 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonIniciarActionPerformed"/>
       </Events>
     </Component>
-    <Component class="cronometro.Cronometro" name="cronometro1">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cronometro1ActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabelNombreCarrera">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -121,6 +118,11 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonFinalizarActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="ElementosPersonalizados.Cronometro" name="cronometro1">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cronometro1ActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

@@ -95,10 +95,10 @@ public class PantallaCarrerasCorriendo extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableCorredoresNoLlegaron = new javax.swing.JTable();
         jButtonIniciar = new javax.swing.JButton();
-        cronometro1 = new cronometro.Cronometro();
         jLabelNombreCarrera = new javax.swing.JLabel();
         jLabelSituacion = new javax.swing.JLabel();
         jButtonFinalizar = new javax.swing.JButton();
+        cronometro1 = new ElementosPersonalizados.Cronometro();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -122,12 +122,6 @@ public class PantallaCarrerasCorriendo extends javax.swing.JDialog {
             }
         });
 
-        cronometro1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cronometro1ActionPerformed(evt);
-            }
-        });
-
         jLabelNombreCarrera.setFont(new java.awt.Font("Yu Gothic Medium", 1, 18)); // NOI18N
         jLabelNombreCarrera.setText("jLabel1");
         jLabelNombreCarrera.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
@@ -141,6 +135,12 @@ public class PantallaCarrerasCorriendo extends javax.swing.JDialog {
             }
         });
 
+        cronometro1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cronometro1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -151,11 +151,12 @@ public class PantallaCarrerasCorriendo extends javax.swing.JDialog {
                     .addComponent(jLabelNombreCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cronometro1, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
-                    .addComponent(jButtonIniciar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelSituacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonFinalizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jButtonIniciar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabelSituacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonFinalizar, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE))
+                    .addComponent(cronometro1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(172, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -189,13 +190,6 @@ public class PantallaCarrerasCorriendo extends javax.swing.JDialog {
         this.setDefaultCloseOperation(0);
     }//GEN-LAST:event_jButtonIniciarActionPerformed
 
-    private void cronometro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cronometro1ActionPerformed
-        // TODO add your handling code here:
-        PantallaCarraresLlegadaCorredor pclc = new PantallaCarraresLlegadaCorredor(pp, true, dorsalesSinLlegar, cronometro1.getText(), this.carrera);
-        pclc.setVisible(true);
-        rellenarTabla();
-    }//GEN-LAST:event_cronometro1ActionPerformed
-
     private void jButtonFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFinalizarActionPerformed
         // TODO add your handling code here:
         cronometro1.cerrarCronometro();
@@ -209,12 +203,20 @@ public class PantallaCarrerasCorriendo extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_jButtonFinalizarActionPerformed
 
+    private void cronometro1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cronometro1ActionPerformed
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        PantallaCarraresLlegadaCorredor pclc = new PantallaCarraresLlegadaCorredor(pp, true, dorsalesSinLlegar, cronometro1.getText(), this.carrera);
+        pclc.setVisible(true);
+        rellenarTabla();
+    }//GEN-LAST:event_cronometro1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private cronometro.Cronometro cronometro1;
+    private ElementosPersonalizados.Cronometro cronometro1;
     private javax.swing.JButton jButtonFinalizar;
     private javax.swing.JButton jButtonIniciar;
     private javax.swing.JLabel jLabelNombreCarrera;
