@@ -26,8 +26,9 @@ import Logica.LeerEscribirCSV;
 public class PantallaCorredores extends javax.swing.JDialog {
 
     //Atribtuos
-    private LeerEscribirCSV le=new LeerEscribirCSV();
+    private LeerEscribirCSV le = new LeerEscribirCSV();
     private PantallaPrincipal pantallaPrincipal;
+
     /**
      * Creates new form PantallaVerCorredores
      */
@@ -36,9 +37,9 @@ public class PantallaCorredores extends javax.swing.JDialog {
         initComponents();
         //jTableCorredores.setModel(new CorredoresTableModels(LogicaCorredores.getListaCorredores()));
         rellenarTabla();
-        pantallaPrincipal=(PantallaPrincipal)parent;
+        pantallaPrincipal = (PantallaPrincipal) parent;
         cargarImagenes();
-        
+
     }
 
     /**
@@ -168,25 +169,25 @@ public class PantallaCorredores extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void rellenarTabla(){
+    public void rellenarTabla() {
         //Creo el modelo
-        CorredoresTableModels ctm=new CorredoresTableModels(LogicaCorredores.getListaCorredores());
+        CorredoresTableModels ctm = new CorredoresTableModels(LogicaCorredores.getListaCorredores());
         jTableCorredores.setModel(ctm);
         //Hafo que se pueda ordenar
-        TableRowSorter<CorredoresTableModels> trw=new TableRowSorter<>(ctm);
+        TableRowSorter<CorredoresTableModels> trw = new TableRowSorter<>(ctm);
         //jTableCorredores.setModel(new CorredoresTableModels(LogicaCorredores.getListaCorredores()));
         jTableCorredores.setRowSorter(trw);
-        
-        
+
     }
-    public void cargarImagenes(){
+
+    public void cargarImagenes() {
         //Primero cargo la imagen Import
-        ImageIcon  imagen=new ImageIcon("src/gui/Imagenes/import-csv.png");
-        Icon icono=new ImageIcon(imagen.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+        ImageIcon imagen = new ImageIcon("src/gui/Imagenes/import-csv.png");
+        Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
         jButtonImportarCSV.setIcon(icono);
         //Despues cargo Export
-        imagen=new ImageIcon("src/gui/Imagenes/export-csv.png");
-        icono=new ImageIcon(imagen.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
+        imagen = new ImageIcon("src/gui/Imagenes/export-csv.png");
+        icono = new ImageIcon(imagen.getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
         jButtonExportarCSV.setIcon(icono);
         this.repaint();
     }
@@ -195,12 +196,12 @@ public class PantallaCorredores extends javax.swing.JDialog {
     }//GEN-LAST:event_jButtonSalirActionPerformed
 
     private void jButtonOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonOrdenarActionPerformed
-        try{
+        try {
             //Creo un array list vacio
-            List<Corredor> listaCorredorOrdenada=new ArrayList<>();
+            List<Corredor> listaCorredorOrdenada = new ArrayList<>();
             //Paso los valores de la list ordenada a un array nuevo
             //Si no se hiciera daria problemas a posteriori, porque la lista que genera es de tamaño fijo
-            for(Corredor c: LogicaCorredores.ordenarCorredores()){
+            for (Corredor c : LogicaCorredores.ordenarCorredores()) {
                 listaCorredorOrdenada.add(c);
             }
             //Paso la lista a la logica
@@ -208,117 +209,108 @@ public class PantallaCorredores extends javax.swing.JDialog {
             //Le mando que actualice la tabla.
             rellenarTabla();
             //jTableCorredores.setModel(new CorredoresTableModels(LogicaCorredores.getListaCorredores()));
-            
-            JOptionPane.showMessageDialog(this,"Datos ordenados","ordenar",JOptionPane.INFORMATION_MESSAGE);
-        }
-        catch(HeadlessException e){
-            JOptionPane.showMessageDialog(this, "Error al ordenar los datos","Ordenar",JOptionPane.ERROR);
+
+            JOptionPane.showMessageDialog(this, "Datos ordenados", "ordenar", JOptionPane.INFORMATION_MESSAGE);
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(this, "Error al ordenar los datos", "Ordenar", JOptionPane.ERROR);
         }
     }//GEN-LAST:event_jButtonOrdenarActionPerformed
 
     private void jButtonExportarCSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExportarCSVActionPerformed
-        if(LogicaCorredores.getListaCorredores().size()>0){
+        if (LogicaCorredores.getListaCorredores().size() > 0) {
             le.abrirEscritura("corredores.csv");
-            for(Corredor c:Logica.LogicaCorredores.getListaCorredores()){
+            for (Corredor c : Logica.LogicaCorredores.getListaCorredores()) {
                 le.escribirCSVCorredor(c);
             }
             le.cerrarEscritura();
-            JOptionPane.showMessageDialog(this, "Exportado correctamente","EXPORTAR",JOptionPane.INFORMATION_MESSAGE);
-        }
-        else{
-            JOptionPane.showMessageDialog(this, "No hay nada para exportar","exportar",JOptionPane.CANCEL_OPTION);
+            JOptionPane.showMessageDialog(this, "Exportado correctamente", "EXPORTAR", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "No hay nada para exportar", "exportar", JOptionPane.CANCEL_OPTION);
         }
     }//GEN-LAST:event_jButtonExportarCSVActionPerformed
 
     private void jButtonImportarCSVActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImportarCSVActionPerformed
-        
+
         Tokenizar tokenizar;
         Corredor c;
         //Vacio la lista actual;
         LogicaCorredores.setListaCorredores(new ArrayList<>());
-        try{
+        try {
             //Abro lectura
-            if(le.abrirLectura("corredores.csv")){
+            if (le.abrirLectura("corredores.csv")) {
                 //leo una linea
                 String linea;
-                linea=le.leerCSV();
-                while(linea!=null){
-                    tokenizar=new Tokenizar(linea);
+                linea = le.leerCSV();
+                while (linea != null) {
+                    tokenizar = new Tokenizar(linea);
                     //Creo corredor
-                    c=tokenizar.tokenizarCorredor();
+                    c = tokenizar.tokenizarCorredor();
                     //Lo añado
                     LogicaCorredores.aniadirCorredor(c);
-                    linea=le.leerCSV();
+                    linea = le.leerCSV();
                 }
                 //Terminamos la lectura y cerramos
                 le.cerrarLectura();
                 //Actualizamos la tabla
                 rellenarTabla();
                 JOptionPane.showMessageDialog(this, "Datos Importados correstamente", "Importacion", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "No existe el archivo a importar", "IMPORTAR", JOptionPane.CANCEL_OPTION);
             }
-            else{
-                JOptionPane.showMessageDialog(this, "No existe el archivo a importar","IMPORTAR",JOptionPane.CANCEL_OPTION);
-            }
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(this, "Error al importar", "IMPORTAR", JOptionPane.ERROR_MESSAGE);
         }
-        catch(HeadlessException e){
-            JOptionPane.showMessageDialog(this, "Error al importar","IMPORTAR",JOptionPane.ERROR_MESSAGE);
-        }
-        
+
     }//GEN-LAST:event_jButtonImportarCSVActionPerformed
 
     private void jButtonAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAltaActionPerformed
-        PantallaCorredoresAlta pca=new PantallaCorredoresAlta(pantallaPrincipal, true);
+        PantallaCorredoresAlta pca = new PantallaCorredoresAlta(pantallaPrincipal, true);
         pca.setVisible(true);
         rellenarTabla();
     }//GEN-LAST:event_jButtonAltaActionPerformed
 
     private void jButtonBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBajaActionPerformed
 
-        try{  
+        try {
             int fila = jTableCorredores.convertRowIndexToModel(jTableCorredores.getSelectedRow());
-            Corredor c=LogicaCorredores.getListaCorredores().get(fila);       
+            Corredor c = LogicaCorredores.getListaCorredores().get(fila);
             //confirmamos borrado
-            int opcion=JOptionPane.showConfirmDialog(this, "¿Esta seguro de eliminar a "+c.getNombre()+" ?", "Confirmacion", JOptionPane.YES_NO_OPTION);
-            if(opcion==JOptionPane.YES_OPTION){
+            int opcion = JOptionPane.showConfirmDialog(this, "¿Esta seguro de eliminar a " + c.getNombre() + " ?", "Confirmacion", JOptionPane.YES_NO_OPTION);
+            if (opcion == JOptionPane.YES_OPTION) {
                 //realizamos borrado
-                if(LogicaCorredores.eliminarCorredor(c)){
-                    JOptionPane.showMessageDialog(this, "Eliminado correctamente","Confirmado",JOptionPane.INFORMATION_MESSAGE);
+                if (LogicaCorredores.eliminarCorredor(c)) {
+                    JOptionPane.showMessageDialog(this, "Eliminado correctamente", "Confirmado", JOptionPane.INFORMATION_MESSAGE);
                     //Actulizamos la tabla
                     rellenarTabla();
-                }
-                else{
+                } else {
                     JOptionPane.showMessageDialog(this, "Error al eliminar", "Eliminar", JOptionPane.ERROR);
                 }
-           }               
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "No ha seleccionado ningun Corredor", "Borrado", JOptionPane.INFORMATION_MESSAGE);
         }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(this, "No ha seleccionado ningun Corredor","Borrado",JOptionPane.INFORMATION_MESSAGE);
-        }
-        
+
     }//GEN-LAST:event_jButtonBajaActionPerformed
 
     private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
         // TODO add your handling code here:      
         //Se comprueba que haya algo seleccionado
-        try{
+        try {
             int fila = jTableCorredores.convertRowIndexToModel(jTableCorredores.getSelectedRow());
             //Se crea el corredor
-            Corredor c=LogicaCorredores.getListaCorredores().get(fila);
+            Corredor c = LogicaCorredores.getListaCorredores().get(fila);
             //Abrmos la pantalla nueva
-            PantallaCorredoresModificar pantallaCorredoresModificar=new PantallaCorredoresModificar(pantallaPrincipal, true, c);
-            pantallaCorredoresModificar.setVisible(true);
+            PantallaCorredoresAlta pantallaCorredoresAlta = new PantallaCorredoresAlta(pantallaPrincipal, true, c);
+            pantallaCorredoresAlta.setVisible(true);
             rellenarTabla();
-        }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(this, "No ha seleccionado ningun Corredor","Borrado",JOptionPane.INFORMATION_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "No ha seleccionado ningun Corredor", "Borrado", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jButtonModificarActionPerformed
 
     /**
      * @param args the command line arguments
      */
-
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAlta;

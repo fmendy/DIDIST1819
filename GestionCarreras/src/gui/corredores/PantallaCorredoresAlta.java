@@ -15,14 +15,27 @@ import javax.swing.JOptionPane;
  */
 public class PantallaCorredoresAlta extends javax.swing.JDialog {
 
+    private Corredor corredorAntiguo;
     /**
      * Creates new form PantallaCorredoresAlta
      */
     public PantallaCorredoresAlta(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.jButtonModificar.setVisible(false);
     }
-
+    public PantallaCorredoresAlta(java.awt.Frame parent, boolean modal, Corredor corredor) {
+        super(parent, modal);      
+        initComponents();
+        this.corredorAntiguo=corredor;
+        jLabel6.setText("Modificar Corredor");
+        jTextFieldNombre.setText(this.corredorAntiguo.getNombre());
+        jTextFieldDNI.setText(this.corredorAntiguo.getDni());
+        jTextFieldDireccion.setText(this.corredorAntiguo.getDireccion());
+        jSpinnerFechaAlta.setValue(this.corredorAntiguo.getFecha());
+        jTextFieldTelefono.setText(String.valueOf(this.corredorAntiguo.getTelefono()));
+        this.jButtonAlta.setVisible(false);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -45,6 +58,7 @@ public class PantallaCorredoresAlta extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
         jButtonAlta = new javax.swing.JButton();
         jButtonSalir = new javax.swing.JButton();
+        jButtonModificar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -76,14 +90,21 @@ public class PantallaCorredoresAlta extends javax.swing.JDialog {
             }
         });
 
+        jButtonModificar.setText("Modificar");
+        jButtonModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonModificarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(33, 33, 33)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
@@ -98,9 +119,10 @@ public class PantallaCorredoresAlta extends javax.swing.JDialog {
                             .addComponent(jTextFieldTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jSpinnerFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(70, 70, 70)
+                        .addComponent(jButtonModificar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonAlta)
-                        .addGap(39, 39, 39)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonSalir)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -136,8 +158,9 @@ public class PantallaCorredoresAlta extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAlta)
-                    .addComponent(jButtonSalir))
-                .addContainerGap(35, Short.MAX_VALUE))
+                    .addComponent(jButtonSalir)
+                    .addComponent(jButtonModificar))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         pack();
@@ -194,6 +217,48 @@ public class PantallaCorredoresAlta extends javax.swing.JDialog {
         this.setVisible(false);
     }//GEN-LAST:event_jButtonSalirActionPerformed
 
+    private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
+        //Realizo comprobaciones de los campos
+        //nombre
+        if(Validaciones.jTextFieldContieneAlgo(jTextFieldNombre)){
+            //Telefono
+            if(Validaciones.jTextFieldTelefono(jTextFieldTelefono)){
+                //DNI
+                if(Validaciones.jTextFieldDNI(jTextFieldDNI)){
+                    //Direccion
+                    if(Validaciones.jTextFieldContieneAlgo(jTextFieldDireccion)){
+                        int opcion=JOptionPane.showConfirmDialog(this, "¿Está seguro de modificar?", "Confirmación", JOptionPane.YES_NO_CANCEL_OPTION);
+                        if(opcion==JOptionPane.YES_OPTION){
+                            //Creamos el corredor
+                            Corredor c=new Corredor(jTextFieldNombre.getText(), jTextFieldDNI.getText(),(Date) jSpinnerFechaAlta.getValue(), jTextFieldDireccion.getText(),Integer.parseInt(jTextFieldTelefono.getText()));
+                            //Se comprueba que este corredor no este ya dado de alta
+                            Logica.LogicaCorredores.actualizarCorredor(c, corredorAntiguo);
+                            JOptionPane.showMessageDialog(this, "Corredor actualizado","Actualizado", JOptionPane.INFORMATION_MESSAGE);
+                            this.setVisible(false);
+                        }
+                        else if(opcion==JOptionPane.NO_OPTION){
+                            //Si dice no cerramos la ventana
+                            this.setVisible(false);
+                        }
+                        //Si no dice nada queda como esta
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(this, "La direccion no es correcto", "ERROR DIRECCION", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "El DNI no es correcto", "ERROR DNI", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "El telefono no es correcto", "ERROR TLF", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "El nombre no es correcto", "ERROR NOMBRE", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButtonModificarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -201,6 +266,7 @@ public class PantallaCorredoresAlta extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAlta;
+    private javax.swing.JButton jButtonModificar;
     private javax.swing.JButton jButtonSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
