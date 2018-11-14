@@ -194,11 +194,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 HelpBroker hb=helpset.createHelpBroker();
                 
                 //cargar las ayudas
-                hb.enableHelp(jMenuItemMenuAyuda, "indice", helpset);
-                hb.enableHelp(getRootPane(), "indice", helpset);
-                hb.enableHelp(jMenuItemCorredor, "ayuda_corredor", helpset);
-                hb.enableHelp(jMenuItemCarrera, "ayuda_carrera", helpset);
-                hb.enableHelp(jMenuItemCarreraCorriendo, "ayuda_carrera_corriendo", helpset);
+                hb.enableHelpOnButton(jMenuItemMenuAyuda, "indice", helpset);
+                hb.enableHelpKey(getRootPane(), "indice", helpset);
+                hb.enableHelpOnButton(jMenuItemCorredor, "ayuda_corredor", helpset);
+                hb.enableHelpOnButton(jMenuItemCarrera, "ayuda_carrera", helpset);
+                hb.enableHelpOnButton(jMenuItemCarreraCorriendo, "ayuda_carrera_corriendo", helpset);
                 
                 
                 
