@@ -5,6 +5,7 @@
  */
 package gui;
 
+
 import Logica.GuardadoAutomatico;
 import Logica.LeerEscribirObjetos;
 import Logica.LookAndFeel;
@@ -12,9 +13,15 @@ import gui.carreras.PantallaCarreras;
 import gui.corredores.PantallaCorredores;
 import gui.opciones.PantallaOpciones;
 import java.awt.Image;
+import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.help.HelpBroker;
+import javax.help.HelpSet;
+import javax.help.HelpSetException;
 import javax.swing.ImageIcon;
 
 /**
@@ -32,7 +39,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         //Establecemos Icono
         this.establecerIcono();
         //Empieza el autoguardado
-         GuardadoAutomatico.guardar();     
+         GuardadoAutomatico.guardar();   
+         //Cargar las ayudas
+         mostrarAyuda();
     }
 
     /**
@@ -48,6 +57,12 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jButtonCarreras = new javax.swing.JButton();
         jButtonOpciones = new javax.swing.JButton();
         jButtonSalir = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenuAyuda = new javax.swing.JMenu();
+        jMenuItemMenuAyuda = new javax.swing.JMenuItem();
+        jMenuItemCorredor = new javax.swing.JMenuItem();
+        jMenuItemCarrera = new javax.swing.JMenuItem();
+        jMenuItemCarreraCorriendo = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,6 +94,28 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jMenuAyuda.setText("Ayuda...");
+
+        jMenuItemMenuAyuda.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK));
+        jMenuItemMenuAyuda.setText("Menu Ayuda");
+        jMenuAyuda.add(jMenuItemMenuAyuda);
+
+        jMenuItemCorredor.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.ALT_MASK));
+        jMenuItemCorredor.setText("Corredor");
+        jMenuAyuda.add(jMenuItemCorredor);
+
+        jMenuItemCarrera.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
+        jMenuItemCarrera.setText("Carrera");
+        jMenuAyuda.add(jMenuItemCarrera);
+
+        jMenuItemCarreraCorriendo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.ALT_MASK));
+        jMenuItemCarreraCorriendo.setText("CarreraCorriendo");
+        jMenuAyuda.add(jMenuItemCarreraCorriendo);
+
+        jMenuBar1.add(jMenuAyuda);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -105,7 +142,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCarreras)
                     .addComponent(jButtonSalir))
-                .addContainerGap(126, Short.MAX_VALUE))
+                .addContainerGap(105, Short.MAX_VALUE))
         );
 
         pack();
@@ -141,6 +178,36 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         ImageIcon imageIcon=new ImageIcon("src/gui/Imagenes/race.png");
         Image img=imageIcon.getImage();
         this.setIconImage(img);            
+    }
+    public  void mostrarAyuda(){
+        //Se carga el fichero de ayuda
+        File file=new File("JavaHelp"+File.separator+"help_set.hs");
+        try {
+            URL url=file.toURI().toURL();
+
+            System.out.println(url);
+            
+            try {
+                //Se crea el helpset
+                HelpSet helpset=new HelpSet(getClass().getClassLoader(), url);
+                //Se crea el helpBroker
+                HelpBroker hb=helpset.createHelpBroker();
+                
+                //cargar las ayudas
+                hb.enableHelp(jMenuItemMenuAyuda, "indice", helpset);
+                hb.enableHelp(getRootPane(), "indice", helpset);
+                hb.enableHelp(jMenuItemCorredor, "ayuda_corredor", helpset);
+                hb.enableHelp(jMenuItemCarrera, "ayuda_carrera", helpset);
+                hb.enableHelp(jMenuItemCarreraCorriendo, "ayuda_carrera_corriendo", helpset);
+                
+                
+                
+            } catch (HelpSetException ex) {
+                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     /**
      * @param args the command line arguments
@@ -188,5 +255,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButtonCorredores;
     private javax.swing.JButton jButtonOpciones;
     private javax.swing.JButton jButtonSalir;
+    private javax.swing.JMenu jMenuAyuda;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItemCarrera;
+    private javax.swing.JMenuItem jMenuItemCarreraCorriendo;
+    private javax.swing.JMenuItem jMenuItemCorredor;
+    private javax.swing.JMenuItem jMenuItemMenuAyuda;
     // End of variables declaration//GEN-END:variables
 }

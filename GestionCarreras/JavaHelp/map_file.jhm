@@ -2,4 +2,5 @@
 	<mapID target="indice" url="html/AyudaPrincipal.html">
 	<mapID target="ayuda_corredor" url="html/AyudaCorredor.html">
 	<mapID target="ayuda_carrera" url="html/AyudaCarrera.html">
+	<mapID target="ayuda_carrera_corriendo" url="html/AyudaCarreraCorriendo.html">
 </map>
