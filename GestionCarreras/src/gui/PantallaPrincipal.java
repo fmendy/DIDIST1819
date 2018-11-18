@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.help.HelpBroker;
@@ -42,6 +43,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
          GuardadoAutomatico.guardar();   
          //Cargar las ayudas
          mostrarAyuda();
+         //Establecmos el pais de la aplicacion
+         Locale.setDefault(new Locale("es","ES"));
     }
 
     /**
@@ -171,6 +174,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         leo.guardar();
         GuardadoAutomatico.cerrarGuardado();
+
         this.dispose();
     }//GEN-LAST:event_jButtonSalirActionPerformed
 

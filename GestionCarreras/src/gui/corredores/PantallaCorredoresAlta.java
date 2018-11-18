@@ -4,10 +4,17 @@
  * and open the template in the editor.
  */
 package gui.corredores;
+
 import Logica.Validaciones;
 import dto.Corredor;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import org.netbeans.validation.api.builtin.stringvalidation.NumeroTelofono;
+import org.netbeans.validation.api.builtin.stringvalidation.StringValidators;
+import org.netbeans.validation.api.builtin.stringvalidation.ValidacionDNI;
+import org.netbeans.validation.api.ui.ValidationGroup;
 
 /**
  *
@@ -16,6 +23,7 @@ import javax.swing.JOptionPane;
 public class PantallaCorredoresAlta extends javax.swing.JDialog {
 
     private Corredor corredorAntiguo;
+
     /**
      * Creates new form PantallaCorredoresAlta
      */
@@ -23,11 +31,14 @@ public class PantallaCorredoresAlta extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.jButtonModificar.setVisible(false);
+
+        validar();
     }
+
     public PantallaCorredoresAlta(java.awt.Frame parent, boolean modal, Corredor corredor) {
-        super(parent, modal);      
+        super(parent, modal);
         initComponents();
-        this.corredorAntiguo=corredor;
+        this.corredorAntiguo = corredor;
         jLabel6.setText("Modificar Corredor");
         jTextFieldNombre.setText(this.corredorAntiguo.getNombre());
         jTextFieldDNI.setText(this.corredorAntiguo.getDni());
@@ -35,7 +46,9 @@ public class PantallaCorredoresAlta extends javax.swing.JDialog {
         jSpinnerFechaAlta.setValue(this.corredorAntiguo.getFecha());
         jTextFieldTelefono.setText(String.valueOf(this.corredorAntiguo.getTelefono()));
         this.jButtonAlta.setVisible(false);
+        validar();
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -59,14 +72,23 @@ public class PantallaCorredoresAlta extends javax.swing.JDialog {
         jButtonAlta = new javax.swing.JButton();
         jButtonSalir = new javax.swing.JButton();
         jButtonModificar = new javax.swing.JButton();
+        validationPanel = new org.netbeans.validation.api.ui.swing.ValidationPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Nombre:");
 
+        jTextFieldNombre.setName("Nombre"); // NOI18N
+
+        jTextFieldDNI.setName("DNI"); // NOI18N
+
         jLabel2.setText("DNI:");
 
         jLabel3.setText("Dirección:");
+
+        jTextFieldDireccion.setName("Direccion"); // NOI18N
+
+        jTextFieldTelefono.setName("Telefono"); // NOI18N
 
         jLabel4.setText("Teléfono:");
 
@@ -101,34 +123,38 @@ public class PantallaCorredoresAlta extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(35, 35, 35)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextFieldTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSpinnerFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButtonModificar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonAlta)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonSalir)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(35, 35, 35)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jTextFieldDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextFieldDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextFieldTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jSpinnerFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButtonModificar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButtonAlta)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButtonSalir)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(validationPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,56 +186,33 @@ public class PantallaCorredoresAlta extends javax.swing.JDialog {
                     .addComponent(jButtonAlta)
                     .addComponent(jButtonSalir)
                     .addComponent(jButtonModificar))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addGap(30, 30, 30)
+                .addComponent(validationPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAltaActionPerformed
-        //Realizo comprobaciones de los campos
-        //nombre
-        if(Validaciones.jTextFieldContieneAlgo(jTextFieldNombre)){
-            //Telefono
-            if(Validaciones.jTextFieldTelefono(jTextFieldTelefono)){
-            //DNI
-                if(Validaciones.jTextFieldDNI(jTextFieldDNI)){
-                //Direccion
-                    if(Validaciones.jTextFieldContieneAlgo(jTextFieldDireccion)){
-                        int opcion=JOptionPane.showConfirmDialog(this, "¿Está seguro de dar de alta?", "Confirmación", JOptionPane.YES_NO_CANCEL_OPTION);
-                        if(opcion==JOptionPane.YES_OPTION){
-                          //Creamos el corredor
-                          Corredor c=new Corredor(jTextFieldNombre.getText(), jTextFieldDNI.getText(),(Date) jSpinnerFechaAlta.getValue(), jTextFieldDireccion.getText(),Integer.parseInt(jTextFieldTelefono.getText()));
-                          //Se comprueba que este corredor no este ya dado de alta
-                          if(!Logica.LogicaCorredores.getListaCorredores().contains(c)){
-                                Logica.LogicaCorredores.aniadirCorredor(c);
-                                JOptionPane.showMessageDialog(this, "Corredor Inscrito","INSCRITO",JOptionPane.INFORMATION_MESSAGE);
-                                this.setVisible(false);
-                          }else{
-                                JOptionPane.showMessageDialog(this, "Este corredor ya esta dado de alta, no se puede volver a inscribir", "ERROR CORREDOR DUPLICADO", JOptionPane.ERROR_MESSAGE);
-                          }                         
-                        }
-                        else if(opcion==JOptionPane.NO_OPTION){
-                            //Si dice no cerramos la ventana
-                            this.setVisible(false);
-                        }
-                        //Si no dice nada queda como esta                     
-                    }
-                    else{
-                        JOptionPane.showMessageDialog(this, "La direccion no es correcto", "ERROR DIRECCION", JOptionPane.ERROR_MESSAGE);
-                    }
-                }
-                else{
-                    JOptionPane.showMessageDialog(this, "El DNI no es correcto", "ERROR DNI", JOptionPane.ERROR_MESSAGE);
-                }
+
+        int opcion = JOptionPane.showConfirmDialog(this, "¿Está seguro de dar de alta?", "Confirmación", JOptionPane.YES_NO_CANCEL_OPTION);
+        if (opcion == JOptionPane.YES_OPTION) {
+            //Creamos el corredor
+            Corredor c = new Corredor(jTextFieldNombre.getText(), jTextFieldDNI.getText(), (Date) jSpinnerFechaAlta.getValue(), jTextFieldDireccion.getText(), Integer.parseInt(jTextFieldTelefono.getText()));
+            //Se comprueba que este corredor no este ya dado de alta
+            if (!Logica.LogicaCorredores.getListaCorredores().contains(c)) {
+                Logica.LogicaCorredores.aniadirCorredor(c);
+                JOptionPane.showMessageDialog(this, "Corredor Inscrito", "INSCRITO", JOptionPane.INFORMATION_MESSAGE);
+                this.setVisible(false);
+            } else {
+                JOptionPane.showMessageDialog(this, "Este corredor ya esta dado de alta, no se puede volver a inscribir", "ERROR CORREDOR DUPLICADO", JOptionPane.ERROR_MESSAGE);
             }
-            else{
-                JOptionPane.showMessageDialog(this, "El telefono no es correcto", "ERROR TLF", JOptionPane.ERROR_MESSAGE);
-            }
+        } else if (opcion == JOptionPane.NO_OPTION) {
+            //Si dice no cerramos la ventana
+            this.setVisible(false);
         }
-        else{
-            JOptionPane.showMessageDialog(this, "El nombre no es correcto", "ERROR NOMBRE", JOptionPane.ERROR_MESSAGE);
-        }
+        //Si no dice nada queda como esta                     
     }//GEN-LAST:event_jButtonAltaActionPerformed
 
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
@@ -219,50 +222,63 @@ public class PantallaCorredoresAlta extends javax.swing.JDialog {
 
     private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
         //Realizo comprobaciones de los campos
-        //nombre
-        if(Validaciones.jTextFieldContieneAlgo(jTextFieldNombre)){
-            //Telefono
-            if(Validaciones.jTextFieldTelefono(jTextFieldTelefono)){
-                //DNI
-                if(Validaciones.jTextFieldDNI(jTextFieldDNI)){
-                    //Direccion
-                    if(Validaciones.jTextFieldContieneAlgo(jTextFieldDireccion)){
-                        int opcion=JOptionPane.showConfirmDialog(this, "¿Está seguro de modificar?", "Confirmación", JOptionPane.YES_NO_CANCEL_OPTION);
-                        if(opcion==JOptionPane.YES_OPTION){
-                            //Creamos el corredor
-                            Corredor c=new Corredor(jTextFieldNombre.getText(), jTextFieldDNI.getText(),(Date) jSpinnerFechaAlta.getValue(), jTextFieldDireccion.getText(),Integer.parseInt(jTextFieldTelefono.getText()));
-                            //Se comprueba que este corredor no este ya dado de alta
-                            Logica.LogicaCorredores.actualizarCorredor(c, corredorAntiguo);
-                            JOptionPane.showMessageDialog(this, "Corredor actualizado","Actualizado", JOptionPane.INFORMATION_MESSAGE);
-                            this.setVisible(false);
-                        }
-                        else if(opcion==JOptionPane.NO_OPTION){
-                            //Si dice no cerramos la ventana
-                            this.setVisible(false);
-                        }
-                        //Si no dice nada queda como esta
-                    }
-                    else{
-                        JOptionPane.showMessageDialog(this, "La direccion no es correcto", "ERROR DIRECCION", JOptionPane.ERROR_MESSAGE);
-                    }
-                }
-                else{
-                    JOptionPane.showMessageDialog(this, "El DNI no es correcto", "ERROR DNI", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-            else{
-                JOptionPane.showMessageDialog(this, "El telefono no es correcto", "ERROR TLF", JOptionPane.ERROR_MESSAGE);
-            }
+
+        int opcion = JOptionPane.showConfirmDialog(this, "¿Está seguro de modificar?", "Confirmación", JOptionPane.YES_NO_CANCEL_OPTION);
+        if (opcion == JOptionPane.YES_OPTION) {
+            //Creamos el corredor
+            Corredor c = new Corredor(jTextFieldNombre.getText(), jTextFieldDNI.getText(), (Date) jSpinnerFechaAlta.getValue(), jTextFieldDireccion.getText(), Integer.parseInt(jTextFieldTelefono.getText()));
+            //Se comprueba que este corredor no este ya dado de alta
+            Logica.LogicaCorredores.actualizarCorredor(c, corredorAntiguo);
+            JOptionPane.showMessageDialog(this, "Corredor actualizado", "Actualizado", JOptionPane.INFORMATION_MESSAGE);
+            this.setVisible(false);
+        } else if (opcion == JOptionPane.NO_OPTION) {
+            //Si dice no cerramos la ventana
+            this.setVisible(false);
         }
-        else{
-            JOptionPane.showMessageDialog(this, "El nombre no es correcto", "ERROR NOMBRE", JOptionPane.ERROR_MESSAGE);
-        }
+
+
     }//GEN-LAST:event_jButtonModificarActionPerformed
+
+    public void validar() {
+        //Establecemos los botones como no activos
+        jButtonAlta.setEnabled(false);
+        jButtonModificar.setEnabled(false);
+        //Creamos le grupo de validacion
+        ValidationGroup group = validationPanel.getValidationGroup();
+        //El nombre no puede estar vacio
+        group.add(jTextFieldNombre, StringValidators.REQUIRE_NON_EMPTY_STRING);
+        //la direccion no puede estar vacia
+        group.add(jTextFieldDireccion, StringValidators.REQUIRE_NON_EMPTY_STRING);
+        //El telofono tiene que ser un numero
+        group.add(jTextFieldTelefono, StringValidators.REQUIRE_VALID_NUMBER);
+        //El telofono no puede estar vacio
+        group.add(jTextFieldTelefono, StringValidators.REQUIRE_NON_EMPTY_STRING);
+        //El telofono no puede ser un numero negativo
+        group.add(jTextFieldTelefono, StringValidators.REQUIRE_NON_NEGATIVE_NUMBER);
+        //Comprobar que un tlf valido
+        group.add(jTextFieldTelefono, new NumeroTelofono());
+        //validar el dni
+        group.add(jTextFieldDNI, new ValidacionDNI());
+
+        //Cada vez que se introduce algo se escucha
+        validationPanel.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                // si no devuelve error, se abren los botones
+                if (validationPanel.getProblem() == null) {
+                    jButtonAlta.setEnabled(true);
+                    jButtonModificar.setEnabled(true);
+                } else {
+                    jButtonAlta.setEnabled(false);
+                    jButtonModificar.setEnabled(false);
+                }
+            }
+        });
+    }
 
     /**
      * @param args the command line arguments
      */
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAlta;
@@ -279,5 +295,6 @@ public class PantallaCorredoresAlta extends javax.swing.JDialog {
     private javax.swing.JTextField jTextFieldDireccion;
     private javax.swing.JTextField jTextFieldNombre;
     private javax.swing.JTextField jTextFieldTelefono;
+    private org.netbeans.validation.api.ui.swing.ValidationPanel validationPanel;
     // End of variables declaration//GEN-END:variables
 }
