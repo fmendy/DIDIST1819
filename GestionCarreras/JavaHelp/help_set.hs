@@ -7,12 +7,11 @@
 		<mapref location="map_file.jhm">
 	</maps>
 	<view>
-		<!-- Las vistas que se van a mostrar-->
-		<name>Tabla de contenidos</name>
-		<label>Table de contenidos</label>
-		<type>java.help.TOCView</type>
-		<data>toc.xml</toc>
-	</view>	
+        <name>Tabla Contenidos</name>
+        <label>Tabla de contenidos</label>
+        <type>javax.help.TOCView</type>
+        <data>toc.xml</data>
+    </view>	
 	<view>
 		<!-- Indicie por el que se busca-->
 		<name>Indice</name>

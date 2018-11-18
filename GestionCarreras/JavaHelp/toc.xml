@@ -1,7 +1,10 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <toc version="1.0">
-	<tocitem text="Indice" target target="indice">
-		<tocitem text="Corredor" target target="ayuda_corredor"/>
+	<tocitem text="Indice"  target="Indice" >
+		<tocitem text="Corredor"  target="ayuda_corredor"/>
 		<tocitem text="Carrera"  target="ayuda_carrera"/>
 		<tocitem text="Carrera Corriendo" target="ayuda_carrera_corriendo"/>
 	</tocitem>
 </toc>
+
+
