@@ -20,10 +20,12 @@ public class GuardadoAutomatico {
     private static boolean cerrarGuardado;
     private static boolean guardando;
 
+    //Metodo para el guardado
     public static void guardar() {
         timer=new Timer();
         timer.schedule(new TimerTask() {
             @Override
+            //Se ejecuta cada X tiempo, que por defecto es 1 minuto
             public void run() {
                 //ponemos la variable guardando a true
                 guardando = true;
@@ -46,6 +48,7 @@ public class GuardadoAutomatico {
         while(guardando){
             //entra en un bulcle vacio hasta que termine de guardar
         }
+        //Cancela el tiemp acutal
         timer.cancel();
         guardar();
     }

@@ -21,8 +21,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  *
@@ -83,7 +81,7 @@ public class LeerEscribirObjetos {
 
     public void guardar() {
         //Las copias antiguas se mueven a copiasSeguridad
-        File copiasSeguridad = new File(".\\copiasSeguridad");
+        File copiasSeguridad = new File("."+File.separator+"copiasSeguridad");
         if (!copiasSeguridad.exists()) {
             copiasSeguridad.mkdir();
         }
@@ -100,7 +98,7 @@ public class LeerEscribirObjetos {
         //Los movemos a //copias de seguridad
         //System.out.println(archivosDat.length);
         for (File f : archivosDat) {
-            File nuevo = new File((".\\copiasSeguridad\\" + f.getName()));
+            File nuevo = new File(("."+File.separator+"copiasSeguridad"+File.separator + f.getName()));
             // System.out.println(f.getName());
             f.renameTo(nuevo);
         }
@@ -159,7 +157,6 @@ public class LeerEscribirObjetos {
             Object aux = this.leerObjeto();
             try {
                 while (aux != null) {
-                    // System.out.println("hola");
                     //leemos le objeto
 
                     if (aux instanceof Corredor) {

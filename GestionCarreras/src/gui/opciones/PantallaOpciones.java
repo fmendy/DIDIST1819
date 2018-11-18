@@ -14,11 +14,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import javax.swing.LookAndFeel;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
-import javax.swing.UnsupportedLookAndFeelException;
+
 
 /**
  *
@@ -164,6 +162,7 @@ public class PantallaOpciones extends javax.swing.JDialog {
         int seleccionado = jComboBoxLookAndFeel.getSelectedIndex();
         //Cargo el lookAndFell
         LookAndFeelInfo lafi = UIManager.getInstalledLookAndFeels()[seleccionado];
+        //Se cambia el nombre de la variable statica de estilo look and fell
         Logica.LookAndFeel.cambiarLookAndFeel(lafi.getClassName());
         Logica.LookAndFeel.actulizarLookAndFeel(this);
     }//GEN-LAST:event_jComboBoxLookAndFeelActionPerformed

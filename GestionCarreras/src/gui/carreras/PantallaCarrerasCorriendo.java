@@ -195,11 +195,6 @@ public class PantallaCarrerasCorriendo extends javax.swing.JDialog {
         cronometro1.cerrarCronometro();
         LeerEscribirCSV lec=new LeerEscribirCSV();
         lec.escribirClasificacionCarrera(carrera);
-       /* LeerEscribirCSV lec = new LeerEscribirCSV();
-        lec.abrirEscritura(carrera.getNombre().trim().toUpperCase() + ".csv");
-        lec.escribirCSVCarrera(carrera);
-        lec.cerrarEscritura();*/
-        // this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_jButtonFinalizarActionPerformed
 

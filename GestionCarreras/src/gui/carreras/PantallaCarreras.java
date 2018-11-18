@@ -5,14 +5,11 @@
  */
 package gui.carreras;
 
-import Logica.Fechas;
 import Logica.LogicaCarrera;
 import dto.Carrera;
 import gui.PantallaPrincipal;
 import gui.TableModels.CarrerasTableModels;
-import java.util.Date;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.RowFilter;
 import javax.swing.table.TableRowSorter;
 
@@ -178,7 +175,8 @@ public class PantallaCarreras extends javax.swing.JDialog {
         //Se indica que se puede ordenar
         TableRowSorter<CarrerasTableModels> trsNoFinalizafa = new TableRowSorter<>(ctm);
         jTableCarreraNOFinalizada.setRowSorter(trsNoFinalizafa);
-        //Filtramos
+        //Filtramos, indicando que solo aparezcan, aquellas carreras
+        // que en el campo 4 su valor sea false
         RowFilter<CarrerasTableModels, Integer> rf = RowFilter.regexFilter("False", 4);
         trsNoFinalizafa.setRowFilter(rf);
         //Hacemos que la columna de si esta terminada, no sea visible
@@ -193,7 +191,8 @@ public class PantallaCarreras extends javax.swing.JDialog {
         //Se indica que se puede ordenar
         TableRowSorter<CarrerasTableModels> trsFinalizafa = new TableRowSorter<>(ctm);
         jTableCarreraFinalizada.setRowSorter(trsFinalizafa);
-        //Filtramos
+        //Filtramos, indicando que solo aparezcan, aquellas carreras
+        // que en el campo 4 su valor sea true
         rf = RowFilter.regexFilter("True", 4);
         trsFinalizafa.setRowFilter(rf);
         //Hacemos que la columna de si esta terminada, no sea visible
@@ -208,7 +207,6 @@ public class PantallaCarreras extends javax.swing.JDialog {
         PantallaCarrerasAlta pca = new PantallaCarrerasAlta(pp, true);
         pca.setVisible(true);
         rellenarTabla();
-        //jTableCarreraNOFinalizada.setModel(new CarrerasTableModels(Logica.LogicaCarrera.listaCarrerasNoFinalizadas()));
 
     }//GEN-LAST:event_jButtonAltaActionPerformed
 

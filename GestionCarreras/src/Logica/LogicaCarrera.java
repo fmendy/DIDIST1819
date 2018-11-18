@@ -8,10 +8,8 @@ package Logica;
 import dto.Carrera;
 import dto.Corredor;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,25 +17,19 @@ import javax.swing.JOptionPane;
  */
 public class LogicaCarrera {
 
+    //Lista que almacena la informacion de todas las carreras
     private static List<Carrera> listaCarreras = new ArrayList<>();
 
     public static List<Carrera> getListaCarreras() {
         return listaCarreras;
     }
 
-//    public static List<Carrera> listaCarrerasNoFinalizadas(){
-//        List<Carrera> lcnf=new ArrayList<>();
-//        for(Carrera c:listaCarreras){
-//            if(!c.isFinalizada()){
-//                lcnf.add(c);
-//            }
-//        }    
-//        return lcnf;
-//    }
+    //Metodo para añiadir una carrera
     public static void aniadirCarrera(Carrera c) {
         listaCarreras.add(c);
     }
 
+    //Incribicione de corredorees
     public static void inscribirCorredor(Carrera carrera, Corredor corredor) {
         boolean inscrito = false;
         //dorsal empieza en 1
@@ -87,10 +79,7 @@ public class LogicaCarrera {
         listaCarreras.get(pvieja).setFechaCarrera(nueva.getFechaCarrera());
     }
 
-//    public static void corredorLlega(Carrera c, int i, String s) {
-//        int pos = listaCarreras.indexOf(c);
-//        listaCarreras.get(pos).getClasificacion().put(i, s);
-//    }
+
     
         public static void corredorLlega(Carrera carrera, int dorsal, String tiempo) {
         int posCarrera = listaCarreras.indexOf(carrera);    
@@ -117,8 +106,11 @@ public class LogicaCarrera {
     }
     
     public static void inicializarClasificacion(Carrera c){
+        //Sacamos la posicion de la carrera en la lista de carreras
         int pos = listaCarreras.indexOf(c);
+        //Sacamos el numero de inscritos en la carrera
         int tamanoCarrera=listaCarreras.get(pos).getCorredoresInscritos().size();
+        // Se inicializa la clasifciacion
         listaCarreras.get(pos).setClasificacion(new String[tamanoCarrera][2]);
     }
 }

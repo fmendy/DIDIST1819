@@ -12,7 +12,9 @@ import java.io.OutputStream;
 /**
  *
  * @author alvar
+ * clase que se utiliza para poder anidar varios objetos en un mismo archivo
  */
+
 public class AniadirObjetoEscritura extends ObjectOutputStream {
 
     public AniadirObjetoEscritura(OutputStream out) throws IOException {

@@ -14,7 +14,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Iterator;
+
 
 /**
  *
@@ -131,7 +131,7 @@ public class LeerEscribirCSV {
         if (!file.exists()) {
             file.mkdir();
         }
-        abrirEscritura(file.getName() + "//" + c.getNombre() + ".csv");
+        abrirEscritura(file.getName() + File.separator + c.getNombre() + ".csv");
         escribirCSVCarrera(c);
         cerrarEscritura();
     }

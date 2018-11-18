@@ -167,6 +167,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         PantallaOpciones po=new PantallaOpciones(this, true);
         po.setVisible(true);
+        //Al volver de la pantalla de opciones, se recarga el lookandfell
         LookAndFeel.actulizarLookAndFeel(this);
     }//GEN-LAST:event_jButtonOpcionesActionPerformed
 

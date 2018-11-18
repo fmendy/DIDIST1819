@@ -21,7 +21,6 @@ public class Carrera implements Serializable {
     private String lugar;
     private int participantesMaximos;
     private HashMap<Integer, Corredor> corredoresInscritos;
-   //private HashMap<Integer, String> clasificacion;
     private String[][] clasificacion;
     private boolean finalizada;
 
@@ -43,15 +42,6 @@ public class Carrera implements Serializable {
         this.clasificacion = clasificacion;
     }
     
-
-//    public HashMap<Integer, String> getClasificacion() {
-//        return clasificacion;
-//    }
-//
-//    public void setClasificacion(HashMap<Integer, String> clasificacion) {
-//        this.clasificacion = clasificacion;
-//    }
-
     public String getNombre() {
         return nombre;
     }
