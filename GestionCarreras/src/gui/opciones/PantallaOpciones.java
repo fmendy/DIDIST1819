@@ -16,6 +16,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 
 /**
@@ -39,6 +41,10 @@ public class PantallaOpciones extends javax.swing.JDialog {
             dcb.addElement(l.getName());
         }
         jComboBoxLookAndFeel.setModel(dcb);
+        //Damos valor a jLabel con el valor actual de Autoguardado
+        jLabelTiempoGuardado.setText("10");
+        actualizarLabelGuardado();
+        
     }
 
     /**
@@ -56,6 +62,7 @@ public class PantallaOpciones extends javax.swing.JDialog {
         jButtonGuardar = new javax.swing.JButton();
         jSliderGuardadoAutomático = new javax.swing.JSlider();
         jButtonSalir = new javax.swing.JButton();
+        jLabelTiempoGuardado = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -90,6 +97,11 @@ public class PantallaOpciones extends javax.swing.JDialog {
         jSliderGuardadoAutomático.setToolTipText("");
         jSliderGuardadoAutomático.setValue(10);
         jSliderGuardadoAutomático.setBorder(javax.swing.BorderFactory.createTitledBorder("Guardado Automático"));
+        jSliderGuardadoAutomático.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jSliderGuardadoAutomáticoPropertyChange(evt);
+            }
+        });
         jPanel1.add(jSliderGuardadoAutomático);
 
         jButtonSalir.setText("Salir");
@@ -100,6 +112,8 @@ public class PantallaOpciones extends javax.swing.JDialog {
         });
         jPanel1.add(jButtonSalir);
 
+        jLabelTiempoGuardado.setText("jLabel1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -107,14 +121,21 @@ public class PantallaOpciones extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(83, 83, 83)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabelTiempoGuardado, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(63, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(55, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(44, 44, 44))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabelTiempoGuardado, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(80, 80, 80))))
         );
 
         pack();
@@ -167,12 +188,25 @@ public class PantallaOpciones extends javax.swing.JDialog {
         Logica.LookAndFeel.actulizarLookAndFeel(this);
     }//GEN-LAST:event_jComboBoxLookAndFeelActionPerformed
 
+    private void jSliderGuardadoAutomáticoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jSliderGuardadoAutomáticoPropertyChange
 
+    }//GEN-LAST:event_jSliderGuardadoAutomáticoPropertyChange
+
+    public void actualizarLabelGuardado(){
+        //Cada vez que se mueve la barra, se actuliza el label
+        jSliderGuardadoAutomático.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                jLabelTiempoGuardado.setText(""+jSliderGuardadoAutomático.getValue());
+            }
+        });
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCargar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonSalir;
     private javax.swing.JComboBox<String> jComboBoxLookAndFeel;
+    private javax.swing.JLabel jLabelTiempoGuardado;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSlider jSliderGuardadoAutomático;
     // End of variables declaration//GEN-END:variables
