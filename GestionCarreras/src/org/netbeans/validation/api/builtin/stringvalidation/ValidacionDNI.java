@@ -20,7 +20,7 @@ public class ValidacionDNI extends StringValidator {
     @Override
     public void validate(Problems prblms, String componente, String texto) {
         //Partimos de la premisa de que la letra estara en la ultima posicion
-        if (!texto.equals("")) {
+        if (!texto.equals("")&&texto.length()>=2) {
             //Sacamos la letra que estara en la ultima posicion
             String letra = texto.substring(texto.length() - 1).toUpperCase();
             //por lo que el resto son numero
