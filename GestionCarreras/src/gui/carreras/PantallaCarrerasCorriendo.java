@@ -13,6 +13,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import Logica.LeerEscribirCSV;
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.help.HelpBroker;
+import javax.help.HelpSet;
+import javax.help.HelpSetException;
 
 /**
  *
@@ -39,6 +47,7 @@ public class PantallaCarrerasCorriendo extends javax.swing.JDialog {
 
         cronometro1.setVisible(false);
         jButtonFinalizar.setVisible(false);
+        mostrarAyuda();
     }
 
     public void cargarDorsales() {
@@ -69,6 +78,35 @@ public class PantallaCarrerasCorriendo extends javax.swing.JDialog {
 
     }
 
+    public void mostrarAyuda() {
+        //Se carga el fichero de ayuda
+        File file = new File("JavaHelp" + File.separator + "help_set.hs");
+        try {
+            URL url = file.toURI().toURL();
+
+            System.out.println(url);
+
+            try {
+                //Se crea el helpset
+                HelpSet helpset = new HelpSet(getClass().getClassLoader(), url);
+                //Se crea el helpBroker
+                HelpBroker hb = helpset.createHelpBroker();
+
+                //cargar las ayudas
+                hb.enableHelpOnButton(jMenuItemMenuAyuda, "indice", helpset);
+                hb.enableHelpKey(getRootPane(), "ayuda_carrera_corriendo", helpset);
+                hb.enableHelpOnButton(jMenuItemCorredor, "ayuda_corredor", helpset);
+                hb.enableHelpOnButton(jMenuItemCarrera, "ayuda_carrera", helpset);
+                hb.enableHelpOnButton(jMenuItemCarreraCorriendo, "ayuda_carrera_corriendo", helpset);
+
+            } catch (HelpSetException ex) {
+                Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(PantallaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public void estadoCarrera() {
         jLabelSituacion.setText("En Curso");
         jLabelSituacion.setForeground(Color.GREEN);
@@ -99,6 +137,16 @@ public class PantallaCarrerasCorriendo extends javax.swing.JDialog {
         jLabelSituacion = new javax.swing.JLabel();
         jButtonFinalizar = new javax.swing.JButton();
         cronometro1 = new ElementosPersonalizados.Cronometro();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenuAyuda = new javax.swing.JMenu();
+        jMenuItemMenuAyuda = new javax.swing.JMenuItem();
+        jMenuItemCorredor = new javax.swing.JMenuItem();
+        jMenuItemCarrera = new javax.swing.JMenuItem();
+        jMenuItemCarreraCorriendo = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -141,6 +189,36 @@ public class PantallaCarrerasCorriendo extends javax.swing.JDialog {
             }
         });
 
+        jLabel1.setText("Nombre");
+
+        jLabel2.setText("Fecha");
+
+        jLabel3.setText("Lugar");
+
+        jLabel4.setText("Nº Maximo");
+
+        jMenuAyuda.setText("Ayuda...");
+
+        jMenuItemMenuAyuda.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_MASK));
+        jMenuItemMenuAyuda.setText("Menu Ayuda");
+        jMenuAyuda.add(jMenuItemMenuAyuda);
+
+        jMenuItemCorredor.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.ALT_MASK));
+        jMenuItemCorredor.setText("Corredor");
+        jMenuAyuda.add(jMenuItemCorredor);
+
+        jMenuItemCarrera.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_MASK));
+        jMenuItemCarrera.setText("Carrera");
+        jMenuAyuda.add(jMenuItemCarrera);
+
+        jMenuItemCarreraCorriendo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.ALT_MASK));
+        jMenuItemCarreraCorriendo.setText("CarreraCorriendo");
+        jMenuAyuda.add(jMenuItemCarreraCorriendo);
+
+        jMenuBar1.add(jMenuAyuda);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -158,12 +236,21 @@ public class PantallaCarrerasCorriendo extends javax.swing.JDialog {
                         .addComponent(jButtonFinalizar, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE))
                     .addComponent(cronometro1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(172, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(282, 282, 282)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel4)
+                        .addComponent(jLabel3)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel1))
+                    .addContainerGap(283, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelNombreCarrera, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
+                .addComponent(jLabelNombreCarrera, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
@@ -176,6 +263,17 @@ public class PantallaCarrerasCorriendo extends javax.swing.JDialog {
                 .addGap(70, 70, 70)
                 .addComponent(jButtonFinalizar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(67, 67, 67)
+                    .addComponent(jLabel1)
+                    .addGap(23, 23, 23)
+                    .addComponent(jLabel2)
+                    .addGap(26, 26, 26)
+                    .addComponent(jLabel3)
+                    .addGap(18, 18, 18)
+                    .addComponent(jLabel4)
+                    .addContainerGap(78, Short.MAX_VALUE)))
         );
 
         pack();
@@ -214,8 +312,18 @@ public class PantallaCarrerasCorriendo extends javax.swing.JDialog {
     private ElementosPersonalizados.Cronometro cronometro1;
     private javax.swing.JButton jButtonFinalizar;
     private javax.swing.JButton jButtonIniciar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabelNombreCarrera;
     private javax.swing.JLabel jLabelSituacion;
+    private javax.swing.JMenu jMenuAyuda;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItemCarrera;
+    private javax.swing.JMenuItem jMenuItemCarreraCorriendo;
+    private javax.swing.JMenuItem jMenuItemCorredor;
+    private javax.swing.JMenuItem jMenuItemMenuAyuda;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableCorredoresNoLlegaron;
     // End of variables declaration//GEN-END:variables
