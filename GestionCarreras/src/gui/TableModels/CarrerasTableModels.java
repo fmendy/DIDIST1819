@@ -17,7 +17,7 @@ import javax.swing.table.AbstractTableModel;
 public class CarrerasTableModels extends AbstractTableModel{
     public  List<Carrera> listaCarreras;
 
-    public CarrerasTableModels(List<Carrera> listaCarreras) {
+    public CarrerasTableModels(List<Carrera> listaCarreras) throws UnsupportedClassVersionError{
         this.listaCarreras = listaCarreras;
     }
 

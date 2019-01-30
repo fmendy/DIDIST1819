@@ -17,13 +17,13 @@ import java.util.Date;
  */
 public  class Fechas {
     //Metodo para pasar fecha a String
-    public  static String dateToString(Date fecha){
+    public  static String dateToString(Date fecha) throws UnsupportedClassVersionError{
         SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
         return sdf.format(fecha);
     }
     
      //Metodo para pasar String a fecha
-    public static Date stringToDate(String s){
+    public static Date stringToDate(String s) throws UnsupportedClassVersionError{
         SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
         try {
             return sdf.parse(s);

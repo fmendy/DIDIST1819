@@ -26,7 +26,7 @@ public class LogicaCorredores {
         LogicaCorredores.listaCorredores = listaCorredores;
     }
 
-    public static void aniadirCorredor(Corredor c) {
+    public static void aniadirCorredor(Corredor c) throws UnsupportedClassVersionError{
         listaCorredores.add(c);
     }
 

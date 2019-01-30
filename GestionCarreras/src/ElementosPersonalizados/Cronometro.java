@@ -33,7 +33,8 @@ public class Cronometro extends JButton implements Serializable {
 
     public Cronometro() {
 
-        Timer timer = new Timer();
+        //Timer timer = new Timer();
+         final Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {

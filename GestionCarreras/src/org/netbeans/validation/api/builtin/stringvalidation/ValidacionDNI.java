@@ -18,7 +18,7 @@ public class ValidacionDNI extends StringValidator {
     String[] letras = new String[]{"T", "R", "W", "A", "G", "M", "Y", "F", "P", "D", "X", "B", "N", "J", "Z", "S", "Q", "V", "H", "L", "C", "K", "E"};
 
     @Override
-    public void validate(Problems prblms, String componente, String texto) {
+    public void validate(Problems prblms, String componente, String texto) throws UnsupportedClassVersionError{
         //Partimos de la premisa de que la letra estara en la ultima posicion
         if (!texto.equals("")&&texto.length()>=2) {
             //Sacamos la letra que estara en la ultima posicion

@@ -32,7 +32,7 @@ public class PantallaOpciones extends javax.swing.JDialog {
     /**
      * Creates new form PantallaOpciones
      */
-    public PantallaOpciones(java.awt.Frame parent, boolean modal) {
+    public PantallaOpciones(java.awt.Frame parent, boolean modal) throws UnsupportedClassVersionError{
         super(parent, modal);
         initComponents();
         //iniciamos el looka and fell

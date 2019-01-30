@@ -21,7 +21,7 @@ public class GuardadoAutomatico {
     private static boolean guardando;
 
     //Metodo para el guardado
-    public static void guardar() {
+    public static void guardar() throws UnsupportedClassVersionError{
         timer=new Timer();
         timer.schedule(new TimerTask() {
             @Override

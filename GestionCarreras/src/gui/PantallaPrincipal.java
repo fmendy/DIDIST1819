@@ -34,7 +34,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form PantallaPrincipal
      */
-    public PantallaPrincipal() throws IOException, ClassNotFoundException {
+    public PantallaPrincipal() throws IOException, ClassNotFoundException, UnsupportedClassVersionError {
         initComponents();
         leo.cargar();
         //Establecemos Icono

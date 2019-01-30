@@ -17,7 +17,7 @@ public class CorredoresTableModels extends AbstractTableModel{
 
     private List<Corredor> listaCorredor;
 
-    public CorredoresTableModels(List<Corredor> listaCorredor) {
+    public CorredoresTableModels(List<Corredor> listaCorredor) throws UnsupportedClassVersionError{
         this.listaCorredor = listaCorredor;
     }
     

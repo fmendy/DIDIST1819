@@ -234,7 +234,7 @@ public class PantallaCorredores extends javax.swing.JDialog {
         Tokenizar tokenizar;
         Corredor c;
         //Vacio la lista actual;
-        LogicaCorredores.setListaCorredores(new ArrayList<>());
+        LogicaCorredores.setListaCorredores(new ArrayList<Corredor>());
         try {
             //Abro lectura
             if (le.abrirLectura("corredores.csv")) {

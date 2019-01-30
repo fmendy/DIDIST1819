@@ -27,6 +27,9 @@ public class LeerEscribirCSV {
     private BufferedReader br = null;
     private FileReader fr = null;
 
+    public LeerEscribirCSV() throws UnsupportedClassVersionError{
+    }
+
     public boolean abrirEscritura(String archivo) {
         //Se abre un archivo, para su escritura
         try {

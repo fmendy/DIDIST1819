@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  *
  * @author alvar
  */
-public class Corredor implements Serializable, Comparable<Corredor>{
+public class Corredor implements Serializable, Comparable<Corredor> {
     private String nombre;
     private String dni;
     private Date fecha;
@@ -25,7 +25,7 @@ public class Corredor implements Serializable, Comparable<Corredor>{
     private int telefono;
 
     //Se crean 2 Constructores, en uno se pasa la fecha en formato Date
-    public Corredor(String nombre, String dni, Date fecha, String direccion, int telefono) {
+    public Corredor(String nombre, String dni, Date fecha, String direccion, int telefono) throws UnsupportedClassVersionError{
         this.nombre = nombre;
         this.dni = dni;
         this.fecha = fecha;

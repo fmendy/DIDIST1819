@@ -35,7 +35,7 @@ public class PantallaCarrerasAlta extends javax.swing.JDialog {
     /**
      * Creates new form PantallaCarrerasAlta
      */
-    public PantallaCarrerasAlta(java.awt.Frame parent, boolean modal) {
+    public PantallaCarrerasAlta(java.awt.Frame parent, boolean modal) throws UnsupportedClassVersionError{
         super(parent, modal);
         initComponents();
         pp = (PantallaPrincipal) parent;

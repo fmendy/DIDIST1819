@@ -70,7 +70,7 @@ public class LeerEscribirObjetos {
         }
     }
 
-    public Object leerObjeto() throws IOException, ClassNotFoundException {
+    public Object leerObjeto() throws IOException, ClassNotFoundException, UnsupportedClassVersionError {
         return ois.readObject();
     }
 
@@ -136,7 +136,7 @@ public class LeerEscribirObjetos {
 
     }
 
-    public void cargar() throws IOException, ClassNotFoundException {
+    public void cargar() throws IOException, ClassNotFoundException, UnsupportedClassVersionError {
         //Cargar corredores
         //sacamos el nombre del archivo
         File[] arCorredores = new File(".").listFiles(new FilenameFilter() {

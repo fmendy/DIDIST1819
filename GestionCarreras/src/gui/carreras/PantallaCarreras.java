@@ -24,7 +24,7 @@ public class PantallaCarreras extends javax.swing.JDialog {
     /**
      * Creates new form PantallaCarreras
      */
-    public PantallaCarreras(java.awt.Frame parent, boolean modal) {
+    public PantallaCarreras(java.awt.Frame parent, boolean modal) throws UnsupportedClassVersionError{
         super(parent, modal);
         initComponents();
         //jTableCarreraNOFinalizada.setModel(new CarrerasTableModels(Logica.LogicaCarrera.listaCarrerasNoFinalizadas()));

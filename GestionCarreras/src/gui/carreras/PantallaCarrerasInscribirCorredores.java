@@ -30,7 +30,7 @@ public class PantallaCarrerasInscribirCorredores extends javax.swing.JDialog {
     /**
      * Creates new form PantallaCarrerasInscribirCorredores
      */
-    public PantallaCarrerasInscribirCorredores(java.awt.Frame parent, boolean modal, Carrera c) {
+    public PantallaCarrerasInscribirCorredores(java.awt.Frame parent, boolean modal, Carrera c) throws UnsupportedClassVersionError{
         super(parent, modal);
         this.carrera=c;
         initComponents();

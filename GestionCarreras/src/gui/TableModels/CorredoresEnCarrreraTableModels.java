@@ -21,7 +21,7 @@ public class CorredoresEnCarrreraTableModels extends AbstractTableModel{
     private List<Integer> dorsales;
     private Carrera carrera;
 
-    public CorredoresEnCarrreraTableModels(List<Integer> dorsales, Carrera carrera) {
+    public CorredoresEnCarrreraTableModels(List<Integer> dorsales, Carrera carrera) throws UnsupportedClassVersionError{
         this.dorsales = dorsales;
         this.carrera = carrera;
     }

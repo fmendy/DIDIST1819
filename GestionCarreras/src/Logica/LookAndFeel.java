@@ -22,7 +22,7 @@ public class LookAndFeel {
     public static void  cambiarLookAndFeel(String s){
         nombre=s;
     }
-    public static  void actulizarLookAndFeel( Component frame){
+    public static  void actulizarLookAndFeel( Component frame) throws UnsupportedClassVersionError{
         try {        
             UIManager.setLookAndFeel(nombre);
             //recargo la pagina

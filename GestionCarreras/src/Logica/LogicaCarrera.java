@@ -20,7 +20,7 @@ public class LogicaCarrera {
     //Lista que almacena la informacion de todas las carreras
     private static List<Carrera> listaCarreras = new ArrayList<>();
 
-    public static List<Carrera> getListaCarreras() {
+    public static List<Carrera> getListaCarreras() throws UnsupportedClassVersionError{
         return listaCarreras;
     }
 

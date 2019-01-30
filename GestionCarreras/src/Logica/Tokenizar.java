@@ -16,7 +16,7 @@ public class Tokenizar {
     private String linea;
     private StringTokenizer st;
 
-    public Tokenizar(String linea) {
+    public Tokenizar(String linea) throws UnsupportedClassVersionError{
         this.linea = linea;
     }
 

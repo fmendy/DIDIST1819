@@ -17,7 +17,7 @@ import java.io.OutputStream;
 
 public class AniadirObjetoEscritura extends ObjectOutputStream {
 
-    public AniadirObjetoEscritura(OutputStream out) throws IOException {
+    public AniadirObjetoEscritura(OutputStream out) throws IOException,UnsupportedClassVersionError  {
         super(out);
     }
 

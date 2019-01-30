@@ -36,7 +36,7 @@ public class PantallaCarrerasCorriendo extends javax.swing.JDialog {
     /**
      * Creates new form PantallaCarrerasCorriendo
      */
-    public PantallaCarrerasCorriendo(Carrera carrera, java.awt.Frame parent, boolean modal) {
+    public PantallaCarrerasCorriendo(Carrera carrera, java.awt.Frame parent, boolean modal) throws UnsupportedClassVersionError{
         super(parent, modal);
         this.carrera = carrera;
         Logica.LogicaCarrera.inicializarClasificacion(carrera);

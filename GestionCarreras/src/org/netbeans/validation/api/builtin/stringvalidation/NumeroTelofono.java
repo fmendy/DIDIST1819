@@ -16,7 +16,7 @@ public class NumeroTelofono extends StringValidator{
 
     //Creo un valido para los numero de télofono españoles
     @Override
-    public void validate(Problems prblms, String componente, String texto) {
+    public void validate(Problems prblms, String componente, String texto) throws UnsupportedClassVersionError{
         //Problema, si se devuelve sin añadir nada, es porque el campo no tuvo error
         //String componente, es el componente que nos pasa la comprobacion
         //String texto, es el texto que habra que comprobar

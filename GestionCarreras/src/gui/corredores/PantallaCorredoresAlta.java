@@ -27,7 +27,7 @@ public class PantallaCorredoresAlta extends javax.swing.JDialog {
     /**
      * Creates new form PantallaCorredoresAlta
      */
-    public PantallaCorredoresAlta(java.awt.Frame parent, boolean modal) {
+    public PantallaCorredoresAlta(java.awt.Frame parent, boolean modal) throws UnsupportedClassVersionError{
         super(parent, modal);
         initComponents();
         this.jButtonModificar.setVisible(false);
