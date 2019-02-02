@@ -24,7 +24,7 @@ public class Carrera implements Serializable {
     private String[][] clasificacion;
     private boolean finalizada;
 
-    public Carrera(String nombre, Date fechaCarrera, String lugar, int participantesMaximos) throws UnsupportedClassVersionError{
+    public Carrera(String nombre, Date fechaCarrera, String lugar, int participantesMaximos) throws UnsupportedClassVersionError {
         this.nombre = nombre;
         this.fechaCarrera = fechaCarrera;
         this.lugar = lugar;
@@ -41,7 +41,7 @@ public class Carrera implements Serializable {
     public void setClasificacion(String[][] clasificacion) {
         this.clasificacion = clasificacion;
     }
-    
+
     public String getNombre() {
         return nombre;
     }
@@ -115,5 +115,4 @@ public class Carrera implements Serializable {
         }
         return true;
     }
-
 }

@@ -1,19 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListaCarrerasNoFinalizadas" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="30fcb7d2-0cfc-469d-90d4-fab512e731d4">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ListaCarrerasNoFinalizadas" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6eb913c4-4cbb-4100-b1dc-129b4f120336">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
 		<![CDATA[]]>
 	</queryString>
-	<field name="class" class="java.lang.Class">
-		<fieldDescription><![CDATA[class]]></fieldDescription>
-	</field>
 	<field name="corredoresInscritos" class="java.util.HashMap">
 		<fieldDescription><![CDATA[corredoresInscritos]]></fieldDescription>
-	</field>
-	<field name="fechaCarrera" class="java.util.Date">
-		<fieldDescription><![CDATA[fechaCarrera]]></fieldDescription>
 	</field>
 	<field name="finalizada" class="java.lang.Boolean">
 		<fieldDescription><![CDATA[finalizada]]></fieldDescription>
@@ -31,29 +25,47 @@
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch"/>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="79" uuid="6e4640ea-afd9-4aa1-828e-8103b7eaeb9e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="36" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[CARRERAS NO FINALIZADAS]]></text>
+			</staticText>
+		</band>
 	</title>
-	<pageHeader>
-		<band height="35" splitType="Stretch"/>
-	</pageHeader>
 	<columnHeader>
-		<band height="61" splitType="Stretch"/>
+		<band height="50">
+			<staticText>
+				<reportElement x="26" y="20" width="116" height="20" uuid="34b094eb-7dd2-41e0-9cf1-dc2c6245bf73"/>
+				<text><![CDATA[NOMBRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="163" y="20" width="149" height="20" uuid="e4310085-fd0a-4fe8-beab-b4c59e4e071d"/>
+				<text><![CDATA[LUGAR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="20" width="100" height="20" uuid="d0317558-029c-4f04-82b4-da89401c1a3a"/>
+				<text><![CDATA[INSCRITOS/PLAZAS]]></text>
+			</staticText>
+		</band>
 	</columnHeader>
 	<detail>
-		<band height="125" splitType="Stretch">
+		<band height="25" splitType="Stretch">
+			<printWhenExpression><![CDATA[!$F{finalizada}]]></printWhenExpression>
 			<textField>
-				<reportElement x="152" y="56" width="100" height="20" uuid="f1db198e-8ec6-4fad-8e78-81a886238ca5"/>
-				<textFieldExpression><![CDATA["HOLALA"]]></textFieldExpression>
+				<reportElement x="163" y="0" width="149" height="20" uuid="f982de7a-c70a-4759-80b7-e0ebbcd4dba6"/>
+				<textFieldExpression><![CDATA[$F{lugar}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="26" y="0" width="116" height="20" uuid="f48d3102-61e9-4919-9bba-6f4ff3018ca3"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="370" y="0" width="100" height="20" uuid="3ad97e72-7dd8-49f1-9531-b8714f8ae210"/>
+				<textFieldExpression><![CDATA[""+$F{corredoresInscritos}.size()+"/"+$F{participantesMaximos}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
-	<columnFooter>
-		<band height="45" splitType="Stretch"/>
-	</columnFooter>
-	<pageFooter>
-		<band height="54" splitType="Stretch"/>
-	</pageFooter>
-	<summary>
-		<band height="42" splitType="Stretch"/>
-	</summary>
 </jasperReport>

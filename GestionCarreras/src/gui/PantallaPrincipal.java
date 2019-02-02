@@ -11,6 +11,7 @@ import Logica.LeerEscribirObjetos;
 import Logica.LookAndFeel;
 import gui.carreras.PantallaCarreras;
 import gui.corredores.PantallaCorredores;
+import gui.informes.PantallaInformes;
 import gui.opciones.PantallaOpciones;
 import java.awt.Image;
 import java.io.File;
@@ -56,6 +57,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenu1 = new javax.swing.JMenu();
         jButtonCorredores = new javax.swing.JButton();
         jButtonCarreras = new javax.swing.JButton();
         jButtonOpciones = new javax.swing.JButton();
@@ -66,6 +68,10 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jMenuItemCorredor = new javax.swing.JMenuItem();
         jMenuItemCarrera = new javax.swing.JMenuItem();
         jMenuItemCarreraCorriendo = new javax.swing.JMenuItem();
+        jMenuInformes = new javax.swing.JMenu();
+        jMenuItemInformes = new javax.swing.JMenuItem();
+
+        jMenu1.setText("jMenu1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -116,6 +122,18 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jMenuAyuda.add(jMenuItemCarreraCorriendo);
 
         jMenuBar1.add(jMenuAyuda);
+
+        jMenuInformes.setText("Informes...");
+
+        jMenuItemInformes.setText("Ver Informes");
+        jMenuItemInformes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemInformesActionPerformed(evt);
+            }
+        });
+        jMenuInformes.add(jMenuItemInformes);
+
+        jMenuBar1.add(jMenuInformes);
 
         setJMenuBar(jMenuBar1);
 
@@ -178,6 +196,12 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         this.dispose();
     }//GEN-LAST:event_jButtonSalirActionPerformed
+
+    private void jMenuItemInformesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemInformesActionPerformed
+        // TODO add your handling code here:
+        PantallaInformes pi = new PantallaInformes(this, true);
+        pi.setVisible(true);
+    }//GEN-LAST:event_jMenuItemInformesActionPerformed
 
     public void establecerIcono(){
         ImageIcon imageIcon=new ImageIcon("src/gui/Imagenes/race.png");
@@ -260,11 +284,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButtonCorredores;
     private javax.swing.JButton jButtonOpciones;
     private javax.swing.JButton jButtonSalir;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenuAyuda;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jMenuInformes;
     private javax.swing.JMenuItem jMenuItemCarrera;
     private javax.swing.JMenuItem jMenuItemCarreraCorriendo;
     private javax.swing.JMenuItem jMenuItemCorredor;
+    private javax.swing.JMenuItem jMenuItemInformes;
     private javax.swing.JMenuItem jMenuItemMenuAyuda;
     // End of variables declaration//GEN-END:variables
 }

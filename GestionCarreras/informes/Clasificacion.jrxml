@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Clasificacion" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="81e80ee9-94ec-4370-9c5b-b3a96ff4e354">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="clasificacion" class="java.util.List"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[nombre]]></fieldDescription>
+	</field>
+	<field name="clasificacion" class="java.lang.Object">
+		<fieldDescription><![CDATA[clasificacion]]></fieldDescription>
+	</field>
+	<field name="fechaCarrera" class="java.util.Date">
+		<fieldDescription><![CDATA[fechaCarrera]]></fieldDescription>
+	</field>
+	<field name="lugar" class="java.lang.String">
+		<fieldDescription><![CDATA[lugar]]></fieldDescription>
+	</field>
+	<field name="nombre_1" class="java.lang.String">
+		<fieldDescription><![CDATA[nombre]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="138" height="20" uuid="578af85b-12cc-43ac-88c2-48ab8b078a2a"/>
+				<text><![CDATA[nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="195" y="0" width="138" height="20" uuid="3ba086a6-01a4-4263-aeda-7428aff07525"/>
+				<text><![CDATA[fechaCarrera]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="414" y="0" width="138" height="20" uuid="b4d0e0e4-40b4-4c74-ad0e-6dd66a12950b"/>
+				<text><![CDATA[lugar]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="138" height="20" uuid="527ac625-3311-402d-8c8a-bd288c7d3583"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="195" y="0" width="138" height="20" uuid="b782eb55-51be-43d0-8cd2-dcd9b03dfece"/>
+				<textFieldExpression><![CDATA[$F{fechaCarrera}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="414" y="0" width="138" height="20" uuid="fb50206a-7674-4056-adf8-3829e45422de"/>
+				<textFieldExpression><![CDATA[$F{lugar}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="44" y="20" width="508" height="105" uuid="51920d42-e928-4003-9f4f-46fb14ed94cf"/>
+				<textFieldExpression><![CDATA[""+$P{clasificacion}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

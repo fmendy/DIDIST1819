@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InformeCorredor" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4b521633-7097-4e1a-9dd0-ab193abe257b">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nombre" class="java.lang.String"/>
+	<parameter name="lugar" class="java.lang.String"/>
+	<parameter name="fecha" class="java.lang.String"/>
+	<parameter name="telefono" class="java.lang.String"/>
+	<parameter name="dni" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[nombre]]></fieldDescription>
+	</field>
+	<field name="lugar" class="java.lang.String">
+		<fieldDescription><![CDATA[lugar]]></fieldDescription>
+	</field>
+	<variable name="NumeroCarreras" class="java.lang.Integer" resetType="None" incrementType="Column" calculation="Count">
+		<initialValueExpression><![CDATA[0]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<textField>
+				<reportElement x="47" y="43" width="100" height="20" uuid="6cd1b123-cba1-4bf5-bba0-2317f55a4088"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="195" y="43" width="100" height="20" uuid="6ba2e6a7-b650-4c17-bdfe-55368f76c763"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{lugar}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="195" y="8" width="100" height="20" uuid="3d9ad66c-ed1a-413f-9f3e-ad415fa70554"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{telefono}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="47" y="8" width="100" height="20" uuid="57dc5f2e-b798-496e-8959-4fe14599a9da"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dni}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="4" y="8" width="43" height="20" uuid="75d4732a-3da8-4b73-b018-16bbca8a8e2a"/>
+				<text><![CDATA[DNI:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="4" y="43" width="43" height="20" uuid="81d0b227-997c-4f8e-a0b2-ccb1cea60198"/>
+				<text><![CDATA[Nombre:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="147" y="8" width="48" height="20" uuid="498769c6-b881-4049-9648-82f55a0db88c"/>
+				<text><![CDATA[Telefono:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="295" y="8" width="102" height="20" uuid="af989643-6a59-4260-9446-83db27895e04"/>
+				<text><![CDATA[Fecha de nacimiento:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="147" y="43" width="48" height="20" uuid="d730a65d-04b5-4497-b0ea-44a9c3eaf14b"/>
+				<text><![CDATA[Ciudad:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="397" y="8" width="100" height="20" uuid="35ab0a2a-ceb1-45f8-96a6-5500913460f4"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{fecha}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="49" splitType="Stretch">
+			<staticText>
+				<reportElement x="125" y="25" width="100" height="20" uuid="b2b96c59-d0d3-42a9-bdea-016403477626"/>
+				<text><![CDATA[Nombre de la Carrera:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="225" y="25" width="100" height="20" uuid="e20aa50d-8fb7-4c81-ba4a-1f5cc19979cc"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="125" y="0" width="100" height="20" uuid="f80ec4f1-ad76-4a8b-bec1-aca967cfd4ec"/>
+				<text><![CDATA[Lugar de la Carrera:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="225" y="0" width="100" height="20" uuid="c98edab4-64ad-4c99-b403-959808a42eec"/>
+				<textFieldExpression><![CDATA[$F{lugar}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

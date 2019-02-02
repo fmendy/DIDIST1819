@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="InformacionCarrera" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="abaad614-042f-4914-b8c7-a93bb212a7a3">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nombre" class="java.lang.String"/>
+	<parameter name="lugar" class="java.lang.String"/>
+	<parameter name="fecha" class="java.lang.String"/>
+	<parameter name="inscritos" class="java.lang.String"/>
+	<parameter name="plazas" class="java.lang.String"/>
+	<parameter name="finalizada" class="java.lang.Boolean"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="direccion" class="java.lang.String">
+		<fieldDescription><![CDATA[direccion]]></fieldDescription>
+	</field>
+	<field name="dni" class="java.lang.String">
+		<fieldDescription><![CDATA[dni]]></fieldDescription>
+	</field>
+	<field name="fecha" class="java.util.Date">
+		<fieldDescription><![CDATA[fecha]]></fieldDescription>
+	</field>
+	<field name="nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[nombre]]></fieldDescription>
+	</field>
+	<field name="telefono" class="java.lang.Integer">
+		<fieldDescription><![CDATA[telefono]]></fieldDescription>
+	</field>
+	<variable name="Estado" class="java.lang.String">
+		<variableExpression><![CDATA[( $P{finalizada} ?
+    "Carrera ya disputada y finalizada"
+    : "Carrera aun no disputada")]]></variableExpression>
+		<initialValueExpression><![CDATA[( $P{finalizada} ?
+    "Carrera ya disputada y finalizada"
+    : "Carrera aun no disputada")]]></initialValueExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="555" height="79" uuid="0d7fc030-9e08-459a-8482-98403a6a36da"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nombre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="81" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="61" width="111" height="20" uuid="136e1576-7529-4e16-922a-7cbf630b2235"/>
+				<text><![CDATA[direccion]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="111" y="61" width="111" height="20" uuid="79aa4815-53f9-4d7d-b8b1-7f2ad015f686"/>
+				<text><![CDATA[dni]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="222" y="61" width="111" height="20" uuid="cf983548-f5d5-4aa5-b2bf-7bdbfd08d78b"/>
+				<text><![CDATA[fecha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="333" y="61" width="111" height="20" uuid="2bf8cbb4-44b0-4c32-a804-5a81e145c440"/>
+				<text><![CDATA[nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="444" y="61" width="111" height="20" uuid="a9c7a310-2cba-448b-b012-be4ecd2d89a7"/>
+				<text><![CDATA[telefono]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="111" y="0" width="100" height="20" uuid="8da73e28-5d69-4b7c-b6dc-cb2a98864ccc"/>
+				<textFieldExpression><![CDATA["Lugar: "+$P{lugar}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="111" height="20" uuid="599bf006-9e26-40d5-af62-6988fe4b90c9"/>
+				<textFieldExpression><![CDATA[$P{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="211" y="0" width="100" height="20" uuid="ae35be10-b9e3-4bba-8ee3-4066f3041e35"/>
+				<textFieldExpression><![CDATA["Inscritos: "+$P{inscritos}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="311" y="0" width="100" height="20" uuid="9e277e9e-da91-4f23-8c2e-de62907057ca"/>
+				<textFieldExpression><![CDATA["Plazas: "+$P{plazas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="149" y="32" width="262" height="20" uuid="47db8cf1-3a69-4ee6-81e1-b97ebb981720"/>
+				<textFieldExpression><![CDATA[$V{Estado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="111" height="20" uuid="01d291c4-bb9c-4fa0-82a6-e46663725fe7"/>
+				<textFieldExpression><![CDATA[$F{direccion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="111" y="0" width="111" height="20" uuid="1c366f61-d639-4cb7-8871-7b069f646ef4"/>
+				<textFieldExpression><![CDATA[$F{dni}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="222" y="0" width="111" height="20" uuid="1f11eea9-424b-41ba-9c26-2a7fe53f58ac"/>
+				<textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="333" y="0" width="111" height="20" uuid="8bbc4c83-7e26-49ba-8f19-fb9485097e22"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="444" y="0" width="111" height="20" uuid="235fb2d9-4012-4b19-8173-cd04bad50ba1"/>
+				<textFieldExpression><![CDATA[$F{telefono}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
