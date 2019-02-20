@@ -10,6 +10,7 @@ import Logica.LogicaCorredores;
 import com.sun.jmx.snmp.BerDecoder;
 import dto.Carrera;
 import dto.Corredor;
+import dto.CorredorClasificado;
 import gui.TableModels.CarrerasTableModels;
 import gui.TableModels.CorredoresTableModels;
 import java.io.File;
@@ -50,8 +51,8 @@ public class PantallaInformes extends javax.swing.JDialog {
 
         CorredoresTableModels ctmc = new CorredoresTableModels(LogicaCorredores.getListaCorredores());
         jTableCorredores.setModel(ctmc);
-        
-        File f=new File(".");
+
+        File f = new File(".");
         destino.setText(f.getAbsolutePath());
 
     }
@@ -208,28 +209,27 @@ public class PantallaInformes extends javax.swing.JDialog {
             JasperPrint jp = JasperFillManager.fillReport("informes/ListaCarrerasNoFinalizadas.jasper", paramaetros, dataSource);
 
             //Se genera el informe
-            JasperExportManager.exportReportToPdfFile(jp, destino.getText()+File.separator+"CarrerasNoFinalizadas.pdf");
+            JasperExportManager.exportReportToPdfFile(jp, destino.getText() + File.separator + "CarrerasNoFinalizadas.pdf");
 
         } catch (JRException ex) {
             Exceptions.printStackTrace(ex);
         }
 
-        
         /*Ejemplo de conexion a base de datos
-        try{
-            Class.forName("org.hsqldb.jdvcDriver").newInstance();
-            Connection con = DriverManager.getConnection("jdbc:hsqldb:hsql://127.0.0.1","sa","");
-            //Se crea el mapa;
-            Map paramaetros = new HashMap();
-            paramaetros.put("nombreParametroJasper", valor);
-            JasperPrint jp = JasperFillManager.fillReport("informes/ListaCarrerasNoFinalizadas.jasper", paramaetros, con);
-            //Se genera el informe
-            JasperExportManager.exportReportToPdfFile(jp, destino.getText()+File.separator+"CarrerasNoFinalizadas.pdf");
-        }
-        catch(Exception e){
-        }
-        Acordarse de cambiar el jasper de Groovy a Java
-        */
+         try{
+         Class.forName("org.hsqldb.jdvcDriver").newInstance();
+         Connection con = DriverManager.getConnection("jdbc:hsqldb:hsql://127.0.0.1","sa","");
+         //Se crea el mapa;
+         Map paramaetros = new HashMap();
+         paramaetros.put("nombreParametroJasper", valor);
+         JasperPrint jp = JasperFillManager.fillReport("informes/ListaCarrerasNoFinalizadas.jasper", paramaetros, con);
+         //Se genera el informe
+         JasperExportManager.exportReportToPdfFile(jp, destino.getText()+File.separator+"CarrerasNoFinalizadas.pdf");
+         }
+         catch(Exception e){
+         }
+         Acordarse de cambiar el jasper de Groovy a Java
+         */
     }//GEN-LAST:event_jButtonCarrerasSinFinalizarActionPerformed
 
     private void jButtonInformacionCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInformacionCarreraActionPerformed
@@ -263,7 +263,7 @@ public class PantallaInformes extends javax.swing.JDialog {
             JasperPrint jp = JasperFillManager.fillReport("informes/InformacionCarrera.jasper", paramaetros, dataSource);
 
             //Se genera el informe
-            JasperExportManager.exportReportToPdfFile(jp, destino.getText()+File.separator+"Informacion" + c.getNombre() + ".pdf");
+            JasperExportManager.exportReportToPdfFile(jp, destino.getText() + File.separator + "Informacion" + c.getNombre() + ".pdf");
 
         } catch (Exception e) {
             System.out.println(e);
@@ -298,7 +298,7 @@ public class PantallaInformes extends javax.swing.JDialog {
             JasperPrint jp = JasperFillManager.fillReport("informes/InformeCorredor.jasper", paramaetros, dataSource);
 
             //Se genera el informe
-            JasperExportManager.exportReportToPdfFile(jp, destino.getText()+File.separator+"Corredor" + c.getNombre() + ".pdf");
+            JasperExportManager.exportReportToPdfFile(jp, destino.getText() + File.separator + "Corredor" + c.getNombre() + ".pdf");
 
         } catch (Exception e) {
             System.out.println(e);
@@ -309,41 +309,78 @@ public class PantallaInformes extends javax.swing.JDialog {
     private void jButtonClasificacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClasificacionActionPerformed
         // TODO add your handling code here:
         try {
+            /* int fila = jTableTodasCarreras.getSelectedRow();
+             Carrera c = LogicaCarrera.getListaCarreras().get(fila);
+             if (!c.isFinalizada()) {
+             throw new Exception();
+             }
+             //Se encapsulan los datos
+             List<Carrera> listaCar = new ArrayList<Carrera>();
+             listaCar.add(c);
+             JRDataSource dataSource = new JRBeanCollectionDataSource(listaCar);
+
+             //Se crea el mapa;
+             Map paramaetros = new HashMap();
+             String linea = "";
+             List<String> lista = new ArrayList<>();
+             for (int i = 0; i < c.getClasificacion().length; i++) {
+             int dorsal = Integer.parseInt(c.getClasificacion()[i][0]);
+             linea = (i + 1) + ": ";
+             //Dorsal
+             linea = linea + dorsal + ", ";
+             //Tiempo
+             String tiempo = c.getClasificacion()[i][1];
+             linea = linea + tiempo + ", ";
+             //Nombre
+             String nombre = c.getCorredoresInscritos().get(dorsal).getNombre();
+             linea = linea + nombre;
+             lista.add(linea);
+
+             }
+             paramaetros.put("clasificacion", lista);
+
+             //Se pasan los datos
+             JasperPrint jp = JasperFillManager.fillReport("informes/Clasificacion.jasper", paramaetros, dataSource);
+
+             //Se genera el informe
+             JasperExportManager.exportReportToPdfFile(jp, destino.getText() + File.separator + "Clasificacion" + c.getNombre() + ".pdf");*/
+
             int fila = jTableTodasCarreras.getSelectedRow();
             Carrera c = LogicaCarrera.getListaCarreras().get(fila);
-            if(!c.isFinalizada()){
-                throw  new Exception();
+
+            if (!c.isFinalizada()) {
+                throw new Exception();
             }
             //Se encapsulan los datos
-            List<Carrera> listaCar = new ArrayList<Carrera>();
-            listaCar.add(c);
-            JRDataSource dataSource = new JRBeanCollectionDataSource(listaCar);
-
-            //Se crea el mapa;
-            Map paramaetros = new HashMap();
-            String linea="";
-            List<String> lista=new ArrayList<>();
+            List<CorredorClasificado> clasificacion = new ArrayList<>();
             for (int i = 0; i < c.getClasificacion().length; i++) {
-                int dorsal = Integer.parseInt(c.getClasificacion()[i][0]);
-                linea = (i+1)+": ";
+                CorredorClasificado cc = new CorredorClasificado();
+
+                //posicion
+                cc.setPosicion(i+1);
                 //Dorsal
-                linea = linea + dorsal + ", ";
+                int dorsal = Integer.parseInt(c.getClasificacion()[i][0]);
+                cc.setDorsal(dorsal);
                 //Tiempo
                 String tiempo = c.getClasificacion()[i][1];
-                linea = linea + tiempo + ", ";
+                cc.setTiempo(tiempo);
                 //Nombre
                 String nombre = c.getCorredoresInscritos().get(dorsal).getNombre();
-                linea = linea + nombre;
-                lista.add(linea);
-
+                cc.setNombre(nombre);
+                clasificacion.add(cc);
             }
-            paramaetros.put("clasificacion", lista);
 
+            Map parametros = new HashMap();
+            parametros.put("nombre", c.getNombre());
+            parametros.put("lugar", c.getLugar());
+            parametros.put("fecha", c.getFechaCarrera().toString());
+            JRDataSource dataSource = new JRBeanCollectionDataSource(clasificacion);
+            
             //Se pasan los datos
-            JasperPrint jp = JasperFillManager.fillReport("informes/Clasificacion.jasper", paramaetros, dataSource);
+             JasperPrint jp = JasperFillManager.fillReport("informes/Clasificacion2.jasper", parametros, dataSource);
 
-            //Se genera el informe
-            JasperExportManager.exportReportToPdfFile(jp, destino.getText()+File.separator+"Clasificacion"+c.getNombre()+".pdf");
+             //Se genera el informe
+             JasperExportManager.exportReportToPdfFile(jp, destino.getText() + File.separator + "Clasificacion" + c.getNombre() + ".pdf");
 
         } catch (Exception e) {
             System.out.println(e);
@@ -354,11 +391,21 @@ public class PantallaInformes extends javax.swing.JDialog {
 
     private void jButtonDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDestinoActionPerformed
         // TODO add your handling code here:
-        JFileChooser chooser =  new JFileChooser();
+        // JFileChooser chooser =  new JFileChooser();
+        JFileChooser chooser = new JFileChooser(new File(".")) {
+            public void approveSelection() {
+                if (getSelectedFile().isFile()) {
+                    // beep
+                    return;
+                } else {
+                    super.approveSelection();
+                }
+            }
+        };
         chooser.showOpenDialog(this);
         File f = chooser.getCurrentDirectory();
         destino.setText(f.getAbsolutePath());
-        
+
     }//GEN-LAST:event_jButtonDestinoActionPerformed
 
     /**
